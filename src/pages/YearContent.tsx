@@ -17,6 +17,50 @@ const subjects = {
   'history': { name: 'التاريخ والجغرافيا', color: '#F97316' }
 };
 
+// PDF links for law subject
+const lawPdfLinks = {
+  '2022': {
+    exam: 'https://drive.google.com/file/d/1lY-9JwulzZLj1smCJ_oLI8SFH9mL-0tJ/view',
+    solution: 'https://drive.google.com/file/d/1iFAfshIumhhqViSjMamxvjL0AFFr5Jfz/view'
+  },
+  '2021': {
+    exam: 'https://drive.google.com/file/d/1gTJjYqRKpaUwHlZv-Y3UEHHhbS4GKcGs/view',
+    solution: 'https://drive.google.com/file/d/1066ZyDe_9wF-farv-cdOBM49mfR6ftCn/view'
+  },
+  '2020': {
+    exam: 'https://drive.google.com/file/d/1fmJH23-URSurIXUSz_R3OpaFTHOOhmZs/view',
+    solution: 'https://drive.google.com/file/d/13nwvsTRoaWRQoproj8RtFoc1mvye3eiw/view'
+  },
+  '2019': {
+    exam: 'https://drive.google.com/file/d/1bkBZiSg_2AlVwnkjk6UAMw-OWPEoI9DW/view',
+    solution: 'https://drive.google.com/file/d/1sRCXiDPvmqZfIjr9dghS-q0FuwkDw1gx/view'
+  },
+  '2018': {
+    exam: 'https://drive.google.com/file/d/1FMmjS4zV43re4Cft5oOdVW0NuqYfT_Wg/view',
+    solution: 'https://drive.google.com/file/d/1PXj6FCJuo8hbjduXouR9iqtuAD8zjtIk/view'
+  },
+  '2017': {
+    exam: 'https://drive.google.com/file/d/1e_UdJAyWIvLWjZPjdRTD0WTEDOulXUNj/view',
+    solution: 'https://drive.google.com/file/d/1HYQ37QNzir-XRoQRwUyforXKU_JzBGPq/view'
+  },
+  '2016': {
+    exam: 'https://drive.google.com/file/d/1xsNeFjBMNJJZkMLAIA9RWZAGUhu-8wwN/view',
+    solution: 'https://drive.google.com/file/d/1a0ez9kQ1nx6w0rcdptrxaXJTSPJBh9U1/view'
+  },
+  '2015': {
+    exam: 'https://drive.google.com/file/d/1QIW5Ey0zV9Bx42H1qJ3NsNWIZqax_AnQ/view',
+    solution: 'https://drive.google.com/file/d/1eMFZ4Q5nQlg-l8DjjCaqAUiRwuyDpH9N/view'
+  },
+  '2014': {
+    exam: 'https://drive.google.com/file/d/1ld5KLTs-zofUAJ0o76MuVt8d2o5VGHLr/view',
+    solution: 'https://drive.google.com/file/d/1VD9pMpRduznMPFWS6vZqMTgalCKDNwGO/view'
+  },
+  '2013': {
+    exam: 'https://drive.google.com/file/d/1qoiGD98zsJJVxs26xpcumd6EY5MoSNK3/view',
+    solution: 'https://drive.google.com/file/d/12XeBdLDLinI01hkOCF1LQcNY--vjREja/view'
+  }
+};
+
 export default function YearContent() {
   const { subjectId, year } = useParams<{ subjectId: string; year: string }>();
   const [activeTab, setActiveTab] = useState<'exams' | 'solutions'>('exams');
@@ -41,31 +85,57 @@ export default function YearContent() {
     ...subjects[subjectId as keyof typeof subjects]
   };
   
-  const documents = [
-    {
-      id: 1,
-      title: `موضوع باكالوريا ${year}`,
-      type: 'exams',
-      fileSize: '2.4 MB',
-      fileType: 'PDF',
-      url: `#/files/${subjectId}/${year}/exam.pdf`
-    },
-    {
-      id: 3,
-      title: `حل باكالوريا ${year}`,
-      type: 'solutions',
-      fileSize: '3.2 MB',
-      fileType: 'PDF',
-      url: `#/files/${subjectId}/${year}/solution.pdf`
+  // Get PDF links based on subject
+  const getPdfLinks = () => {
+    if (subjectId === 'law' && lawPdfLinks[year as keyof typeof lawPdfLinks]) {
+      const links = lawPdfLinks[year as keyof typeof lawPdfLinks];
+      return [
+        {
+          id: 1,
+          title: `موضوع باكالوريا ${year}`,
+          type: 'exams',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.exam
+        },
+        {
+          id: 2,
+          title: `حل باكالوريا ${year}`,
+          type: 'solutions',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.solution
+        }
+      ];
     }
-  ];
+    
+    // Default documents for other subjects (if no specific links are available)
+    return [
+      {
+        id: 1,
+        title: `موضوع باكالوريا ${year}`,
+        type: 'exams',
+        fileSize: '2-3 MB',
+        fileType: 'PDF',
+        url: `#/files/${subjectId}/${year}/exam.pdf`
+      },
+      {
+        id: 2,
+        title: `حل باكالوريا ${year}`,
+        type: 'solutions',
+        fileSize: '2-3 MB',
+        fileType: 'PDF',
+        url: `#/files/${subjectId}/${year}/solution.pdf`
+      }
+    ];
+  };
   
+  const documents = getPdfLinks();
   const filteredDocuments = documents.filter(doc => doc.type === activeTab);
 
   const openPdfDirectly = (url: string) => {
-    // In a real app, this would open the PDF directly
-    // For demo purposes, we'll just open a new tab
-    window.open(url.replace('#', ''), '_blank');
+    // For Google Drive links, make sure they open directly
+    window.open(url, '_blank');
   };
   
   return (
