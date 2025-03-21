@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, FileText, Download, ExternalLink } from 'lucide-react';
+import { ChevronRight, FileText, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const subjects = {
@@ -44,50 +44,44 @@ export default function YearContent() {
   const documents = [
     {
       id: 1,
-      title: `باكالوريا ${year} - الموضوع الأصلي`,
+      title: `موضوع باكالوريا ${year}`,
       type: 'exams',
       fileSize: '2.4 MB',
-      fileType: 'PDF'
-    },
-    {
-      id: 2,
-      title: `باكالوريا ${year} - الدورة الإستدراكية`,
-      type: 'exams',
-      fileSize: '2.1 MB',
-      fileType: 'PDF'
+      fileType: 'PDF',
+      url: `#/files/${subjectId}/${year}/exam.pdf`
     },
     {
       id: 3,
-      title: `حل باكالوريا ${year} - الموضوع الأصلي`,
+      title: `حل باكالوريا ${year}`,
       type: 'solutions',
       fileSize: '3.2 MB',
-      fileType: 'PDF'
-    },
-    {
-      id: 4,
-      title: `حل باكالوريا ${year} - الدورة الإستدراكية`,
-      type: 'solutions',
-      fileSize: '2.8 MB',
-      fileType: 'PDF'
+      fileType: 'PDF',
+      url: `#/files/${subjectId}/${year}/solution.pdf`
     }
   ];
   
   const filteredDocuments = documents.filter(doc => doc.type === activeTab);
+
+  const openPdfDirectly = (url: string) => {
+    // In a real app, this would open the PDF directly
+    // For demo purposes, we'll just open a new tab
+    window.open(url.replace('#', ''), '_blank');
+  };
   
   return (
     <div className="animate-fade-in">
       {/* Breadcrumb */}
-      <div className="flex items-center mb-8">
+      <div className="flex items-center mb-8 flex-wrap">
         <Link 
           to="/" 
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-2 sm:mb-0"
         >
           <span>الرئيسية</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
         <Link 
           to={`/subject/${subject.id}`} 
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-2 sm:mb-0"
         >
           <span>{subject.name}</span>
           <ChevronRight size={16} className="mx-2" />
@@ -99,7 +93,7 @@ export default function YearContent() {
       
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
           {subject.name} - بكالوريا <span style={{ color: subject.color }}>{year}</span>
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">
@@ -139,10 +133,11 @@ export default function YearContent() {
           filteredDocuments.map((doc) => (
             <div 
               key={doc.id}
-              className="flex items-center justify-between bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover-lift hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-300"
+              onClick={() => openPdfDirectly(doc.url)}
+              className="flex items-center justify-between bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover-lift hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-300 cursor-pointer"
             >
               <div className="flex items-center">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg mr-4">
+                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg ml-4">
                   <FileText size={24} className="text-blue-700 dark:text-blue-400" />
                 </div>
                 <div>
@@ -156,12 +151,6 @@ export default function YearContent() {
               </div>
               
               <div className="flex gap-2">
-                <button 
-                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  aria-label="Download"
-                >
-                  <Download size={20} />
-                </button>
                 <button 
                   className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   aria-label="Open"
