@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Calculator as CalculatorIcon, Info } from 'lucide-react';
 
@@ -32,6 +33,7 @@ export default function Calculator() {
   const [average, setAverage] = useState<number | null>(null);
   const [mention, setMention] = useState<string>('');
   const [totalCoefficients, setTotalCoefficients] = useState<number>(0);
+  const [selectedStream, setSelectedStream] = useState<SubjectStreams>('management');
   const subjects = subjectsConfig.management;
 
   // Initialize grades when component mounts
@@ -45,6 +47,25 @@ export default function Calculator() {
     const total = subjects.reduce((sum, subject) => sum + subject.coefficient, 0);
     setTotalCoefficients(total);
   }, []);
+
+  const handleStreamChange = (stream: SubjectStreams) => {
+    setSelectedStream(stream);
+    // Reset grades when changing stream
+    const initialGrades = subjectsConfig[stream].reduce(
+      (acc, subject) => ({ ...acc, [subject.id]: '' }), 
+      {}
+    );
+    setGrades(initialGrades);
+    setAverage(null);
+    setMention('');
+    
+    // Calculate total coefficients for selected stream
+    const total = subjectsConfig[stream].reduce(
+      (sum, subject) => sum + subject.coefficient, 
+      0
+    );
+    setTotalCoefficients(total);
+  };
 
   const handleGradeChange = (subjectId: string, value: string) => {
     // Allow empty string or values between 0 and 20
@@ -131,26 +152,6 @@ export default function Calculator() {
             }`}
           >
             شعبة تسيير واقتصاد
-          </button>
-          <button
-            onClick={() => handleStreamChange('economy')}
-            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              selectedStream === 'economy' 
-                ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300' 
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-            }`}
-          >
-            تخصص اقتصاد
-          </button>
-          <button
-            onClick={() => handleStreamChange('accountingFinance')}
-            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              selectedStream === 'accountingFinance' 
-                ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300' 
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-            }`}
-          >
-            تخصص محاسبة ومالية
           </button>
         </div>
 
