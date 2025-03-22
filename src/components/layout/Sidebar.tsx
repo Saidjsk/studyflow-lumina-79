@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Calculator, HelpCircle, Moon, Sun, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Home, Moon, Sun, ChevronRight, ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -14,31 +14,14 @@ export default function Sidebar() {
     setExpanded(!expanded);
   };
   
+  // Sidebar only contains Home now
   const menuItems = [
     { 
       path: '/', 
       name: 'الرئيسية', 
       icon: Home,
       active: location.pathname === '/'
-    },
-    { 
-      path: '/exercises', 
-      name: 'تمارين وسلاسل', 
-      icon: BookOpen,
-      active: location.pathname === '/exercises'
-    },
-    { 
-      path: '/calculator', 
-      name: 'حساب المعدل', 
-      icon: Calculator,
-      active: location.pathname === '/calculator'
-    },
-    { 
-      path: '/quiz', 
-      name: 'كويز الأسئلة', 
-      icon: HelpCircle,
-      active: location.pathname === '/quiz'
-    },
+    }
   ];
 
   return (
