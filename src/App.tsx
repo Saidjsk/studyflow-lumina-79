@@ -12,6 +12,7 @@ import YearContent from "./pages/YearContent";
 import Calculator from "./pages/Calculator";
 import Quiz from "./pages/Quiz";
 import Exercises from "./pages/Exercises";
+import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/calculator" element={<Calculator />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/exercises" element={<Exercises />} />
+              <Route path="/search" element={<Search />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
