@@ -71,21 +71,7 @@ const subjects = [
 export default function Index() {
   return (
     <div className="animate-fade-in">
-      <div className="text-center mb-10 mt-4">
-        <div className="inline-block rounded-full bg-blue-100 dark:bg-blue-900/30 px-3 py-1 text-sm font-medium text-blue-800 dark:text-blue-300 mb-4">
-          بكالوريا تسيير واقتصاد
-        </div>
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          <span className="bg-gradient-to-r from-blue-700 to-blue-500 dark:from-blue-400 dark:to-blue-600 text-transparent bg-clip-text">
-            المواد الدراسية
-          </span>
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          اختر إحدى المواد للاطلاع على مواضيع البكالوريا السابقة، التمارين، والحلول النموذجية
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 gap-4">
         {subjects.map((subject, index) => (
           <SubjectCard
             key={subject.id}

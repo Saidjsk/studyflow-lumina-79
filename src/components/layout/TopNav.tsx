@@ -1,11 +1,18 @@
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search } from 'lucide-react'
+import { Menu, Search, Moon, Sun } from 'lucide-react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { useTheme } from '@/contexts/ThemeContext'
-import { Moon, Sun } from 'lucide-react'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { SidebarNav } from './SidebarNav'
 
 export default function TopNav() {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -25,6 +32,22 @@ export default function TopNav() {
   return (
     <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
       <div className="flex items-center">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="mr-2">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">فتح القائمة</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-64 sm:w-80">
+            <SheetHeader className="text-right mb-4">
+              <SheetTitle className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
+                بكالوريا
+              </SheetTitle>
+            </SheetHeader>
+            <SidebarNav />
+          </SheetContent>
+        </Sheet>
         <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mr-2">بكالوريا</h1>
       </div>
 
