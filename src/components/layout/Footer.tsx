@@ -35,20 +35,19 @@ export default function Footer() {
 
   return (
     <footer className="fixed bottom-0 left-0 right-0 z-30 bg-white dark:bg-gray-900 glass shadow-lg border-t border-gray-200 dark:border-gray-800">
-      <div className="flex justify-around items-center h-16 px-6">
+      <div className="flex justify-around items-center h-14 px-4">
         {menuItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
             className={cn(
-              "flex flex-col items-center justify-center w-16 h-full transition-colors",
+              "flex flex-col items-center justify-center w-14 h-full transition-colors",
               item.active 
                 ? "text-blue-600 dark:text-blue-400" 
                 : "text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
             )}
           >
-            <item.icon size={20} className="mb-1" />
-            <span className="text-xs font-medium">{item.name}</span>
+            <item.icon size={20} className="mb-0.5" />
           </Link>
         ))}
       </div>
