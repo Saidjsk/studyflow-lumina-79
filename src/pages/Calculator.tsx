@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Calculator as CalculatorIcon, Info } from 'lucide-react';
 
@@ -12,7 +11,7 @@ interface Subject {
 }
 
 // Define subjects for each stream
-const subjectsConfig: Record<SubjectStreams, Subject[]> = {
+const subjectsConfig = {
   management: [
     { id: 'mgmt', name: 'التسيير و المناجمنت', coefficient: 6 },
     { id: 'accounting', name: 'المحاسبة', coefficient: 5 },
@@ -25,44 +24,17 @@ const subjectsConfig: Record<SubjectStreams, Subject[]> = {
     { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
     { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
     { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-  ],
-  economy: [
-    { id: 'economics', name: 'الاقتصاد', coefficient: 6 },
-    { id: 'mgmt', name: 'التسيير', coefficient: 4 },
-    { id: 'accounting', name: 'المحاسبة', coefficient: 5 },
-    { id: 'law', name: 'القانون', coefficient: 2 },
-    { id: 'math', name: 'الرياضيات', coefficient: 4 },
-    { id: 'arabic', name: 'اللغة العربية', coefficient: 3 },
-    { id: 'islamic', name: 'العلوم الإسلامية', coefficient: 2 },
-    { id: 'history', name: 'التاريخ و الجغرافيا', coefficient: 2 },
-    { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
-    { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
-    { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-  ],
-  accountingFinance: [
-    { id: 'accounting', name: 'المحاسبة', coefficient: 6 },
-    { id: 'economics', name: 'الاقتصاد', coefficient: 4 },
-    { id: 'mgmt', name: 'التسيير', coefficient: 5 },
-    { id: 'law', name: 'القانون', coefficient: 2 },
-    { id: 'math', name: 'الرياضيات', coefficient: 4 },
-    { id: 'arabic', name: 'اللغة العربية', coefficient: 3 },
-    { id: 'islamic', name: 'العلوم الإسلامية', coefficient: 2 },
-    { id: 'history', name: 'التاريخ و الجغرافيا', coefficient: 2 },
-    { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
-    { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
-    { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-  ],
+  ]
 };
 
 export default function Calculator() {
-  const [selectedStream, setSelectedStream] = useState<SubjectStreams>('management');
-  const [subjects, setSubjects] = useState<Subject[]>(subjectsConfig.management);
   const [grades, setGrades] = useState<Record<string, string>>({});
   const [average, setAverage] = useState<number | null>(null);
   const [mention, setMention] = useState<string>('');
   const [totalCoefficients, setTotalCoefficients] = useState<number>(0);
+  const subjects = subjectsConfig.management;
 
-  // Initialize grades when subjects change
+  // Initialize grades when component mounts
   useEffect(() => {
     const initialGrades = subjects.reduce((acc, subject) => ({ ...acc, [subject.id]: '' }), {});
     setGrades(initialGrades);
@@ -72,13 +44,7 @@ export default function Calculator() {
     // Calculate total coefficients
     const total = subjects.reduce((sum, subject) => sum + subject.coefficient, 0);
     setTotalCoefficients(total);
-  }, [subjects]);
-
-  // Update subjects when stream changes
-  const handleStreamChange = (stream: SubjectStreams) => {
-    setSelectedStream(stream);
-    setSubjects(subjectsConfig[stream]);
-  };
+  }, []);
 
   const handleGradeChange = (subjectId: string, value: string) => {
     // Allow empty string or values between 0 and 20
