@@ -13,7 +13,9 @@ const subjects = {
   'french': { name: 'اللغة الفرنسية', color: '#EC4899' },
   'english': { name: 'اللغة الإنجليزية', color: '#0EA5E9' },
   'islamic': { name: 'العلوم الإسلامية', color: '#14B8A6' },
-  'history': { name: 'التاريخ والجغرافيا', color: '#F97316' }
+  'history': { name: 'التاريخ والجغرافيا', color: '#F97316' },
+  'philosophy': { name: 'الفلسفة', color: '#9333EA' },
+  'amazigh': { name: 'اللغة الأمازيغية', color: '#8B5CF6' }
 };
 
 // PDF links for law subject
@@ -280,6 +282,226 @@ const arabicPdfLinks = {
   }
 };
 
+// PDF links for Islamic sciences subject
+const islamicPdfLinks = {
+  '2022': {
+    exam: 'https://drive.google.com/file/d/17Ir0JCg27DHfcdrqxDxMLBKFy5ALvdey/view',
+    solution: 'https://drive.google.com/file/d/16Ovbs4WYBoUN8fmoYsiVMjL86VIA6g-e/view'
+  },
+  '2021': {
+    exam: 'https://drive.google.com/file/d/1Tz2r28Dw2dYd7esRLh4vtZHYByF-r57X/view',
+    solution: 'https://drive.google.com/file/d/153EYrK6dB381O5qaexUQE8zSk9AlxYm1/view'
+  },
+  '2020': {
+    exam: 'https://drive.google.com/file/d/1E7aCOia76WYSogNanmLf3Yrnf_iwtFcV/view',
+    solution: 'https://drive.google.com/file/d/1hTe1HRAhfbMec1W4lgGAWzPnusCCkrhr/view'
+  },
+  '2019': {
+    exam: 'https://drive.google.com/file/d/1kr6Vr4GFdyTpAN8WF2GWMVTwdBEwbqfW/view',
+    solution: 'https://drive.google.com/file/d/1bDepJ8XsGrvBxylVxA0PBnk49Yf9s2p8/view'
+  },
+  '2018': {
+    exam: 'https://drive.google.com/file/d/1aaKy8QAicTQ6A4xmgX3MgXGF82hjnzVq/view',
+    solution: 'https://drive.google.com/file/d/1TjcBPZDYtRpL8u2ZOapD6dwDitgJDueq/view'
+  },
+  '2017': {
+    exam: 'https://drive.google.com/file/d/1GCLIqXrMNoAHKWNxtLdJg5ZDE5YvR8HY/view',
+    solution: 'https://drive.google.com/file/d/1xdnXHsXZIulPhACixt-C8cOYzDTphoYp/view'
+  },
+  '2016': {
+    exam: 'https://drive.google.com/file/d/1ODdW1IYqIdNhmzpkYK7WjJ_D-yKXg6FP/view',
+    solution: 'https://drive.google.com/file/d/1SfDIaglMAuTY11t-vmJhA_is7YkeQpNK/view'
+  },
+  '2015': {
+    exam: 'https://drive.google.com/file/d/1f6ZMcNqVrWFa8iRCIWYOmFaElndAWy2y/view',
+    solution: 'https://drive.google.com/file/d/1WXNvQ-OmVgVwNgBSNuFSC08dZQyRJ6sP/view'
+  },
+  '2014': {
+    exam: 'https://drive.google.com/file/d/1e74TwT2NxC14vSn_cXGD0Ph5haCXAsQe/view',
+    solution: 'https://drive.google.com/file/d/1K7Bn0KsGQYzlsHq2sFY-6XQN_jhyjNDr/view'
+  },
+  '2013': {
+    exam: 'https://drive.google.com/file/d/1SnnBau4WGj_ZMCHmwO-WUVukq1Z5PUhw/view',
+    solution: 'https://drive.google.com/file/d/1spxwXAwAb-ibr9Hwjw_T6vi3BPYlzpG4/view'
+  }
+};
+
+// PDF links for Philosophy subject
+const philosophyPdfLinks = {
+  '2022': {
+    exam: 'https://drive.google.com/file/d/1ZcCijjt8U8soc_JBGvaGmmNJob5GarEk/view',
+    solution: 'https://drive.google.com/file/d/1Rw73jIJO8JW2dXyQouMfdxdB37NrAtVk/view'
+  },
+  '2021': {
+    exam: 'https://drive.google.com/file/u/0/d/1M4eiUx6lt1f_x95f9PMObgxUOtVRv8xF/view',
+    solution: 'https://drive.google.com/file/d/1Yh67G0PisjORD_BotZxs9czmcY_kBhcI/view'
+  },
+  '2020': {
+    exam: 'https://drive.google.com/file/d/1OQex7KvmQ3Gxof35KbmP4e0QkdUOXlk7/view',
+    solution: 'https://drive.google.com/file/d/1fi5-MPFjz0nJXJPpWNjOgmTmw54idKgF/view'
+  },
+  '2019': {
+    exam: 'https://drive.google.com/file/d/1OCulgrsAsnku0V_2b5CP4LAaklHmna70/view',
+    solution: 'https://drive.google.com/file/d/1mjXmJVnz79YUDHFQe8ksNcf-wkcykw9d/view'
+  },
+  '2018': {
+    exam: 'https://drive.google.com/file/d/1_XvO618AN-kHYH6UR2OJ18He3_fO_vjt/view',
+    solution: 'https://drive.google.com/file/d/1MN1sakL-udsg8Nhc80zZLeKH9iCHM4qN/view'
+  },
+  '2017': {
+    exam: 'https://drive.google.com/file/d/1OBkMIvmRYqGRUcP0W-XYNURUOPbhPIe-/view',
+    solution: 'https://drive.google.com/file/d/1sZ79PgZum36mQkA7qf56y9TK0WnIaJv4/view'
+  },
+  '2016': {
+    exam: 'https://drive.google.com/file/d/1ASkZnL0t3ZGlQ4fTzqYCd97WccMLe9Ot/view',
+    solution: 'https://drive.google.com/file/d/1m0MaSSVyHPTEw-QWZ_QYTvfEJnKvwQy1/view'
+  },
+  '2015': {
+    exam: 'https://drive.google.com/file/d/1UfdEqByzuMTKX5MxXY9uR9jdZMvXMh3u/view',
+    solution: 'https://drive.google.com/file/d/1s_HqkjDFjt4aiNz-H_kSiDXAcHSgXnya/view'
+  },
+  '2014': {
+    exam: 'https://drive.google.com/file/d/1pUsSnMfQRCmRKirqyHOFvQMc7kS4kalD/view',
+    solution: 'https://drive.google.com/file/d/1rtrHthyFi4zBRPQ2GYixgAEq8R4yAdaT/view'
+  },
+  '2013': {
+    exam: 'https://drive.google.com/file/d/14Y5b32ZGrPEXMCjYsTnudzjxOGjVoTDn/view',
+    solution: 'https://drive.google.com/file/d/1w021Qi5AhOBjoYt8ZRU02Jb11nvVY0l2/view'
+  }
+};
+
+// PDF links for French language subject
+const frenchPdfLinks = {
+  '2022': {
+    exam: 'https://drive.google.com/file/d/1RZgLYWKKDbHYO42PlkjezcCAWf74_8j3/view',
+    solution: 'https://drive.google.com/file/d/1Bz9EAd7UCALTikIzM_qmcoKoX6pPSeyw/view'
+  },
+  '2021': {
+    exam: 'https://drive.google.com/file/d/1Pzz2QHJhdpf6mnuwIUlxIQh4Vqn6p7ed/view',
+    solution: 'https://drive.google.com/file/d/1eAzFN6R4wTZ68kzgeTdaw8iSKDkKf0Bn/view'
+  },
+  '2020': {
+    exam: 'https://drive.google.com/file/d/1yg5F0QMuNFbnYzR7qUjR-Pees_e-93cV/view',
+    solution: 'https://drive.google.com/file/d/1oFtwviBvhP-iN-dU-ljeO-5BpDQP9tHc/view'
+  },
+  '2019': {
+    exam: 'https://drive.google.com/file/d/191qB5ECblUVc_DLl1oXw1rHdXjZMJN0z/view',
+    solution: 'https://drive.google.com/file/d/1jFGaBmsG6HqTz7QrEQq4ef1yF7Hn4-ot/view'
+  },
+  '2018': {
+    exam: 'https://drive.google.com/file/d/1a-WLzu7U606hGZeIlf6pD25iLlrRcYjl/view',
+    solution: 'https://drive.google.com/file/d/1vv4A_R0vDr8Z9KsWw4k_9Mrn7lfNjW0n/view'
+  },
+  '2017': {
+    exam: 'https://drive.google.com/file/d/1eN8XdLkhQVfssMaFSxctT7O-0PyAUkeH/view',
+    solution: 'https://drive.google.com/file/d/1tSm8X-VvSOWk-BsylQji00FawJi-CF0H/view'
+  },
+  '2016': {
+    exam: 'https://drive.google.com/file/d/1s79snMJY1R7sJOPyFt1uTEwDWgJ2X2aR/view',
+    solution: 'https://drive.google.com/file/d/1rfIfxdG5R13RUWjde8a3l1oIYAu8yXkd/view'
+  },
+  '2015': {
+    exam: 'https://drive.google.com/file/d/1KiEA1Nz1VdCLH4EYnC00TA-qclYCCDNL/view',
+    solution: 'https://drive.google.com/file/d/1c3-6QDA6smFDf4Kkk3feuZHLQAYJhIZm/view'
+  },
+  '2014': {
+    exam: 'https://drive.google.com/file/d/1jWhlZiQTamuwCmEv-pLH01t3zRVfrQeT/view',
+    solution: 'https://drive.google.com/file/d/1JBBw8uC5XIQwXnv3kwErf9r4ep7Zr_SH/view'
+  },
+  '2013': {
+    exam: 'https://drive.google.com/file/d/1_EWdpZPElhwFDU2WL6xH_5k19yGxgI2g/view',
+    solution: 'https://drive.google.com/file/d/15RwZLJMWqtSqv5UD6b6n4PDjBAtN5s_2/view'
+  }
+};
+
+// PDF links for English language subject
+const englishPdfLinks = {
+  '2022': {
+    exam: 'https://drive.google.com/file/d/1uczBSa5wMQtXDQGNPL8-ebhYa2ZB7tC9/view',
+    solution: 'https://drive.google.com/file/d/1qAitS62_G71rAQYdQ48y9lCasQxvi5Ro/view'
+  },
+  '2021': {
+    exam: 'https://drive.google.com/file/d/1MNxGl78fH_2KmccYtDxofQbCpRGgoYaT/view',
+    solution: 'https://drive.google.com/file/d/1ewyWvFuvptWC5LD0ykc81GourzufZSfG/view'
+  },
+  '2020': {
+    exam: 'https://drive.google.com/file/d/1EPaQm3z4QYqsU6En3vJrG9SVFNFGGYhO/view',
+    solution: 'https://drive.google.com/file/d/1j0ke-De9_jhadvKrtENvrvu2q7Uc6Dks/view'
+  },
+  '2019': {
+    exam: 'https://drive.google.com/file/d/1IcYtPBlNDEksEL56fF99FBNYHIcm3qdN/view',
+    solution: 'https://drive.google.com/file/d/11QJAw0OvxCe_d27n5lPcMyWa1MdHhsoZ/view'
+  },
+  '2018': {
+    exam: 'https://drive.google.com/file/d/1LcOZWMbRXzblFnbVCLmdH4yQX2WFNCWE/view',
+    solution: 'https://drive.google.com/file/d/1eDIX5_IKO1n6mNmXVOlGOrIp_E0bWyWf/view'
+  },
+  '2017': {
+    exam: 'https://drive.google.com/file/d/1oiHvgSue8pOTR8MWVxDKRxjCPpE86BcX/view',
+    solution: 'https://drive.google.com/file/d/1I4aOwUP_v5g7xVHexFs6MAM7ymTSedid/view'
+  },
+  '2016': {
+    exam: 'https://drive.google.com/file/d/1iOGCx1TwsTgWs2Q7RAMUn4_oxrTi7xx3/view',
+    solution: 'https://drive.google.com/file/d/187F19mbmrawIA37Pr7-fs6FqF-QC4MJL/view'
+  },
+  '2015': {
+    exam: 'https://drive.google.com/file/d/1szuZWpjn5XMAjPMAtTunnnOgywDTRkuo/view',
+    solution: 'https://drive.google.com/file/d/1mJHuDbALaNUxNxrwySK6jcbLvY34Nrpo/view'
+  },
+  '2014': {
+    exam: 'https://drive.google.com/file/d/1Ht9zJX_QjCQG15i4aBAHwGCL3JNWmr6Q/view',
+    solution: 'https://drive.google.com/file/d/1KHTkgP-u9UL6D80y_5K8Gf-ZMqcWgjYc/view'
+  },
+  '2013': {
+    exam: 'https://drive.google.com/file/d/1C5jMcQsVOLrN6lXmSs9YNypGESSUDYLO/view',
+    solution: 'https://drive.google.com/file/d/1lir2_0DQyivcYHbqIuCm-oV9yzq7siAX/view'
+  }
+};
+
+// PDF links for Amazigh language subject
+const amazighPdfLinks = {
+  '2022': {
+    exam: 'https://drive.google.com/file/d/1toxqCp8Jyr0Bp7jiBITjNQvdqazhewSC/view',
+    solution: 'https://drive.google.com/file/d/1C_IykfD2VDSZj9uOPmFs4iwyBSBKASaO/view'
+  },
+  '2021': {
+    exam: 'https://drive.google.com/file/d/1x0sdK7SBfBIM72vTLw30qLFlQPYWItzI/view',
+    solution: 'https://drive.google.com/file/d/12DMMng6e0B_WymkqjMzV8iZuCILRtcqD/view'
+  },
+  '2020': {
+    exam: 'https://drive.google.com/file/d/1ZtNBUUD5JsXViz-URwaTXLmiqChZiDRj/view',
+    solution: 'https://drive.google.com/file/d/14aH-1T89X2eCFAl35F4fhNaV6OGwx5L_/view'
+  },
+  '2019': {
+    exam: 'https://drive.google.com/file/d/1CBMkso049juAC0dPS2qznrYSbYob2Tjz/view',
+    solution: 'https://drive.google.com/file/d/1lKpPXTDcXYIREU2NkdzA2W53sFbU0PXA/view'
+  },
+  '2018': {
+    exam: 'https://drive.google.com/file/d/1d8-Bj7cqlm-QfRQ_x0oI3_8RxtkeC0g4/view',
+    solution: 'https://drive.google.com/file/d/1mcTlJGsZ0K-TPnaFQqNQ5MqnhoRu3IOQ/view'
+  },
+  '2017': {
+    exam: 'https://drive.google.com/file/d/1MNzzZhwgTD1ACScLXMwoztuPCC3Aerch/view',
+    solution: 'https://drive.google.com/file/d/16OvrCRaRBDCBuHtxUE63MOyhbrDE8kON/view'
+  },
+  '2016': {
+    exam: 'https://drive.google.com/file/d/1PJxl4ybvOpPjuCyR500Dfe9_GBgFzKDx/view',
+    solution: 'https://drive.google.com/file/d/1JgWe75c78s-FD3nR8D0j83ju4Omtiu5c/view'
+  },
+  '2015': {
+    exam: 'https://drive.google.com/file/d/1GmcerfOS8T6kgA_kxaIQBe_Z6cJZsfwI/view',
+    solution: 'https://drive.google.com/file/d/1GF3-amn4TFsVc8BBhYsgElY0_UCz-DUm/view'
+  },
+  '2014': {
+    exam: 'https://drive.google.com/file/d/1oGDw473rkNfY5i-0N7tbI6iKEbWO_jYX/view',
+    solution: 'https://drive.google.com/file/d/13wtumoEBuduzhb_cbPvpVa_1V3q68PNb/view'
+  },
+  '2013': {
+    exam: 'https://drive.google.com/file/d/1wwAUGwKtRBsXJDWCBxZsBR-qbqaIaDMB/view',
+    solution: 'https://drive.google.com/file/d/1EsYaVD7B8zEho8gRW3Uw2Oc_w6tWIvTe/view'
+  }
+};
+
 export default function YearContent() {
   const { subjectId, year } = useParams<{ subjectId: string; year: string }>();
   const [activeTab, setActiveTab] = useState<'exams' | 'solutions'>('exams');
@@ -426,6 +648,106 @@ export default function YearContent() {
           url: links.solution
         }
       ];
+    } else if (subjectId === 'islamic' && islamicPdfLinks[year as keyof typeof islamicPdfLinks]) {
+      const links = islamicPdfLinks[year as keyof typeof islamicPdfLinks];
+      return [
+        {
+          id: 1,
+          title: `موضوع باكالوريا ${year}`,
+          type: 'exams',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.exam
+        },
+        {
+          id: 2,
+          title: `حل باكالوريا ${year}`,
+          type: 'solutions',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.solution
+        }
+      ];
+    } else if (subjectId === 'philosophy' && philosophyPdfLinks[year as keyof typeof philosophyPdfLinks]) {
+      const links = philosophyPdfLinks[year as keyof typeof philosophyPdfLinks];
+      return [
+        {
+          id: 1,
+          title: `موضوع باكالوريا ${year}`,
+          type: 'exams',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.exam
+        },
+        {
+          id: 2,
+          title: `حل باكالوريا ${year}`,
+          type: 'solutions',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.solution
+        }
+      ];
+    } else if (subjectId === 'french' && frenchPdfLinks[year as keyof typeof frenchPdfLinks]) {
+      const links = frenchPdfLinks[year as keyof typeof frenchPdfLinks];
+      return [
+        {
+          id: 1,
+          title: `موضوع باكالوريا ${year}`,
+          type: 'exams',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.exam
+        },
+        {
+          id: 2,
+          title: `حل باكالوريا ${year}`,
+          type: 'solutions',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.solution
+        }
+      ];
+    } else if (subjectId === 'english' && englishPdfLinks[year as keyof typeof englishPdfLinks]) {
+      const links = englishPdfLinks[year as keyof typeof englishPdfLinks];
+      return [
+        {
+          id: 1,
+          title: `موضوع باكالوريا ${year}`,
+          type: 'exams',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.exam
+        },
+        {
+          id: 2,
+          title: `حل باكالوريا ${year}`,
+          type: 'solutions',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.solution
+        }
+      ];
+    } else if (subjectId === 'amazigh' && amazighPdfLinks[year as keyof typeof amazighPdfLinks]) {
+      const links = amazighPdfLinks[year as keyof typeof amazighPdfLinks];
+      return [
+        {
+          id: 1,
+          title: `موضوع باكالوريا ${year}`,
+          type: 'exams',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.exam
+        },
+        {
+          id: 2,
+          title: `حل باكالوريا ${year}`,
+          type: 'solutions',
+          fileSize: '2-3 MB',
+          fileType: 'PDF',
+          url: links.solution
+        }
+      ];
     }
     
     // Default documents for other subjects (if no specific links are available)
@@ -517,7 +839,7 @@ export default function YearContent() {
       </div>
       
       {/* Files */}
-      <div className="grid gap-4">
+      <div className="grid gap-4 pb-16">
         {filteredDocuments.length > 0 ? (
           filteredDocuments.map((doc) => (
             <div 
@@ -560,4 +882,3 @@ export default function YearContent() {
     </div>
   );
 }
-
