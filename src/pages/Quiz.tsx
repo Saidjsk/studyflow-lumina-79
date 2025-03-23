@@ -24,23 +24,20 @@ export default function Quiz() {
   const isAnswered = state.answeredQuestions.includes(state.currentQuestion);
   
   return (
-    <div className="animate-fade-in max-w-4xl mx-auto px-4">
-      <div className="text-center mb-8">
-        <div className="inline-block rounded-full bg-purple-100 dark:bg-purple-900/30 px-3 py-1 text-sm font-medium text-purple-800 dark:text-purple-300 mb-4">
+    <div className="animate-fade-in max-w-3xl mx-auto px-4">
+      <div className="text-center mb-6">
+        <div className="inline-block rounded-full bg-purple-100 dark:bg-purple-900/30 px-3 py-1 text-sm font-medium text-purple-800 dark:text-purple-300 mb-2">
           كويز الأسئلة
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
           اختبر معلوماتك
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          أجب على الأسئلة التالية واكتشف مستوى فهمك للمفاهيم الأساسية في {currentQuestionData?.category || "المواد المختلفة"}
-        </p>
       </div>
 
       {!state.showResult && questions.length > 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
           {/* Level and Score Progress */}
-          <div className="mb-6">
+          <div className="mb-4">
             <LevelIndicator 
               level={state.level}
               maxLevel={state.maxLevel}
@@ -49,35 +46,36 @@ export default function Quiz() {
             />
           </div>
           
-          {/* Progress */}
-          <div className="mb-6">
-            <div className="flex justify-between mb-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                السؤال {state.currentQuestion + 1} من {questions.length}
-              </span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                المستوى {state.level}: {currentQuestionData?.category}
-              </span>
+          {/* Progress and Timer */}
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="w-full">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  السؤال {state.currentQuestion + 1} من {questions.length}
+                </span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  المستوى {state.level}
+                </span>
+              </div>
+              <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-300"
+                  style={{ width: `${((state.currentQuestion + 1) / questions.length) * 100}%` }}
+                ></div>
+              </div>
             </div>
-            <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
-              <div 
-                className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-300"
-                style={{ width: `${((state.currentQuestion + 1) / questions.length) * 100}%` }}
-              ></div>
+            
+            <div className="w-full">
+              <QuizTimer 
+                timer={state.timer} 
+                maxTime={TIMER_DURATION} 
+                onTimeOut={handleTimeOut}
+                isAnswered={isAnswered}
+              />
             </div>
           </div>
           
-          {/* Timer */}
-          <div className="mb-6">
-            <QuizTimer 
-              timer={state.timer} 
-              maxTime={TIMER_DURATION} 
-              onTimeOut={handleTimeOut}
-              isAnswered={isAnswered}
-            />
-          </div>
-          
-          {/* Question */}
+          {/* Question Box */}
           <AnimatePresence mode="wait">
             <motion.div
               key={state.currentQuestion}
@@ -85,26 +83,25 @@ export default function Quiz() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="mb-8"
             >
               <div className={cn(
-                "p-6 rounded-xl transition-all duration-300",
+                "p-5 rounded-xl mb-5 transition-all duration-300",
                 isAnswered && state.answeredCorrectly 
                   ? "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800" 
                   : isAnswered || state.isTimeOut
                     ? "bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
                     : "bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
               )}>
-                <div className="flex items-start gap-4">
+                <div className="flex items-center gap-3">
                   <div className={cn(
-                    "p-2 rounded-full flex-shrink-0 mt-1",
+                    "p-2 rounded-full flex-shrink-0",
                     isAnswered && state.answeredCorrectly 
                       ? "bg-green-100 dark:bg-green-900/30" 
                       : isAnswered || state.isTimeOut
                         ? "bg-red-100 dark:bg-red-900/30"
                         : "bg-blue-100 dark:bg-blue-900/30"
                   )}>
-                    <HelpCircle size={28} className={cn(
+                    <HelpCircle size={22} className={cn(
                       isAnswered && state.answeredCorrectly 
                         ? "text-green-600 dark:text-green-400" 
                         : isAnswered || state.isTimeOut
@@ -112,13 +109,13 @@ export default function Quiz() {
                           : "text-blue-600 dark:text-blue-400"
                     )} />
                   </div>
-                  <h2 className="text-xl font-medium text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                     {currentQuestionData?.text}
                   </h2>
                 </div>
               </div>
               
-              {/* Options */}
+              {/* Options - 2x2 Grid */}
               {currentQuestionData && (
                 <QuizOptions 
                   options={currentQuestionData.options}
@@ -133,7 +130,7 @@ export default function Quiz() {
           </AnimatePresence>
           
           {/* Navigation */}
-          <div className="flex justify-between mt-8">
+          <div className="flex justify-between mt-6">
             <button
               onClick={() => {}}
               disabled={true}

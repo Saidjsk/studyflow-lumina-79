@@ -35,10 +35,6 @@ export const QuizOptions = ({
     show: { y: 0, opacity: 1 }
   };
   
-  // Split options into two columns
-  const leftOptions = options.slice(0, 2);
-  const rightOptions = options.slice(2, 4);
-  
   const renderOption = (option: string, index: number) => {
     const isSelected = selectedOption === index;
     const isCorrect = index === correctAnswer;
@@ -70,8 +66,8 @@ export const QuizOptions = ({
         onClick={() => onSelectOption(index)}
         disabled={isAnswered || isTimeOut}
         className={cn(
-          "w-full flex items-center justify-between p-4 rounded-xl border-2 shadow-sm transition-all duration-200",
-          "hover:translate-y-[-2px]",
+          "flex items-center justify-between p-4 rounded-xl border-2 shadow-sm transition-all duration-200",
+          "hover:translate-y-[-2px] h-full",
           bgColor,
           borderColor,
           textColor,
@@ -100,13 +96,15 @@ export const QuizOptions = ({
       variants={container}
       initial="hidden"
       animate="show"
-      className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6"
+      className="grid grid-cols-2 gap-4 mt-6"
     >
-      <div className="space-y-3">
-        {leftOptions.map((option, idx) => renderOption(option, idx))}
+      <div className="space-y-4">
+        {renderOption(options[0], 0)}
+        {renderOption(options[2], 2)}
       </div>
-      <div className="space-y-3">
-        {rightOptions.map((option, idx) => renderOption(option, idx + 2))}
+      <div className="space-y-4">
+        {renderOption(options[1], 1)}
+        {renderOption(options[3], 3)}
       </div>
     </motion.div>
   );
