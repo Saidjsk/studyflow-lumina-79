@@ -9,25 +9,25 @@ export default function Footer() {
   const menuItems = [
     { 
       path: '/', 
-      name: 'الرئيسية', 
+      name: '', 
       icon: Home,
       active: location.pathname === '/'
     },
     { 
       path: '/exercises', 
-      name: 'تمارين وسلاسل', 
+      name: '', 
       icon: BookOpen,
       active: location.pathname === '/exercises'
     },
     { 
       path: '/calculator', 
-      name: 'حساب المعدل', 
+      name: '', 
       icon: Calculator,
       active: location.pathname === '/calculator'
     },
     { 
       path: '/quiz', 
-      name: 'كويز الأسئلة', 
+      name: '', 
       icon: HelpCircle,
       active: location.pathname === '/quiz'
     },

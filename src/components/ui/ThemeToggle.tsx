@@ -15,7 +15,7 @@ export function ThemeToggle({ className, showLabel = false }: ThemeToggleProps) 
     <button
       onClick={toggleTheme}
       className={cn(
-        "flex items-center justify-center gap-2 rounded-full p-2 transition-colors",
+        "flex items-center justify-start gap-2 rounded-md p-2 transition-colors",
         theme === 'dark' 
           ? "bg-gray-800 hover:bg-gray-700 text-yellow-400" 
           : "bg-blue-100 hover:bg-blue-200 text-blue-900",

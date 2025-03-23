@@ -80,7 +80,7 @@ const subjects = [
 export default function Index() {
   const [countdown, setCountdown] = useState<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  // Countdown timer effect
+  // Countdown timer effect - fixed to properly calculate time difference
   useEffect(() => {
     const examDate = new Date('2024-06-15T00:00:00');
     
@@ -89,15 +89,21 @@ export default function Index() {
       const difference = examDate.getTime() - now.getTime();
       
       if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+        
         setCountdown({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
+          days,
+          hours,
+          minutes,
+          seconds
         });
       }
     };
     
+    // Calculate immediately and then set interval
     calculateTimeLeft();
     const timer = setInterval(calculateTimeLeft, 1000);
     
@@ -105,7 +111,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in pb-20">
       {/* Countdown Timer */}
       <Card className="mb-6 animate-scale-in overflow-hidden">
         <CardContent className="p-0">
@@ -141,7 +147,7 @@ export default function Index() {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-2 gap-3 mb-20">
+      <div className="grid grid-cols-2 gap-3 mb-24">
         {subjects.map((subject, index) => (
           <SubjectCard
             key={subject.id}

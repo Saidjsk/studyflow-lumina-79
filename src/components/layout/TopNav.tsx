@@ -1,31 +1,29 @@
 
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Menu, Search, Moon, Sun } from 'lucide-react'
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
-import { useTheme } from '@/contexts/ThemeContext'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Menu, Search, Home } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { ThemeToggle } from '../ui/ThemeToggle';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { SidebarNav } from './SidebarNav'
+} from "@/components/ui/sheet";
 
 export default function TopNav() {
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const navigate = useNavigate()
-  const { theme, toggleTheme } = useTheme()
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
-      setSearchOpen(false)
-      setSearchQuery('')
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery('');
     }
   }
 
@@ -45,7 +43,23 @@ export default function TopNav() {
                 بكالوريا
               </SheetTitle>
             </SheetHeader>
-            <SidebarNav />
+            
+            <div className="space-y-6 py-4">
+              <div className="space-y-1">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-right"
+                  onClick={() => navigate('/')}
+                >
+                  <Home className="ml-2 h-5 w-5" />
+                  الرئيسية
+                </Button>
+              </div>
+              
+              <div className="py-2">
+                <ThemeToggle className="w-full justify-start" showLabel={true} />
+              </div>
+            </div>
           </SheetContent>
         </Sheet>
         <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mr-2">بكالوريا</h1>
@@ -79,27 +93,11 @@ export default function TopNav() {
             variant="ghost" 
             size="icon" 
             onClick={() => setSearchOpen(true)}
-            className="mr-2"
           >
             <Search className="h-5 w-5" />
           </Button>
         )}
-        
-        {/* Theme toggle */}
-        <Button
-          onClick={toggleTheme}
-          variant="ghost"
-          size="icon"
-          className="ml-2"
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? (
-            <Sun size={18} className="text-yellow-400" />
-          ) : (
-            <Moon size={18} />
-          )}
-        </Button>
       </div>
     </div>
-  )
+  );
 }

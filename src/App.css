@@ -1,8 +1,43 @@
+
+:root {
+  font-size: 14px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+  :root {
+    font-size: 13px;
+  }
+  
+  .card-grid {
+    gap: 0.5rem;
+  }
+}
+
+/* Improve scrolling on mobile */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent content from being hidden behind the fixed footer */
+main {
+  padding-bottom: env(safe-area-inset-bottom, 4rem);
 }
 
 .logo {
@@ -11,9 +46,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -39,21 +76,4 @@
 
 .read-the-docs {
   color: #888;
-}
-
-/* Mobile Optimizations */
-@media (max-width: 480px) {
-  html {
-    font-size: 13px;
-  }
-  
-  .card-grid {
-    gap: 0.5rem;
-  }
-}
-
-#root {
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
