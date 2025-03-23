@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { 
   ChevronRight, 
   BarChart, Calculator, PieChart, Globe, BookMarked, 
-  Pencil, BookOpen, Database, FileText, Building 
+  Pencil, BookOpen, Database, FileText, Building, Scale, Lightbulb
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -14,30 +14,25 @@ const years = [
 ];
 
 const subjects = {
-  'economics': {
-    name: 'الإقتصاد',
-    icon: BarChart,
-    color: '#3B82F6'
-  },
-  'management': {
-    name: 'التسيير',
-    icon: Building,
-    color: '#8B5CF6'
-  },
   'accounting': {
     name: 'المحاسبة',
     icon: Calculator,
     color: '#10B981'
   },
-  'law': {
-    name: 'القانون',
-    icon: FileText,
-    color: '#F59E0B'
+  'economics': {
+    name: 'الإقتصاد',
+    icon: BarChart,
+    color: '#3B82F6'
   },
   'mathematics': {
     name: 'الرياضيات',
     icon: PieChart,
     color: '#EF4444'
+  },
+  'history': {
+    name: 'التاريخ والجغرافيا',
+    icon: Globe,
+    color: '#F97316'
   },
   'arabic': {
     name: 'اللغة العربية',
@@ -49,6 +44,11 @@ const subjects = {
     icon: BookMarked,
     color: '#EC4899'
   },
+  'amazigh': {
+    name: 'اللغة الأمازيغية',
+    icon: Building,
+    color: '#8B5CF6'
+  },
   'english': {
     name: 'اللغة الإنجليزية',
     icon: Globe,
@@ -59,10 +59,15 @@ const subjects = {
     icon: BookOpen,
     color: '#14B8A6'
   },
-  'history': {
-    name: 'التاريخ والجغرافيا',
-    icon: Database,
-    color: '#F97316'
+  'philosophy': {
+    name: 'الفلسفة',
+    icon: Lightbulb,
+    color: '#9333EA'
+  },
+  'law': {
+    name: 'القانون',
+    icon: Scale,
+    color: '#F59E0B'
   }
 };
 

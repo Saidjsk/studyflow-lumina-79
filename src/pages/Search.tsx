@@ -5,6 +5,30 @@ import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// Mock database with all subjects and topics
+const searchDatabase = [
+  { id: 1, title: 'دروس المحاسبة الأساسية', type: 'درس', subject: 'محاسبة' },
+  { id: 2, title: 'تمارين المحاسبة التحليلية', type: 'تمرين', subject: 'محاسبة' },
+  { id: 3, title: 'مفاهيم الإقتصاد الكلي', type: 'درس', subject: 'اقتصاد' },
+  { id: 4, title: 'تمارين الإقتصاد الجزئي', type: 'تمرين', subject: 'اقتصاد' },
+  { id: 5, title: 'أساسيات الرياضيات المالية', type: 'درس', subject: 'رياضيات' },
+  { id: 6, title: 'تمارين الإحصاء والاحتمالات', type: 'تمرين', subject: 'رياضيات' },
+  { id: 7, title: 'دروس تاريخ الجزائر', type: 'درس', subject: 'تاريخ' },
+  { id: 8, title: 'تمارين في الجغرافيا الإقتصادية', type: 'تمرين', subject: 'جغرافيا' },
+  { id: 9, title: 'قواعد اللغة العربية', type: 'درس', subject: 'عربية' },
+  { id: 10, title: 'تمارين البلاغة والأدب', type: 'تمرين', subject: 'عربية' },
+  { id: 11, title: 'دروس قواعد اللغة الفرنسية', type: 'درس', subject: 'فرنسية' },
+  { id: 12, title: 'تمارين التعبير الكتابي', type: 'تمرين', subject: 'فرنسية' },
+  { id: 13, title: 'أساسيات اللغة الأمازيغية', type: 'درس', subject: 'أمازيغية' },
+  { id: 14, title: 'تمارين المحادثة باللغة الإنجليزية', type: 'تمرين', subject: 'إنجليزية' },
+  { id: 15, title: 'دروس أصول الفقه', type: 'درس', subject: 'علوم إسلامية' },
+  { id: 16, title: 'تمارين في علوم القرآن', type: 'تمرين', subject: 'علوم إسلامية' },
+  { id: 17, title: 'مدخل إلى الفلسفة', type: 'درس', subject: 'فلسفة' },
+  { id: 18, title: 'تمارين المنطق والاستدلال', type: 'تمرين', subject: 'فلسفة' },
+  { id: 19, title: 'أساسيات القانون التجاري', type: 'درس', subject: 'قانون' },
+  { id: 20, title: 'تمارين في القانون المدني', type: 'تمرين', subject: 'قانون' },
+];
+
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
@@ -22,22 +46,29 @@ export default function SearchPage() {
   useEffect(() => {
     if (query) {
       setIsSearching(true);
-      // Simulated search function
+      
+      // Improved search function with better performance
       const searchData = async () => {
-        // In a real app, you would fetch results from an API
-        // This is just a placeholder
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 300));
         
-        // Sample results
-        setResults([
-          { id: 1, title: 'دروس الرياضيات', type: 'درس', subject: 'رياضيات' },
-          { id: 2, title: 'تمارين الفيزياء', type: 'تمرين', subject: 'فيزياء' },
-          { id: 3, title: 'دروس العلوم الطبيعية', type: 'درس', subject: 'علوم طبيعية' },
-        ]);
+        // Enhanced search algorithm that searches in title, type, and subject
+        const filteredResults = searchDatabase.filter(item => {
+          const searchLower = query.toLowerCase();
+          return (
+            item.title.toLowerCase().includes(searchLower) ||
+            item.type.toLowerCase().includes(searchLower) ||
+            item.subject.toLowerCase().includes(searchLower)
+          );
+        });
+        
+        setResults(filteredResults);
         setIsSearching(false);
       };
       
       searchData();
+    } else {
+      setResults([]);
     }
   }, [query]);
 
@@ -62,6 +93,7 @@ export default function SearchPage() {
         <div className="text-right mb-4">
           <p className="text-muted-foreground">
             نتائج البحث عن: <span className="font-semibold">{query}</span>
+            {results.length > 0 ? ` (${results.length} نتيجة)` : ''}
           </p>
         </div>
       )}

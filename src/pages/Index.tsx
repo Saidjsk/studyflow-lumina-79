@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { 
   BookOpen, Calculator, BarChart, Globe, PieChart, 
-  Database, FileText, BookMarked, Pencil, Building, Clock
+  Database, FileText, BookMarked, Pencil, Building, Clock, Scale, Lightbulb
 } from 'lucide-react';
 import SubjectCard from '@/components/home/SubjectCard';
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,34 +16,28 @@ interface CountdownTime {
 
 const subjects = [
   {
-    id: 'economics',
-    name: 'الإقتصاد',
-    icon: BarChart,
-    color: '#3B82F6'
-  },
-  {
-    id: 'management',
-    name: 'التسيير',
-    icon: Building,
-    color: '#8B5CF6'
-  },
-  {
     id: 'accounting',
     name: 'المحاسبة',
     icon: Calculator,
     color: '#10B981'
   },
   {
-    id: 'law',
-    name: 'القانون',
-    icon: FileText,
-    color: '#F59E0B'
+    id: 'economics',
+    name: 'الإقتصاد',
+    icon: BarChart,
+    color: '#3B82F6'
   },
   {
     id: 'mathematics',
     name: 'الرياضيات',
     icon: PieChart,
     color: '#EF4444'
+  },
+  {
+    id: 'history',
+    name: 'التاريخ والجغرافيا',
+    icon: Globe,
+    color: '#F97316'
   },
   {
     id: 'arabic',
@@ -58,6 +52,12 @@ const subjects = [
     color: '#EC4899'
   },
   {
+    id: 'amazigh',
+    name: 'اللغة الأمازيغية',
+    icon: Building,
+    color: '#8B5CF6'
+  },
+  {
     id: 'english',
     name: 'اللغة الإنجليزية',
     icon: Globe,
@@ -70,17 +70,23 @@ const subjects = [
     color: '#14B8A6'
   },
   {
-    id: 'history',
-    name: 'التاريخ والجغرافيا',
-    icon: Database,
-    color: '#F97316'
+    id: 'philosophy',
+    name: 'الفلسفة',
+    icon: Lightbulb,
+    color: '#9333EA'
+  },
+  {
+    id: 'law',
+    name: 'القانون',
+    icon: Scale,
+    color: '#F59E0B'
   }
 ];
 
 export default function Index() {
   const [countdown, setCountdown] = useState<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  // Countdown timer effect - fixed to properly calculate time difference
+  // Fixed countdown timer effect
   useEffect(() => {
     const examDate = new Date('2024-06-15T00:00:00');
     

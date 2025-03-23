@@ -37,7 +37,7 @@ body {
 
 /* Prevent content from being hidden behind the fixed footer */
 main {
-  padding-bottom: env(safe-area-inset-bottom, 4rem);
+  padding-bottom: env(safe-area-inset-bottom, 6rem);
 }
 
 .logo {
