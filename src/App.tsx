@@ -35,9 +35,9 @@ const AppRoutes = () => {
   
   return (
     <Routes>
-      {!hasOnboarded && (
-        <Route path="/onboarding" element={<Onboarding />} />
-      )}
+      <Route path="/onboarding" element={
+        hasOnboarded ? <Navigate to="/" replace /> : <Onboarding />
+      } />
       <Route 
         path="/" 
         element={

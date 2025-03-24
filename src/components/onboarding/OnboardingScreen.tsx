@@ -1,13 +1,15 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, BookOpen, Rocket, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 
 const OnboardingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(0);
   const navigate = useNavigate();
+  const { setHasOnboarded } = useOnboarding();
 
   const screens = [
     {
@@ -37,8 +39,8 @@ const OnboardingScreen = () => {
     if (currentScreen < screens.length - 1) {
       setCurrentScreen(currentScreen + 1);
     } else {
-      // Mark as onboarded in localStorage
-      localStorage.setItem('hasOnboarded', 'true');
+      // Update onboarding state in context
+      setHasOnboarded(true);
       // Navigate to home
       navigate('/');
     }

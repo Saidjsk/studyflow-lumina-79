@@ -9,7 +9,7 @@ interface OnboardingContextType {
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
 
 export function OnboardingProvider({ children }: { children: ReactNode }) {
-  const [hasOnboarded, setHasOnboarded] = useState<boolean>(true); // Default to true to prevent flash
+  const [hasOnboarded, setHasOnboarded] = useState<boolean>(false); // Default to false initially
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
