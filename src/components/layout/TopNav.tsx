@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu, Search, Home } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 import { ThemeToggle } from '../ui/ThemeToggle';
+import { SearchCommand } from '@/components/search/SearchCommand';
 import {
   Sheet,
   SheetContent,
@@ -14,18 +14,7 @@ import {
 } from "@/components/ui/sheet";
 
 export default function TopNav() {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchOpen(false);
-      setSearchQuery('');
-    }
-  }
 
   return (
     <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
@@ -65,38 +54,8 @@ export default function TopNav() {
         <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mr-2">بكالوريا</h1>
       </div>
 
-      <div className="flex items-center gap-2">
-        {searchOpen ? (
-          <form onSubmit={handleSearchSubmit} className="flex items-center">
-            <Input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="ابحث عن..."
-              className="w-full max-w-xs ml-2 text-right"
-              autoFocus
-            />
-            <Button type="submit" size="icon" variant="ghost">
-              <Search className="h-5 w-5" />
-            </Button>
-            <Button 
-              type="button" 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => setSearchOpen(false)}
-              className="text-sm"
-            >
-              إلغاء
-            </Button>
-          </form>
-        ) : (
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={() => setSearchOpen(true)}
-          >
-            <Search className="h-5 w-5" />
-          </Button>
-        )}
+      <div className="flex items-center gap-2 w-full max-w-xs">
+        <SearchCommand />
       </div>
     </div>
   );
