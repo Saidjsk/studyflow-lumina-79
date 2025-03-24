@@ -86,9 +86,9 @@ const subjects = [
 export default function Index() {
   const [countdown, setCountdown] = useState<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  // Fixed countdown timer effect
+  // تحديث العد التنازلي ليستهدف 15 جوان 2025
   useEffect(() => {
-    const examDate = new Date('2024-06-15T00:00:00');
+    const examDate = new Date('2025-06-15T00:00:00');
     
     const calculateTimeLeft = () => {
       const now = new Date();
@@ -106,10 +106,18 @@ export default function Index() {
           minutes,
           seconds
         });
+      } else {
+        // في حالة انتهاء الوقت
+        setCountdown({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        });
       }
     };
     
-    // Calculate immediately and then set interval
+    // حساب الوقت المتبقي فورًا ثم إعداد الفاصل الزمني
     calculateTimeLeft();
     const timer = setInterval(calculateTimeLeft, 1000);
     
@@ -118,7 +126,7 @@ export default function Index() {
 
   return (
     <div className="animate-fade-in pb-20">
-      {/* Countdown Timer */}
+      {/* العد التنازلي */}
       <Card className="mb-6 animate-scale-in overflow-hidden">
         <CardContent className="p-0">
           <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white p-3">
@@ -127,7 +135,7 @@ export default function Index() {
                 <Clock className="h-5 w-5" />
                 <h3 className="font-bold">العد التنازلي للبكالوريا</h3>
               </div>
-              <p className="text-sm">15 جوان 2024</p>
+              <p className="text-sm">15 جوان 2025</p>
             </div>
           </div>
           <div className="flex justify-center items-center p-4">
