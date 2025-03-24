@@ -3,8 +3,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { OnboardingProvider, useOnboarding } from "./contexts/OnboardingContext";
 import Layout from "./components/layout/Layout";
 import Index from "./pages/Index";
 import Subject from "./pages/Subject";
@@ -14,30 +15,102 @@ import Quiz from "./pages/Quiz";
 import Exercises from "./pages/Exercises";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
+import Onboarding from "./pages/Onboarding";
 
 const queryClient = new QueryClient();
+
+// Conditional routing component
+const ConditionalLayout = ({ children }: { children: React.ReactNode }) => {
+  const { hasOnboarded } = useOnboarding();
+  
+  if (!hasOnboarded) {
+    return <Navigate to="/onboarding" replace />;
+  }
+  
+  return <Layout>{children}</Layout>;
+};
+
+const AppRoutes = () => {
+  const { hasOnboarded } = useOnboarding();
+  
+  return (
+    <Routes>
+      {!hasOnboarded && (
+        <Route path="/onboarding" element={<Onboarding />} />
+      )}
+      <Route 
+        path="/" 
+        element={
+          <ConditionalLayout>
+            <Index />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/subject/:subjectId" 
+        element={
+          <ConditionalLayout>
+            <Subject />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/subject/:subjectId/:year" 
+        element={
+          <ConditionalLayout>
+            <YearContent />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/calculator" 
+        element={
+          <ConditionalLayout>
+            <Calculator />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/quiz" 
+        element={
+          <ConditionalLayout>
+            <Quiz />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/exercises" 
+        element={
+          <ConditionalLayout>
+            <Exercises />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/search" 
+        element={
+          <ConditionalLayout>
+            <Search />
+          </ConditionalLayout>
+        } 
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/subject/:subjectId" element={<Subject />} />
-              <Route path="/subject/:subjectId/:year" element={<YearContent />} />
-              <Route path="/calculator" element={<Calculator />} />
-              <Route path="/quiz" element={<Quiz />} />
-              <Route path="/exercises" element={<Exercises />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </TooltipProvider>
+      <OnboardingProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </TooltipProvider>
+      </OnboardingProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );
