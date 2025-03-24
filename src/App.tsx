@@ -19,19 +19,18 @@ import Onboarding from "./pages/Onboarding";
 
 const queryClient = new QueryClient();
 
-// Conditional routing component
-const ConditionalLayout = ({ children }: { children: React.ReactNode }) => {
+// Use this component inside the OnboardingProvider
+const ProtectedRoutes = () => {
   const { hasOnboarded } = useOnboarding();
   
-  if (!hasOnboarded) {
-    return <Navigate to="/onboarding" replace />;
-  }
-  
-  return <Layout>{children}</Layout>;
-};
-
-const AppRoutes = () => {
-  const { hasOnboarded } = useOnboarding();
+  // Conditional routing component
+  const ConditionalLayout = ({ children }: { children: React.ReactNode }) => {
+    if (!hasOnboarded) {
+      return <Navigate to="/onboarding" replace />;
+    }
+    
+    return <Layout>{children}</Layout>;
+  };
   
   return (
     <Routes>
@@ -107,7 +106,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <AppRoutes />
+            <ProtectedRoutes />
           </BrowserRouter>
         </TooltipProvider>
       </OnboardingProvider>
