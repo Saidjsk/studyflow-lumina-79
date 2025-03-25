@@ -29,9 +29,9 @@ interface SearchResult {
   icon?: any;
 }
 
-// Enhanced search database with more information and content
+// Enhanced search database with more practical information and application content
 const searchDatabase: SearchResult[] = [
-  // Subjects
+  // Main Subjects
   { id: 1, title: 'مادة المحاسبة', type: 'مادة', path: '/subject/accounting', icon: Calculator, 
     excerpt: 'دروس وتمارين في المحاسبة العامة وأساسيات المراجعة المالية' },
   { id: 2, title: 'مادة الاقتصاد', type: 'مادة', path: '/subject/economics', icon: BarChart2,
@@ -42,18 +42,14 @@ const searchDatabase: SearchResult[] = [
     excerpt: 'التاريخ المعاصر والجغرافيا الاقتصادية والبشرية' },
   { id: 5, title: 'مادة اللغة العربية', type: 'مادة', path: '/subject/arabic', icon: Pencil,
     excerpt: 'النحو والصرف والبلاغة والأدب العربي والنصوص' },
-  { id: 6, title: 'مادة اللغة الفرنسية', type: 'مادة', path: '/subject/french', icon: BookOpen,
-    excerpt: 'قواعد اللغة الفرنسية والتعبير والمطالعة' },
-  { id: 7, title: 'مادة اللغة الأمازيغية', type: 'مادة', path: '/subject/amazigh', icon: Building,
-    excerpt: 'القواعد الأساسية للغة الأمازيغية مع نصوص متنوعة' },
-  { id: 8, title: 'مادة اللغة الإنجليزية', type: 'مادة', path: '/subject/english', icon: Globe,
-    excerpt: 'قواعد اللغة الإنجليزية والمحادثة والنصوص' },
-  { id: 9, title: 'مادة العلوم الإسلامية', type: 'مادة', path: '/subject/islamic', icon: Book,
-    excerpt: 'العقيدة والحديث والقرآن والفقه والسيرة النبوية' },
-  { id: 10, title: 'مادة الفلسفة', type: 'مادة', path: '/subject/philosophy', icon: Lightbulb,
-    excerpt: 'المدارس الفلسفية المختلفة ومنهجية التفكير الفلسفي' },
-  { id: 11, title: 'مادة القانون', type: 'مادة', path: '/subject/law', icon: Scale,
-    excerpt: 'القانون المدني والتجاري والإداري وأساسيات القانون الدستوري' },
+  
+  // Academic Years
+  { id: 30, title: 'السنة الأولى', type: 'سنة دراسية', path: '/subject/accounting/1st', icon: Book,
+    excerpt: 'محتوى ودروس السنة الأولى' },
+  { id: 31, title: 'السنة الثانية', type: 'سنة دراسية', path: '/subject/accounting/2nd', icon: Book,
+    excerpt: 'محتوى ودروس السنة الثانية' },
+  { id: 32, title: 'السنة الثالثة', type: 'سنة دراسية', path: '/subject/accounting/3rd', icon: Book,
+    excerpt: 'محتوى ودروس السنة الثالثة' },
   
   // Core features
   { id: 12, title: 'حاسبة المعدل', type: 'أداة', path: '/calculator', icon: Calculator,
@@ -63,29 +59,23 @@ const searchDatabase: SearchResult[] = [
   { id: 14, title: 'تمارين', type: 'أداة', path: '/exercises', icon: FileText,
     excerpt: 'مجموعة متنوعة من التمارين والتطبيقات العملية لكل المواد' },
   
-  // Exercises content samples
-  { id: 15, title: 'تمارين في المحاسبة العامة', type: 'تمرين', path: '/exercises?category=accounting', icon: FileText,
-    excerpt: 'سلسلة تمارين تغطي أساسيات المحاسبة العامة مع حلول مفصلة' },
-  { id: 16, title: 'سلسلة تمارين في التسيير المالي', type: 'تمرين', path: '/exercises?category=management', icon: FileText,
-    excerpt: 'مجموعة متقدمة من التمارين في التسيير المالي للشركات' },
-  { id: 17, title: 'تمارين متقدمة في المحاسبة التحليلية', type: 'تمرين', path: '/exercises?category=accounting', icon: FileText,
-    excerpt: 'مفاهيم متقدمة في المحاسبة التحليلية وحساب التكاليف' },
-  { id: 18, title: 'سلسلة تمارين في الاقتصاد الكلي', type: 'تمرين', path: '/exercises?category=economics', icon: FileText,
-    excerpt: 'تحليل النماذج الاقتصادية الكلية مع تطبيقات' },
-  { id: 19, title: 'أساسيات الرياضيات المالية', type: 'تمرين', path: '/exercises?category=mathematics', icon: FileText,
-    excerpt: 'تطبيقات الرياضيات في المجال المالي والاستثماري' },
-  { id: 20, title: 'تمارين في الإحصاء التطبيقي', type: 'تمرين', path: '/exercises?category=mathematics', icon: FileText,
-    excerpt: 'تقنيات متقدمة في الإحصاء مع تطبيقات اقتصادية' },
+  // Specific subject sections
+  { id: 40, title: 'أقسام المحاسبة - نظري', type: 'قسم', path: '/subject/accounting?section=theory', icon: Book,
+    excerpt: 'الأقسام النظرية لمادة المحاسبة' },
+  { id: 41, title: 'أقسام المحاسبة - عملي', type: 'قسم', path: '/subject/accounting?section=practical', icon: FileText,
+    excerpt: 'التطبيقات العملية والتمارين لمادة المحاسبة' },
+  { id: 42, title: 'أقسام الاقتصاد - نظري', type: 'قسم', path: '/subject/economics?section=theory', icon: Book,
+    excerpt: 'الأقسام النظرية لمادة الاقتصاد' },
+  { id: 43, title: 'أقسام الاقتصاد - عملي', type: 'قسم', path: '/subject/economics?section=practical', icon: FileText,
+    excerpt: 'التطبيقات العملية والتمارين لمادة الاقتصاد' },
   
   // Course content samples
-  { id: 21, title: 'الميزانية المالية', type: 'درس', path: '/subject/accounting/1st', icon: Book,
+  { id: 21, title: 'الميزانية المالية', type: 'درس', path: '/subject/accounting/1st?lesson=balance', icon: Book,
     excerpt: 'شرح مفصل للميزانية المالية وعناصرها ومبادئ إعدادها' },
-  { id: 22, title: 'نظريات الاستهلاك', type: 'درس', path: '/subject/economics/2nd', icon: Book,
+  { id: 22, title: 'نظريات الاستهلاك', type: 'درس', path: '/subject/economics/2nd?lesson=consumption', icon: Book,
     excerpt: 'تحليل سلوك المستهلك ونظريات الاستهلاك في الاقتصاد' },
-  { id: 23, title: 'الدوال والمشتقات', type: 'درس', path: '/subject/mathematics/1st', icon: Book,
+  { id: 23, title: 'الدوال والمشتقات', type: 'درس', path: '/subject/mathematics/1st?lesson=functions', icon: Book,
     excerpt: 'تطبيقات الدوال والتفاضل في النمذجة الاقتصادية' },
-  { id: 24, title: 'مقدمة في القانون التجاري', type: 'درس', path: '/subject/law/3rd', icon: Book,
-    excerpt: 'الأحكام العامة والخاصة في القانون التجاري' },
 ];
 
 export function SearchCommand() {
@@ -108,7 +98,7 @@ export function SearchCommand() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  // Enhanced search function with smart matching
+  // Search function implementation
   React.useEffect(() => {
     if (debouncedQuery.length === 0) {
       setResults([]);
@@ -121,6 +111,7 @@ export function SearchCommand() {
     // Simulate network delay for realistic search experience
     const timer = setTimeout(() => {
       const searchResults = performSearch(debouncedQuery);
+      console.log("Search results for:", debouncedQuery, searchResults);
       setResults(searchResults);
       setIsSearching(false);
     }, 300);
@@ -128,7 +119,7 @@ export function SearchCommand() {
     return () => clearTimeout(timer);
   }, [debouncedQuery]);
 
-  // Advanced search algorithm with fuzzy matching and relevance scoring
+  // Search algorithm with fuzzy matching and relevance scoring
   const performSearch = (searchQuery: string): SearchResult[] => {
     if (!searchQuery.trim()) return [];
     
@@ -179,7 +170,7 @@ export function SearchCommand() {
           }
         }
         
-        // Fuzzy matching (simple implementation - for misspelled words)
+        // Fuzzy matching for misspelled words
         const maxDistance = Math.floor(normalizedQuery.length / 3);
         if (levenshteinDistance(titleLower, normalizedQuery) <= maxDistance) {
           score += 15;
@@ -252,7 +243,7 @@ export function SearchCommand() {
       </button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput 
-          placeholder="ابحث في المواد، الدروس، التمارين..." 
+          placeholder="ابحث في المواد، السنوات، الدروس، الأقسام..." 
           value={query}
           onValueChange={setQuery}
           className="text-right" 
@@ -274,13 +265,13 @@ export function SearchCommand() {
                 <Calculator className="ml-2 h-4 w-4" />
                 <span>مادة المحاسبة</span>
               </CommandItem>
+              <CommandItem onSelect={() => handleSelect({ id: 30, title: 'السنة الأولى', type: 'سنة دراسية', path: '/subject/accounting/1st' })}>
+                <Book className="ml-2 h-4 w-4" />
+                <span>السنة الأولى</span>
+              </CommandItem>
               <CommandItem onSelect={() => handleSelect({ id: 12, title: 'حاسبة المعدل', type: 'أداة', path: '/calculator' })}>
                 <Calculator className="ml-2 h-4 w-4" />
                 <span>حاسبة المعدل</span>
-              </CommandItem>
-              <CommandItem onSelect={() => handleSelect({ id: 13, title: 'اختبارات', type: 'أداة', path: '/quiz' })}>
-                <CheckCircle className="ml-2 h-4 w-4" />
-                <span>اختبارات تفاعلية</span>
               </CommandItem>
             </CommandGroup>
           )}

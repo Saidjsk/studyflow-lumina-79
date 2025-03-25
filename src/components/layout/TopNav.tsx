@@ -51,7 +51,12 @@ export default function TopNav() {
             </div>
           </SheetContent>
         </Sheet>
-        <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mr-2">بكالوريا</h1>
+        <h1 
+          className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mr-2 cursor-pointer" 
+          onClick={() => navigate('/')}
+        >
+          بكالوريا
+        </h1>
       </div>
 
       <div className="flex items-center gap-2 w-full max-w-xs">
