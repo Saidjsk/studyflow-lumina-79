@@ -1,12 +1,20 @@
 
 import { useState, useEffect } from "react";
 
-export function useDebounce<T>(value: T, delay?: number): T {
+/**
+ * Hook للتحكم في تأخير تنفيذ البحث أثناء الكتابة
+ * يساعد في تجنب عمليات البحث المتكررة مع كل حرف
+ */
+export function useDebounce<T>(value: T, delay: number = 300): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay || 300);
+    // إنشاء مؤقت لتأخير تحديث القيمة
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
 
+    // تنظيف المؤقت عند تغيير القيمة
     return () => {
       clearTimeout(timer);
     };

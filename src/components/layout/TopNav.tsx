@@ -1,7 +1,6 @@
 
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, Search, Home } from 'lucide-react';
+import { Menu, Home } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { SearchCommand } from '@/components/search/SearchCommand';
