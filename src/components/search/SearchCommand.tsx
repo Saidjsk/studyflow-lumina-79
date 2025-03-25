@@ -328,23 +328,6 @@ export function SearchCommand() {
             <CommandEmpty>لا توجد نتائج للبحث "{debouncedQuery}"</CommandEmpty>
           )}
 
-          {!debouncedQuery && !isSearching && (
-            <CommandGroup heading="الاقتراحات" className="text-right">
-              <CommandItem onSelect={() => handleSelect({ id: 1, title: 'مادة المحاسبة', type: 'مادة', path: '/subject/accounting' })}>
-                <Calculator className="ml-2 h-4 w-4" />
-                <span>مادة المحاسبة</span>
-              </CommandItem>
-              <CommandItem onSelect={() => handleSelect({ id: 10, title: 'السنة الأولى', type: 'سنة دراسية', path: '/year/1' })}>
-                <Book className="ml-2 h-4 w-4" />
-                <span>السنة الأولى</span>
-              </CommandItem>
-              <CommandItem onSelect={() => handleSelect({ id: 20, title: 'حاسبة المعدل', type: 'أداة', path: '/calculator' })}>
-                <Calculator className="ml-2 h-4 w-4" />
-                <span>حاسبة المعدل</span>
-              </CommandItem>
-            </CommandGroup>
-          )}
-
           {results.length > 0 && (
             <>
               <CommandGroup heading="نتائج البحث" className="text-right">
