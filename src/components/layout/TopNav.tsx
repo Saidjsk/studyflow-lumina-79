@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { Menu, Home } from 'lucide-react';
+import { Menu, Home, Facebook } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { SearchCommand } from '@/components/search/SearchCommand';
@@ -41,6 +41,15 @@ export default function TopNav() {
                 >
                   <Home className="ml-2 h-5 w-5" />
                   الرئيسية
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-right"
+                  onClick={() => window.open('https://www.facebook.com/profile.php?id=61550251340374', '_blank')}
+                >
+                  <Facebook className="ml-2 h-5 w-5" />
+                  فيسبوك
                 </Button>
               </div>
               
