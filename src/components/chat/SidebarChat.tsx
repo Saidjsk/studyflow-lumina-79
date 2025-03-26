@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Send, X, Bell } from 'lucide-react';
+import { MessageCircle, Send, Bell } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Button } from '@/components/ui/button';
 import { useChat } from '@/contexts/ChatContext';
@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 
 export function SidebarChat() {
-  const { messages, sendMessage, unreadCount, markAsRead, clearMessages } = useChat();
+  const { messages, sendMessage, unreadCount, markAsRead, clearMessages, navigateToSection } = useChat();
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -30,8 +30,19 @@ export function SidebarChat() {
 
   const handleSendMessage = () => {
     if (inputValue.trim()) {
+      // Check if this is a navigation command
+      if (inputValue.toLowerCase().includes('go:')) {
+        const match = inputValue.match(/go:(\w+)/i);
+        if (match && match[1]) {
+          navigateToSection(match[1]);
+          setInputValue('');
+          return;
+        }
+      }
+      
       sendMessage(inputValue);
       setInputValue('');
+      
       // Focus input after sending
       if (inputRef.current) {
         inputRef.current.focus();
@@ -44,10 +55,6 @@ export function SidebarChat() {
       e.preventDefault();
       handleSendMessage();
     }
-  };
-
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
   };
 
   return (
@@ -96,10 +103,7 @@ export function SidebarChat() {
                         : 'bg-muted'
                     }`}
                   >
-                    <div 
-                      className="text-sm"
-                      dangerouslySetInnerHTML={{ __html: message.content }}
-                    />
+                    <div className="text-sm">{message.content}</div>
                     <div className={`text-xs mt-1 ${
                       message.sender === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
                     }`}>
@@ -119,7 +123,7 @@ export function SidebarChat() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="اكتب رسالتك هنا..."
+                placeholder="اكتب go:jsk للانتقال..."
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
               <Button size="icon" onClick={handleSendMessage} disabled={!inputValue.trim()}>
