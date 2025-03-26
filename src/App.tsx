@@ -15,6 +15,7 @@ import Calculator from "./pages/Calculator";
 import Quiz from "./pages/Quiz";
 import Exercises from "./pages/Exercises";
 import Search from "./pages/Search";
+import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 
@@ -83,6 +84,14 @@ const ProtectedRoutes = () => {
         element={
           <ConditionalLayout>
             <Exercises />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/chat" 
+        element={
+          <ConditionalLayout>
+            <Chat />
           </ConditionalLayout>
         } 
       />

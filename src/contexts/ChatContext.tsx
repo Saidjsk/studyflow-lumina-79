@@ -1,6 +1,5 @@
-
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
 // استخدام معرّف عشوائي لكل مستخدم
@@ -40,8 +39,6 @@ type ChatContextType = {
   clearMessages: () => void;
   unreadCount: number;
   markAsRead: () => void;
-  isChatOpen: boolean;
-  toggleChat: () => void;
   navigateToSection: (code: string) => void;
   username: string;
   changeUsername: (newName: string) => void;
@@ -70,10 +67,10 @@ const MOCK_MESSAGES = [
 export function ChatProvider({ children }: { children: ReactNode }) {
   const [messages, setMessages] = useState<Message[]>(MOCK_MESSAGES);
   const [unreadCount, setUnreadCount] = useState(0);
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [userId] = useState(generateUserId);
   const [username, setUsername] = useState(generateUsername);
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   // محاكاة لجلب الرسائل من قاعدة البيانات
@@ -123,6 +120,13 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(interval);
   }, [isChatOpen, userId, toast]);
 
+  // Mark messages as read when on chat page
+  useEffect(() => {
+    if (location.pathname === '/chat') {
+      markAsRead();
+    }
+  }, [location.pathname, messages]);
+
   // وظيفة للتنقل بين الأقسام
   const navigateToSection = (code: string) => {
     toast({
@@ -168,13 +172,6 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     setUnreadCount(0);
   };
 
-  const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-    if (!isChatOpen) {
-      markAsRead();
-    }
-  };
-  
   const changeUsername = (newName: string) => {
     if (newName && newName.trim()) {
       setUsername(newName.trim());
@@ -193,8 +190,6 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       clearMessages,
       unreadCount,
       markAsRead,
-      isChatOpen,
-      toggleChat,
       navigateToSection,
       username,
       changeUsername
