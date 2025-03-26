@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { SidebarChat } from '../chat/SidebarChat';
 
 export default function TopNav() {
   const navigate = useNavigate();
@@ -24,15 +25,15 @@ export default function TopNav() {
               <span className="sr-only">فتح القائمة</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-64 sm:w-80">
-            <SheetHeader className="text-right mb-4">
+          <SheetContent side="right" className="w-80 p-0">
+            <SheetHeader className="text-right p-4 border-b border-gray-200 dark:border-gray-800">
               <SheetTitle className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
                 بكالوريا
               </SheetTitle>
             </SheetHeader>
             
-            <div className="space-y-6 py-4">
-              <div className="space-y-1">
+            <div className="flex flex-col h-[calc(100vh-100px)]">
+              <div className="space-y-1 p-4 border-b border-gray-200 dark:border-gray-800">
                 <Button 
                   variant="ghost" 
                   className="w-full justify-start text-right"
@@ -52,7 +53,9 @@ export default function TopNav() {
                 </Button>
               </div>
               
-              <div className="py-2">
+              <SidebarChat />
+              
+              <div className="p-4 mt-auto border-t border-gray-200 dark:border-gray-800">
                 <ThemeToggle className="w-full justify-start" showLabel={true} />
               </div>
             </div>
