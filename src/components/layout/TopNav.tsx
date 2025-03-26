@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Menu, Home, Facebook } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ThemeToggle } from '../ui/ThemeToggle';
-import { SearchCommand } from '@/components/search/SearchCommand';
 import {
   Sheet,
   SheetContent,
@@ -65,10 +64,6 @@ export default function TopNav() {
         >
           بكالوريا
         </h1>
-      </div>
-
-      <div className="flex items-center gap-2 w-full max-w-xs">
-        <SearchCommand />
       </div>
     </div>
   );
