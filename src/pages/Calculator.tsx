@@ -16,15 +16,15 @@ const subjectsConfig = {
   management: [
     { id: 'accounting', name: 'التسيير المحاسبي و المالي', coefficient: 6 },
     { id: 'economics', name: 'الاقتصاد', coefficient: 5 },
-    { id: 'law', name: 'القانون', coefficient: 2 },
     { id: 'math', name: 'الرياضيات', coefficient: 5 },
-    { id: 'arabic', name: 'اللغة العربية', coefficient: 3 },
-    { id: 'islamic', name: 'العلوم الإسلامية', coefficient: 2 },
     { id: 'history', name: 'التاريخ و الجغرافيا', coefficient: 4 },
+    { id: 'arabic', name: 'اللغة العربية', coefficient: 3 },
+    { id: 'law', name: 'القانون', coefficient: 2 },
+    { id: 'islamic', name: 'العلوم الإسلامية', coefficient: 2 },
     { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
     { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
     { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-    { id: 'mgmt', name: 'اللغة الامازيغية', coefficient: 2 },
+    { id: 'mgmt', name: 'اللغة الامازيغية', coefficient: 1 },
   ]
 };
 
