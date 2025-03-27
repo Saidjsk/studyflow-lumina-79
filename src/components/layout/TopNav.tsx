@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { Menu, Home, Facebook, MessageCircle } from 'lucide-react';
+import { Menu, Home } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import {
@@ -10,12 +10,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useChat } from '@/contexts/ChatContext';
-import { Badge } from '../ui/badge';
 
 export default function TopNav() {
   const navigate = useNavigate();
-  const { unreadCount } = useChat();
 
   return (
     <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
@@ -48,24 +45,10 @@ export default function TopNav() {
                 <Button 
                   variant="ghost" 
                   className="w-full justify-start text-right"
-                  onClick={() => navigate('/chat')}
+                  onClick={() => navigate('/feedback')}
                 >
-                  <MessageCircle className="ml-2 h-5 w-5" />
-                  الدردشة
-                  {unreadCount > 0 && (
-                    <Badge variant="destructive" className="mr-2">
-                      {unreadCount}
-                    </Badge>
-                  )}
-                </Button>
-                
-                <Button 
-                  variant="ghost" 
-                  className="w-full justify-start text-right"
-                  onClick={() => window.open('https://www.facebook.com/profile.php?id=61550251340374', '_blank')}
-                >
-                  <Facebook className="ml-2 h-5 w-5" />
-                  فيسبوك
+                  <Home className="ml-2 h-5 w-5" />
+                  الاقتراحات والشكاوى
                 </Button>
               </div>
             </div>

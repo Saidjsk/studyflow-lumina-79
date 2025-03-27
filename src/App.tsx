@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { OnboardingProvider, useOnboarding } from "./contexts/OnboardingContext";
-import { ChatProvider } from "./contexts/ChatContext";
 import Layout from "./components/layout/Layout";
 import Index from "./pages/Index";
 import Subject from "./pages/Subject";
@@ -15,9 +14,9 @@ import Calculator from "./pages/Calculator";
 import Quiz from "./pages/Quiz";
 import Exercises from "./pages/Exercises";
 import Search from "./pages/Search";
-import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
+import Feedback from "./pages/Feedback";
 
 const queryClient = new QueryClient();
 
@@ -88,18 +87,18 @@ const ProtectedRoutes = () => {
         } 
       />
       <Route 
-        path="/chat" 
-        element={
-          <ConditionalLayout>
-            <Chat />
-          </ConditionalLayout>
-        } 
-      />
-      <Route 
         path="/search" 
         element={
           <ConditionalLayout>
             <Search />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/feedback" 
+        element={
+          <ConditionalLayout>
+            <Feedback />
           </ConditionalLayout>
         } 
       />
@@ -113,13 +112,11 @@ const App = () => (
     <ThemeProvider>
       <OnboardingProvider>
         <BrowserRouter>
-          <ChatProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <ProtectedRoutes />
-            </TooltipProvider>
-          </ChatProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <ProtectedRoutes />
+          </TooltipProvider>
         </BrowserRouter>
       </OnboardingProvider>
     </ThemeProvider>
