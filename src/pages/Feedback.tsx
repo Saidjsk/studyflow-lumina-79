@@ -8,6 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { MessageSquare, HelpCircle } from 'lucide-react';
+import emailjs from 'emailjs-com';
+
+// تكوين مفاتيح EmailJS - يجب وضع هذه القيم في ملفات البيئة في بيئة الإنتاج
+const EMAILJS_SERVICE_ID = 'service_gmail'; // قم بتغيير هذا بمعرف الخدمة الخاص بك
+const EMAILJS_TEMPLATE_ID = 'template_feedback'; // قم بتغيير هذا بمعرف القالب الخاص بك
+const EMAILJS_USER_ID = 'Mg7QBbmOlJZ5F9Uw7'; // قم بتغيير هذا بمعرف المستخدم الخاص بك
 
 export default function Feedback() {
   const [name, setName] = useState('');
@@ -32,28 +38,34 @@ export default function Feedback() {
     setIsSubmitting(true);
     
     try {
-      // Send data to Email with form data
-      const formData = {
-        name,
-        email,
-        message,
-        type,
-        to: 'saidsaifi276@gmail.com'
+      // إعداد البيانات التي سيتم إرسالها
+      const templateParams = {
+        from_name: name,
+        reply_to: email || 'لا يوجد بريد إلكتروني',
+        message: message,
+        type: type === 'suggestion' ? 'اقتراح' : 'شكوى',
+        to_email: 'saidsaifi276@gmail.com'
       };
       
-      // Simulate an API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // إرسال البريد الإلكتروني باستخدام EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_USER_ID
+      );
       
-      // Reset form
+      // إعادة تعيين النموذج
       setName('');
       setEmail('');
       setMessage('');
       
       toast({
         title: "تم الإرسال بنجاح",
-        description: "شكراً لك، سيتم مراجعة رسالتك في أقرب وقت",
+        description: "شكراً لك، سيتم مراجعة رسالتك في أقرب وقت وسيتم إرسالها إلى بريدك الإلكتروني.",
       });
     } catch (error) {
+      console.error("Error sending email:", error);
       toast({
         title: "حدث خطأ",
         description: "لم نتمكن من إرسال رسالتك، يرجى المحاولة مرة أخرى",
