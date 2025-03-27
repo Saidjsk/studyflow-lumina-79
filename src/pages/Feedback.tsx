@@ -10,10 +10,11 @@ import { Label } from '@/components/ui/label';
 import { MessageSquare, HelpCircle } from 'lucide-react';
 import emailjs from 'emailjs-com';
 
-// تكوين مفاتيح EmailJS - يجب وضع هذه القيم في ملفات البيئة في بيئة الإنتاج
-const EMAILJS_SERVICE_ID = 'service_gmail'; // قم بتغيير هذا بمعرف الخدمة الخاص بك
-const EMAILJS_TEMPLATE_ID = 'template_feedback'; // قم بتغيير هذا بمعرف القالب الخاص بك
-const EMAILJS_USER_ID = 'Mg7QBbmOlJZ5F9Uw7'; // قم بتغيير هذا بمعرف المستخدم الخاص بك
+// تكوين مفاتيح EmailJS
+// يجب إنشاء حساب على EmailJS.com وإعداد خدمة وقالب بريد إلكتروني
+const EMAILJS_SERVICE_ID = 'service_cuwylkq'; // رمز الخدمة من لوحة تحكم EmailJS
+const EMAILJS_TEMPLATE_ID = 'template_99n0qgj'; // رمز القالب من لوحة تحكم EmailJS
+const EMAILJS_PUBLIC_KEY = 'jFvnRKWTtGZXw5ZGN'; // المفتاح العام من إعدادات حسابك
 
 export default function Feedback() {
   const [name, setName] = useState('');
@@ -44,16 +45,21 @@ export default function Feedback() {
         reply_to: email || 'لا يوجد بريد إلكتروني',
         message: message,
         type: type === 'suggestion' ? 'اقتراح' : 'شكوى',
+        to_name: 'الإدارة',
         to_email: 'saidsaifi276@gmail.com'
       };
       
-      // إرسال البريد الإلكتروني باستخدام EmailJS
-      await emailjs.send(
+      // أولاً نقوم بتهيئة EmailJS
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+      
+      // ثم نرسل البريد الإلكتروني
+      const response = await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_USER_ID
+        templateParams
       );
+      
+      console.log('Email sent successfully:', response);
       
       // إعادة تعيين النموذج
       setName('');
@@ -62,13 +68,13 @@ export default function Feedback() {
       
       toast({
         title: "تم الإرسال بنجاح",
-        description: "شكراً لك، سيتم مراجعة رسالتك في أقرب وقت وسيتم إرسالها إلى بريدك الإلكتروني.",
+        description: "شكراً لك، سيتم مراجعة رسالتك في أقرب وقت وسنرد عليك من خلال بريدك الإلكتروني إذا قمت بتزويدنا به.",
       });
     } catch (error) {
       console.error("Error sending email:", error);
       toast({
         title: "حدث خطأ",
-        description: "لم نتمكن من إرسال رسالتك، يرجى المحاولة مرة أخرى",
+        description: "لم نتمكن من إرسال رسالتك، يرجى المحاولة مرة أخرى لاحقاً",
         variant: "destructive"
       });
     } finally {
