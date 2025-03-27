@@ -50,36 +50,24 @@ const FeedbackForm = () => {
     setIsSubmitting(true);
     
     try {
-      // This would normally connect to a backend service
-      // For a frontend-only solution, we'll use a free email service
-      const response = await fetch("https://formsubmit.co/ajax/saidsaifi276@gmail.com", {
+      const response = await fetch("/api/feedback", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          type: data.type === "suggestion" ? "اقتراح" : "شكوى",
-          message: data.message,
-          _subject: `${data.type === "suggestion" ? "اقتراح" : "شكوى"} جديد من تطبيق البكالوريا`,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
       const result = await response.json();
       
-      if (result.success) {
+      if (response.ok) {
         toast({
           title: "تم الإرسال بنجاح",
           description: "شكرًا لك! تم استلام رسالتك وسيتم مراجعتها قريبًا.",
         });
         form.reset();
       } else {
-        throw new Error("فشل في إرسال النموذج");
+        throw new Error(result.error || "فشل في إرسال النموذج");
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
       toast({
         title: "حدث خطأ",
         description: "لم نتمكن من إرسال رسالتك. يرجى المحاولة مرة أخرى لاحقًا.",
@@ -131,10 +119,7 @@ const FeedbackForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>نوع الرسالة</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="اختر نوع الرسالة" />
@@ -168,11 +153,7 @@ const FeedbackForm = () => {
             )}
           />
           
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={isSubmitting}
-          >
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
             {isSubmitting ? "جاري الإرسال..." : "إرسال"}
           </Button>
         </form>
