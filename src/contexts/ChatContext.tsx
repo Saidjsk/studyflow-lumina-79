@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
@@ -72,6 +73,9 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
+  
+  // Add the missing isChatOpen variable to check if we're on the chat page
+  const isChatOpen = location.pathname === '/chat';
 
   // محاكاة لجلب الرسائل من قاعدة البيانات
   useEffect(() => {
