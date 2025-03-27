@@ -74,7 +74,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const { toast } = useToast();
   
-  // Add the missing isChatOpen variable to check if we're on the chat page
+  // Define isChatOpen variable to check if we're on the chat page
   const isChatOpen = location.pathname === '/chat';
 
   // محاكاة لجلب الرسائل من قاعدة البيانات
@@ -126,7 +126,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   // Mark messages as read when on chat page
   useEffect(() => {
-    if (location.pathname === '/chat') {
+    if (isChatOpen) {
       markAsRead();
     }
   }, [location.pathname, messages]);
