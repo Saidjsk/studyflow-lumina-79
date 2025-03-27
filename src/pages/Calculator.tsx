@@ -24,7 +24,9 @@ const subjectsConfig = {
     { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
     { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
     { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-    { id: 'mgmt', name: 'اللغة الامازيغية', coefficient: 1 },
+    { id: 'mgmt', name: 'اللغة الامازيغية', coefficient: 2 },
+    { id: 'mgmt', name: 'التربية البدنية', coefficient: 1 },
+  ]
   ]
 };
 
