@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { sendFeedbackEmail, FeedbackFormData } from '@/services/emailService';
 
 interface FeedbackFormProps {
@@ -21,10 +22,14 @@ export default function FeedbackForm({ type, title, description, placeholderMess
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Reset error state
+    setError(null);
     
     if (!name || !message) {
       toast({
@@ -45,8 +50,7 @@ export default function FeedbackForm({ type, title, description, placeholderMess
         type
       };
 
-      const response = await sendFeedbackEmail(formData);
-      console.log('Email sent successfully:', response);
+      await sendFeedbackEmail(formData);
       
       // Reset the form
       setName('');
@@ -59,6 +63,7 @@ export default function FeedbackForm({ type, title, description, placeholderMess
       });
     } catch (error) {
       console.error("Error sending email:", error);
+      setError("لم نتمكن من إرسال رسالتك، يرجى المحاولة مرة أخرى لاحقاً");
       toast({
         title: "حدث خطأ",
         description: "لم نتمكن من إرسال رسالتك، يرجى المحاولة مرة أخرى لاحقاً",
@@ -79,6 +84,18 @@ export default function FeedbackForm({ type, title, description, placeholderMess
           {description}
         </CardDescription>
       </CardHeader>
+      
+      {error && (
+        <div className="px-6">
+          <Alert variant="destructive">
+            <AlertTitle>حدث خطأ</AlertTitle>
+            <AlertDescription>
+              {error}
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+      
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">

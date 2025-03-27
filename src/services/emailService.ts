@@ -19,25 +19,32 @@ export type FeedbackFormData = {
 };
 
 export const sendFeedbackEmail = async (data: FeedbackFormData) => {
-  const { name, email, message, type } = data;
-  
-  // Prepare template parameters for EmailJS
-  const templateParams = {
-    from_name: name,
-    reply_to: email || 'لا يوجد بريد إلكتروني',
-    message: message,
-    type: type === 'suggestion' ? 'اقتراح' : 'شكوى',
-    to_name: 'الإدارة',
-    to_email: 'saidsaifi276@gmail.com'
-  };
-  
-  // Initialize EmailJS if not already initialized
-  initEmailJS();
-  
-  // Send the email
-  return await emailjs.send(
-    EMAILJS_SERVICE_ID,
-    EMAILJS_TEMPLATE_ID,
-    templateParams
-  );
+  try {
+    const { name, email, message, type } = data;
+    
+    // Prepare template parameters for EmailJS
+    const templateParams = {
+      from_name: name,
+      reply_to: email || 'لا يوجد بريد إلكتروني',
+      message: message,
+      type: type === 'suggestion' ? 'اقتراح' : 'شكوى',
+      to_name: 'الإدارة',
+    };
+    
+    // Initialize EmailJS before sending
+    initEmailJS();
+    
+    // Send the email
+    const response = await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      templateParams
+    );
+    
+    console.log('Email sent successfully:', response);
+    return response;
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error; // رمي الخطأ مرة أخرى ليتم التعامل معه في المكون
+  }
 };
