@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { Menu, Home } from 'lucide-react';
+import { Menu, Home, Lightbulb, MessageSquare } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import {
@@ -45,9 +45,18 @@ export default function TopNav() {
                 <Button 
                   variant="ghost" 
                   className="w-full justify-start text-right"
+                  onClick={() => navigate('/tips')}
+                >
+                  <Lightbulb className="ml-2 h-5 w-5" />
+                  نصائح للتفوق
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-right"
                   onClick={() => navigate('/feedback')}
                 >
-                  <Home className="ml-2 h-5 w-5" />
+                  <MessageSquare className="ml-2 h-5 w-5" />
                   الاقتراحات والشكاوى
                 </Button>
               </div>

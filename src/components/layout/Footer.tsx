@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Calculator, HelpCircle } from 'lucide-react';
+import { Home, BookOpen, Calculator, HelpCircle, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Footer() {
@@ -9,27 +9,33 @@ export default function Footer() {
   const menuItems = [
     { 
       path: '/', 
-      name: '', 
+      name: 'الرئيسية', 
       icon: Home,
       active: location.pathname === '/'
     },
     { 
       path: '/exercises', 
-      name: '', 
+      name: 'التمارين', 
       icon: BookOpen,
       active: location.pathname === '/exercises'
     },
     { 
       path: '/calculator', 
-      name: '', 
+      name: 'الحاسبة', 
       icon: Calculator,
       active: location.pathname === '/calculator'
     },
     { 
       path: '/quiz', 
-      name: '', 
+      name: 'الاختبار', 
       icon: HelpCircle,
       active: location.pathname === '/quiz'
+    },
+    { 
+      path: '/tips', 
+      name: 'نصائح', 
+      icon: Lightbulb,
+      active: location.pathname === '/tips'
     },
   ];
 
@@ -48,6 +54,7 @@ export default function Footer() {
             )}
           >
             <item.icon size={20} className="mb-0.5" />
+            <span className="text-[10px]">{item.name}</span>
           </Link>
         ))}
       </div>
