@@ -17,6 +17,7 @@ import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import Feedback from "./pages/Feedback";
+import Lessons from "./pages/Lessons";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,14 @@ const ProtectedRoutes = () => {
         element={
           <ConditionalLayout>
             <YearContent />
+          </ConditionalLayout>
+        } 
+      />
+      <Route 
+        path="/subject/:subjectId/lessons" 
+        element={
+          <ConditionalLayout>
+            <Lessons />
           </ConditionalLayout>
         } 
       />

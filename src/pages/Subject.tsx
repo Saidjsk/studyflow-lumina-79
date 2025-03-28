@@ -7,6 +7,7 @@ import {
   Pencil, BookOpen, Database, FileText, Building, Scale, Lightbulb
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const years = [
   '2013', '2014', '2015', '2016', '2017', 
@@ -131,7 +132,21 @@ export default function Subject() {
         </div>
       </div>
       
+      {/* Lessons Section Button */}
+      <div className="flex mb-8">
+        <Link to={`/subject/${subject.id}/lessons`}>
+          <Button 
+            variant="outline" 
+            className="flex items-center gap-2 bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800 hover:border-blue-300"
+          >
+            <BookOpen size={18} />
+            <span>الدروس والملخصات</span>
+          </Button>
+        </Link>
+      </div>
+      
       {/* Years Grid */}
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">بكالوريا سنوات سابقة</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
         {years.map((year, index) => (
           <Link
