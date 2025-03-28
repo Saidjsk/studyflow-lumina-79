@@ -25,7 +25,7 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import ReCAPTCHA from "react-google-recaptcha";
-import { sendFeedbackEmail, sanitizeInput } from "@/services/emailService";
+import { sendFeedbackEmail, sanitizeInput, FeedbackFormData } from "@/services/emailService";
 
 // إنشاء مخطط التحقق بزود مع قواعد أكثر صرامة
 const formSchema = z.object({
@@ -86,14 +86,15 @@ const FeedbackForm = () => {
       }
       
       // إرسال النموذج باستخدام خدمة البريد المحسّنة
-      await sendFeedbackEmail({
-        ...data,
-        // تنظيف البيانات قبل الإرسال لمنع هجمات XSS
+      const formData: FeedbackFormData = {
         name: sanitizeInput(data.name),
         email: sanitizeInput(data.email),
         message: sanitizeInput(data.message),
-        recaptchaToken
-      });
+        type: data.type, // تضمين النوع كقيمة مطلوبة
+        recaptchaToken: recaptchaToken
+      };
+      
+      await sendFeedbackEmail(formData);
 
       toast({
         title: "تم الإرسال بنجاح",

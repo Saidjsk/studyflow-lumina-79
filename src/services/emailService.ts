@@ -22,7 +22,7 @@ export type FeedbackFormData = {
   email: string;
   message: string;
   type: 'suggestion' | 'complaint';
-  recaptchaToken?: string; // إضافة دعم لـ reCAPTCHA
+  recaptchaToken?: string;
 };
 
 // التحقق من صحة البريد الإلكتروني مع تحقق أكثر صرامة
