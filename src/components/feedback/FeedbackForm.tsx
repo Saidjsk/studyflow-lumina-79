@@ -1,9 +1,12 @@
-import { useState } from "react";
+
+import { useState, useRef } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -21,20 +24,44 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
+import ReCAPTCHA from "react-google-recaptcha";
+import { sendFeedbackEmail, sanitizeInput } from "@/services/emailService";
 
+// إنشاء مخطط التحقق بزود مع قواعد أكثر صرامة
 const formSchema = z.object({
-  name: z.string().min(2, { message: "الاسم يجب أن يحتوي على حرفين على الأقل" }),
-  email: z.string().email({ message: "يرجى إدخال بريد إلكتروني صحيح" }),
+  name: z
+    .string()
+    .min(2, { message: "الاسم يجب أن يحتوي على حرفين على الأقل" })
+    .max(50, { message: "الاسم يجب ألا يتجاوز 50 حرفًا" })
+    .refine(val => !/[<>]/.test(val), { 
+      message: "الاسم يحتوي على أحرف غير مسموح بها" 
+    }),
+  email: z
+    .string()
+    .email({ message: "يرجى إدخال بريد إلكتروني صحيح" })
+    .max(100, { message: "البريد الإلكتروني طويل جدًا" }),
   type: z.enum(["suggestion", "complaint"], {
     required_error: "يرجى اختيار نوع الرسالة",
   }),
-  message: z.string().min(10, { message: "الرسالة يجب أن تحتوي على 10 أحرف على الأقل" }),
+  message: z
+    .string()
+    .min(10, { message: "الرسالة يجب أن تحتوي على 10 أحرف على الأقل" })
+    .max(1000, { message: "الرسالة يجب ألا تتجاوز 1000 حرف" })
+    .refine(val => !/(<script|javascript:|onclick|onerror)/.test(val.toLowerCase()), { 
+      message: "الرسالة تحتوي على محتوى غير مسموح به" 
+    }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
+// يمكنك الحصول على المفتاح من خلال متغيرات البيئة في النسخة النهائية
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // مفتاح اختبار
+
 const FeedbackForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -47,42 +74,49 @@ const FeedbackForm = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true);
-    
     try {
-      // This would normally connect to a backend service
-      // For a frontend-only solution, we'll use a free email service
-      const response = await fetch("https://formsubmit.co/ajax/saidsaifi276@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          type: data.type === "suggestion" ? "اقتراح" : "شكوى",
-          message: data.message,
-          _subject: `${data.type === "suggestion" ? "اقتراح" : "شكوى"} جديد من تطبيق البكالوريا`,
-        }),
+      setError(null);
+      setIsSubmitting(true);
+      
+      // التحقق من reCAPTCHA
+      if (!recaptchaToken) {
+        setError("يرجى التحقق من أنك لست روبوتًا");
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // إرسال النموذج باستخدام خدمة البريد المحسّنة
+      await sendFeedbackEmail({
+        ...data,
+        // تنظيف البيانات قبل الإرسال لمنع هجمات XSS
+        name: sanitizeInput(data.name),
+        email: sanitizeInput(data.email),
+        message: sanitizeInput(data.message),
+        recaptchaToken
       });
 
-      const result = await response.json();
-      
-      if (result.success) {
-        toast({
-          title: "تم الإرسال بنجاح",
-          description: "شكرًا لك! تم استلام رسالتك وسيتم مراجعتها قريبًا.",
-        });
-        form.reset();
-      } else {
-        throw new Error("فشل في إرسال النموذج");
-      }
+      toast({
+        title: "تم الإرسال بنجاح",
+        description: "شكرًا لك! تم استلام رسالتك وسيتم مراجعتها قريبًا.",
+      });
+
+      // إعادة تعيين النموذج والتحقق
+      form.reset();
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
     } catch (error) {
       console.error("Error submitting form:", error);
+      let errorMessage = "لم نتمكن من إرسال رسالتك. يرجى المحاولة مرة أخرى لاحقًا.";
+      
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
+      setError(errorMessage);
+      
       toast({
         title: "حدث خطأ",
-        description: "لم نتمكن من إرسال رسالتك. يرجى المحاولة مرة أخرى لاحقًا.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -90,10 +124,22 @@ const FeedbackForm = () => {
     }
   };
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
+
   return (
     <div className="glass-morphism rounded-xl p-6 shadow-md">
       <h2 className="text-xl font-bold mb-4 text-center">الاقتراحات والشكاوى</h2>
       <p className="text-muted-foreground mb-6 text-center">نرحب بملاحظاتك لتحسين التطبيق</p>
+      
+      {error && (
+        <Alert variant="destructive" className="mb-4">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>خطأ</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -104,7 +150,7 @@ const FeedbackForm = () => {
               <FormItem>
                 <FormLabel>الاسم</FormLabel>
                 <FormControl>
-                  <Input placeholder="أدخل اسمك" {...field} />
+                  <Input placeholder="أدخل اسمك" {...field} maxLength={50} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -118,7 +164,13 @@ const FeedbackForm = () => {
               <FormItem>
                 <FormLabel>البريد الإلكتروني</FormLabel>
                 <FormControl>
-                  <Input placeholder="أدخل بريدك الإلكتروني" {...field} />
+                  <Input 
+                    placeholder="أدخل بريدك الإلكتروني"
+                    type="email"
+                    autoComplete="email"
+                    {...field} 
+                    maxLength={100}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -160,7 +212,8 @@ const FeedbackForm = () => {
                   <Textarea 
                     placeholder="اكتب رسالتك هنا..." 
                     className="min-h-[120px]" 
-                    {...field} 
+                    {...field}
+                    maxLength={1000}
                   />
                 </FormControl>
                 <FormMessage />
@@ -168,10 +221,19 @@ const FeedbackForm = () => {
             )}
           />
           
+          <div className="flex justify-center my-4">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={handleRecaptchaChange}
+              hl="ar" // اللغة العربية
+            />
+          </div>
+          
           <Button
             type="submit"
             className="w-full"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !recaptchaToken}
           >
             {isSubmitting ? "جاري الإرسال..." : "إرسال"}
           </Button>
