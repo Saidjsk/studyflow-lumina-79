@@ -182,6 +182,9 @@ export default function Index() {
     }
   }, []);
 
+  // Get current tip icon component
+  const CurrentTipIcon = quickTips[randomTipIndex].icon;
+
   return (
     <div className="animate-fade-in pb-20">
       {/* العد التنازلي */}
@@ -232,7 +235,7 @@ export default function Index() {
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <div className="rounded-full bg-blue-100 dark:bg-blue-900/30 p-2">
-                  <quickTips[randomTipIndex].icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  <CurrentTipIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 </div>
                 <h4 className="font-medium">{quickTips[randomTipIndex].title}</h4>
               </div>
@@ -317,21 +320,24 @@ export default function Index() {
       {/* Quick tips section */}
       <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">نصائح سريعة</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
-        {quickTips.map((tip) => (
-          <Card key={tip.id} className="animate-scale-in hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
-              <div className="flex items-start gap-3">
-                <div className="rounded-full bg-blue-100 dark:bg-blue-900/30 p-2 mt-1">
-                  <tip.icon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+        {quickTips.map((tip) => {
+          const TipIcon = tip.icon;
+          return (
+            <Card key={tip.id} className="animate-scale-in hover:shadow-md transition-shadow">
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className="rounded-full bg-blue-100 dark:bg-blue-900/30 p-2 mt-1">
+                    <TipIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium mb-1">{tip.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{tip.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium mb-1">{tip.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{tip.description}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       <div className="flex justify-center mb-24">
