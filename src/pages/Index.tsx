@@ -95,7 +95,7 @@ export default function Index() {
       color: '#EF4444',
       activity: 'اكملت درس المشتقات',
       timestamp: '1 ساعة',
-      type: 'lesson'
+      type: 'lesson' as 'lesson' | 'exercise' | 'quiz' | 'note'
     },
     {
       id: 2,
@@ -104,7 +104,7 @@ export default function Index() {
       color: '#6366F1',
       activity: 'حل تمارين البلاغة',
       timestamp: '3 ساعات',
-      type: 'exercise'
+      type: 'exercise' as 'lesson' | 'exercise' | 'quiz' | 'note'
     },
     {
       id: 3,
@@ -113,7 +113,7 @@ export default function Index() {
       color: '#10B981',
       activity: 'اجتياز اختبار الميكانيكا',
       timestamp: 'اليوم',
-      type: 'quiz'
+      type: 'quiz' as 'lesson' | 'exercise' | 'quiz' | 'note'
     }
   ]);
 
