@@ -14,7 +14,7 @@ interface Subject {
 // Define subjects for each stream
 const subjectsConfig = {
   management: [
-    { id: 'accounting', name: 'التسيير المحاسبي و المالي', coefficient: 6 },
+    { id: 'accounting', name: 'التسيير المحاسبي و المالي', coefficient: 9 },
     { id: 'economics', name: 'الاقتصاد', coefficient: 5 },
     { id: 'math', name: 'الرياضيات', coefficient: 5 },
     { id: 'history', name: 'التاريخ و الجغرافيا', coefficient: 4 },
