@@ -1,10 +1,9 @@
 
 import { useState, useEffect } from 'react';
-import { Calculator as CalculatorIcon, Info, ChevronDown } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { Calculator as CalculatorIcon, Info } from 'lucide-react';
 
 // Define the subject types
-type SubjectStreams = 'management' | 'literature' | 'sciences' | 'math';
+type SubjectStreams = 'management' | 'economy' | 'accountingFinance';
 
 interface Subject {
   id: string;
@@ -25,41 +24,7 @@ const subjectsConfig = {
     { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
     { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
     { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-    { id: 'amazigh', name: 'اللغة الامازيغية', coefficient: 1 },
-  ],
-  literature: [
-    { id: 'arabic', name: 'اللغة العربية وآدابها', coefficient: 7 },
-    { id: 'philosophy', name: 'الفلسفة', coefficient: 6 },
-    { id: 'history', name: 'التاريخ و الجغرافيا', coefficient: 4 },
-    { id: 'french', name: 'اللغة الفرنسية', coefficient: 3 },
-    { id: 'english', name: 'اللغة الإنجليزية', coefficient: 3 },
-    { id: 'islamic', name: 'العلوم الإسلامية', coefficient: 2 },
-    { id: 'math', name: 'الرياضيات', coefficient: 2 },
-    { id: 'amazigh', name: 'اللغة الامازيغية', coefficient: 1 },
-  ],
-  sciences: [
-    { id: 'natural_sciences', name: 'العلوم الطبيعية', coefficient: 6 },
-    { id: 'math', name: 'الرياضيات', coefficient: 5 },
-    { id: 'physics', name: 'الفيزياء', coefficient: 5 },
-    { id: 'arabic', name: 'اللغة العربية', coefficient: 3 },
-    { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
-    { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
-    { id: 'history', name: 'التاريخ و الجغرافيا', coefficient: 2 },
-    { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-    { id: 'islamic', name: 'العلوم الإسلامية', coefficient: 2 },
-    { id: 'amazigh', name: 'اللغة الامازيغية', coefficient: 1 },
-  ],
-  math: [
-    { id: 'math', name: 'الرياضيات', coefficient: 7 },
-    { id: 'physics', name: 'الفيزياء', coefficient: 6 },
-    { id: 'natural_sciences', name: 'العلوم الطبيعية', coefficient: 4 },
-    { id: 'arabic', name: 'اللغة العربية', coefficient: 3 },
-    { id: 'french', name: 'اللغة الفرنسية', coefficient: 2 },
-    { id: 'english', name: 'اللغة الإنجليزية', coefficient: 2 },
-    { id: 'history', name: 'التاريخ و الجغرافيا', coefficient: 2 },
-    { id: 'philosophy', name: 'الفلسفة', coefficient: 2 },
-    { id: 'islamic', name: 'العلوم الإسلامية', coefficient: 2 },
-    { id: 'amazigh', name: 'اللغة الامازيغية', coefficient: 1 },
+    { id: 'mgmt', name: 'اللغة الامازيغية', coefficient: 1 },
   ]
 };
 
@@ -69,35 +34,37 @@ export default function Calculator() {
   const [mention, setMention] = useState<string>('');
   const [totalCoefficients, setTotalCoefficients] = useState<number>(0);
   const [selectedStream, setSelectedStream] = useState<SubjectStreams>('management');
-  const [showStreamDropdown, setShowStreamDropdown] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const { toast } = useToast();
-  
-  const subjects = subjectsConfig[selectedStream];
+  const subjects = subjectsConfig.management;
 
-  const streamNames: Record<SubjectStreams, string> = {
-    management: 'شعبة تسيير واقتصاد',
-    literature: 'شعبة آداب وفلسفة',
-    sciences: 'شعبة علوم تجريبية',
-    math: 'شعبة رياضيات'
-  };
-
-  // Initialize grades when component mounts or stream changes
+  // Initialize grades when component mounts
   useEffect(() => {
     const initialGrades = subjects.reduce((acc, subject) => ({ ...acc, [subject.id]: '' }), {});
     setGrades(initialGrades);
     setAverage(null);
     setMention('');
-    setIsSubmitted(false);
     
     // Calculate total coefficients
     const total = subjects.reduce((sum, subject) => sum + subject.coefficient, 0);
     setTotalCoefficients(total);
-  }, [selectedStream]);
+  }, []);
 
   const handleStreamChange = (stream: SubjectStreams) => {
     setSelectedStream(stream);
-    setShowStreamDropdown(false);
+    // Reset grades when changing stream
+    const initialGrades = subjectsConfig[stream].reduce(
+      (acc, subject) => ({ ...acc, [subject.id]: '' }), 
+      {}
+    );
+    setGrades(initialGrades);
+    setAverage(null);
+    setMention('');
+    
+    // Calculate total coefficients for selected stream
+    const total = subjectsConfig[stream].reduce(
+      (sum, subject) => sum + subject.coefficient, 
+      0
+    );
+    setTotalCoefficients(total);
   };
 
   const handleGradeChange = (subjectId: string, value: string) => {
@@ -121,39 +88,23 @@ export default function Calculator() {
   const calculateAverage = () => {
     let totalPoints = 0;
     let validCoefficients = 0;
-    let emptyGrades = false;
     
     subjects.forEach(subject => {
       const grade = parseFloat(grades[subject.id]);
       if (!isNaN(grade)) {
         totalPoints += grade * subject.coefficient;
         validCoefficients += subject.coefficient;
-      } else {
-        emptyGrades = true;
       }
     });
     
     if (validCoefficients === 0) {
-      toast({
-        title: "تنبيه",
-        description: "يرجى إدخال علامة واحدة على الأقل",
-        variant: "destructive",
-      });
       setAverage(null);
       setMention('');
       return;
     }
     
-    if (emptyGrades) {
-      toast({
-        title: "ملاحظة",
-        description: "تم حساب المعدل بناءً على العلامات المدخلة فقط",
-      });
-    }
-    
     const calculatedAverage = totalPoints / validCoefficients;
     setAverage(calculatedAverage);
-    setIsSubmitted(true);
     
     // Set mention based on average
     if (calculatedAverage >= 16) {
@@ -173,7 +124,6 @@ export default function Calculator() {
     setGrades(subjects.reduce((acc, subject) => ({ ...acc, [subject.id]: '' }), {}));
     setAverage(null);
     setMention('');
-    setIsSubmitted(false);
   };
 
   return (
@@ -192,30 +142,17 @@ export default function Calculator() {
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 md:p-6 max-w-4xl mx-auto">
         {/* Stream selection */}
-        <div className="relative mb-6">
-          <button 
-            onClick={() => setShowStreamDropdown(!showStreamDropdown)}
-            className="w-full md:w-auto flex items-center justify-between gap-2 px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 font-medium transition-colors hover:bg-blue-100 dark:hover:bg-blue-800/50"
+        <div className="flex flex-wrap gap-2 mb-6 justify-center">
+          <button
+            onClick={() => handleStreamChange('management')}
+            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              selectedStream === 'management' 
+                ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300' 
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }`}
           >
-            <span>{streamNames[selectedStream]}</span>
-            <ChevronDown size={18} className={`transition-transform ${showStreamDropdown ? 'rotate-180' : ''}`} />
+            شعبة تسيير واقتصاد
           </button>
-          
-          {showStreamDropdown && (
-            <div className="absolute z-10 mt-2 w-full md:w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700 py-1 animate-scale-in">
-              {Object.entries(streamNames).map(([key, name]) => (
-                <button
-                  key={key}
-                  onClick={() => handleStreamChange(key as SubjectStreams)}
-                  className={`w-full text-right px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                    selectedStream === key ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 font-medium' : 'text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Subject grades table */}
@@ -232,7 +169,7 @@ export default function Calculator() {
             <tbody>
               {subjects.map((subject) => {
                 const grade = parseFloat(grades[subject.id]) || 0;
-                const points = isNaN(grade) ? 0 : grade * subject.coefficient;
+                const points = grade * subject.coefficient;
                 
                 return (
                   <tr key={subject.id} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
@@ -261,7 +198,7 @@ export default function Calculator() {
                 <td className="py-3 px-3 text-center text-sm font-medium">{totalCoefficients}</td>
                 <td className="py-3 px-3"></td>
                 <td className="py-3 px-3 text-center text-sm font-medium">
-                  {isSubmitted && average !== null ? (average * totalCoefficients).toFixed(2) : '-'}
+                  {average !== null ? (average * totalCoefficients).toFixed(2) : '-'}
                 </td>
               </tr>
             </tbody>

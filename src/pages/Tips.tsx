@@ -1,418 +1,325 @@
 
-import { useState } from 'react';
-import { 
-  Lightbulb, BookOpen, Brain, Compass, Target, Clock, 
-  Zap, Coffee, Moon, CheckCircle, BarChart, HeartPulse,
-  Search, Book, PenTool, Award, Battery, Leaf, Calendar
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Lightbulb, Brain, Clock, Book, Calendar, CheckCircle2, Target, ListTodo, 
+  BrainCircuit, Coffee, SunMedium, Moon, BarChart2, School, BookOpen, 
+  Pencil, Timer, AlertCircle, ThumbsUp, Heart, Zap
+} from "lucide-react";
 
-interface Tip {
-  id: number;
-  title: string;
-  description: string;
-  icon: any;
-  category: 'study' | 'exam' | 'wellness';
-}
-
-// بيانات النصائح المصنفة حسب الفئة
-const tipsData: Tip[] = [
-  // نصائح للدراسة
-  {
-    id: 1,
-    title: "جدول دراسة ثابت",
-    description: "خصص وقتاً محدداً للدراسة كل يوم واجعله روتيناً ثابتاً. تعزز هذه العادة الانضباط وتحسن التركيز.",
-    icon: Clock,
-    category: 'study'
-  },
-  {
-    id: 2,
-    title: "تقنية بومودورو",
-    description: "قسّم وقت الدراسة إلى فترات من 25 دقيقة مع استراحات قصيرة من 5 دقائق بينها. بعد 4 دورات، خذ استراحة أطول من 15-30 دقيقة.",
-    icon: Zap,
-    category: 'study'
-  },
-  {
-    id: 3,
-    title: "المراجعة المتباعدة",
-    description: "راجع المواد على فترات متباعدة بدلاً من المراجعة المكثفة في جلسة واحدة. هذا يحسن الاحتفاظ بالمعلومات على المدى الطويل.",
-    icon: Calendar,
-    category: 'study'
-  },
-  {
-    id: 4,
-    title: "الخرائط الذهنية",
-    description: "استخدم الخرائط الذهنية لتنظيم المعلومات وربطها. هذه التقنية تساعد في فهم العلاقات بين المفاهيم المختلفة.",
-    icon: Brain,
-    category: 'study'
-  },
-  {
-    id: 5,
-    title: "التعلم النشط",
-    description: "لا تكتفي بالقراءة فقط. اشرح المفاهيم بصوت عالٍ، علّم الآخرين، اكتب ملخصات، وحل أسئلة تطبيقية.",
-    icon: PenTool,
-    category: 'study'
-  },
-  {
-    id: 6,
-    title: "تحديد الأهداف",
-    description: "ضع أهدافاً واقعية وقابلة للقياس لكل جلسة دراسية. مثلاً: 'سأحل 10 مسائل رياضية' أو 'سأفهم الفصل الثالث كاملاً'.",
-    icon: Target,
-    category: 'study'
-  },
-  {
-    id: 7,
-    title: "توظيف حواس متعددة",
-    description: "استخدم أكثر من حاسة أثناء التعلم: اقرأ، استمع، اكتب، ارسم. كلما استخدمت حواس أكثر، زادت قدرتك على تذكر المعلومات.",
-    icon: Compass,
-    category: 'study'
-  },
-  {
-    id: 8,
-    title: "بيئة دراسة مناسبة",
-    description: "اختر مكاناً هادئاً، مريحاً، جيد الإضاءة، وخالياً من المشتتات. نظم المكان وأبقِ كل ما تحتاجه في متناول يدك.",
-    icon: BookOpen,
-    category: 'study'
-  },
-
-  // نصائح للامتحان
-  {
-    id: 9,
-    title: "حل امتحانات سابقة",
-    description: "تدرب على امتحانات السنوات السابقة في ظروف مشابهة للامتحان الحقيقي، بما في ذلك الوقت المحدد.",
-    icon: Book,
-    category: 'exam'
-  },
-  {
-    id: 10,
-    title: "إدارة الوقت",
-    description: "خصص وقتاً محدداً لكل سؤال حسب درجته. لا تتوقف طويلاً عند الأسئلة الصعبة، وعد إليها لاحقاً.",
-    icon: Clock,
-    category: 'exam'
-  },
-  {
-    id: 11,
-    title: "قراءة متأنية للأسئلة",
-    description: "اقرأ جميع الأسئلة بعناية قبل البدء بالإجابة. ضع خطاً تحت الكلمات المفتاحية والمصطلحات المهمة.",
-    icon: Search,
-    category: 'exam'
-  },
-  {
-    id: 12,
-    title: "البدء بالأسئلة السهلة",
-    description: "ابدأ بالإجابة على الأسئلة التي تعرفها جيداً. هذا يعزز ثقتك ويمنحك دفعة إيجابية لبقية الامتحان.",
-    icon: CheckCircle,
-    category: 'exam'
-  },
-  {
-    id: 13,
-    title: "تنظيم الإجابات",
-    description: "نظّم إجاباتك بطريقة واضحة ومرتبة. استخدم الترقيم والنقاط البارزة لتسهيل قراءة إجاباتك.",
-    icon: BarChart,
-    category: 'exam'
-  },
-  {
-    id: 14,
-    title: "مراجعة الإجابات",
-    description: "خصص وقتاً في نهاية الامتحان لمراجعة إجاباتك، والتحقق من عدم ترك أي سؤال دون إجابة.",
-    icon: Award,
-    category: 'exam'
-  },
-  {
-    id: 15,
-    title: "تجنب الغش",
-    description: "لا تلجأ للغش مهما كانت الظروف. الغش يعرضك لفقدان الامتحان بالكامل ويمكن أن يؤثر على مستقبلك الدراسي.",
-    icon: Battery,
-    category: 'exam'
-  },
-  {
-    id: 16,
-    title: "الاسترخاء قبل الامتحان",
-    description: "خذ قسطاً كافياً من الراحة في الليلة السابقة للامتحان. تجنب المراجعة المكثفة في اللحظات الأخيرة.",
-    icon: Moon,
-    category: 'exam'
-  },
-
-  // نصائح للصحة النفسية والجسدية
-  {
-    id: 17,
-    title: "نوم كافٍ ومنتظم",
-    description: "احرص على النوم لمدة 7-8 ساعات يومياً. النوم الجيد ضروري لاستيعاب المعلومات وتعزيز القدرة على التركيز.",
-    icon: Moon,
-    category: 'wellness'
-  },
-  {
-    id: 18,
-    title: "التغذية السليمة",
-    description: "تناول وجبات متوازنة غنية بالفيتامينات والمعادن. الأطعمة الغنية بأوميغا 3 مفيدة للدماغ.",
-    icon: Coffee,
-    category: 'wellness'
-  },
-  {
-    id: 19,
-    title: "النشاط البدني",
-    description: "مارس التمارين الرياضية بانتظام، ولو لمدة 20-30 دقيقة يومياً. النشاط البدني يحسن تدفق الدم للدماغ ويعزز القدرة على التركيز.",
-    icon: HeartPulse,
-    category: 'wellness'
-  },
-  {
-    id: 20,
-    title: "إدارة التوتر",
-    description: "تعلم تقنيات الاسترخاء كالتنفس العميق والتأمل. لا تتردد في التحدث مع شخص تثق به إذا شعرت بالضغط الزائد.",
-    icon: Leaf,
-    category: 'wellness'
-  },
-  {
-    id: 21,
-    title: "فترات راحة منتظمة",
-    description: "خذ استراحات قصيرة أثناء الدراسة للحفاظ على تركيزك. يمكنك المشي قليلاً أو ممارسة تمارين التمدد.",
-    icon: Coffee,
-    category: 'wellness'
-  },
-  {
-    id: 22,
-    title: "الحد من المشتتات",
-    description: "ضع هاتفك بعيداً أثناء الدراسة وعطل الإشعارات. استخدم تطبيقات حظر مواقع التواصل الاجتماعي إذا لزم الأمر.",
-    icon: Search,
-    category: 'wellness'
-  },
-  {
-    id: 23,
-    title: "الدعم الاجتماعي",
-    description: "لا تعزل نفسك. تواصل مع زملائك وشارك في مجموعات الدراسة. الدعم المتبادل يخفف من ضغط الامتحانات.",
-    icon: HeartPulse,
-    category: 'wellness'
-  },
-  {
-    id: 24,
-    title: "المكافآت الصغيرة",
-    description: "كافئ نفسك بعد إنجاز أهداف الدراسة. مشاهدة برنامج مفضل أو قضاء وقت مع الأصدقاء يمكن أن يكون محفزاً.",
-    icon: Award,
-    category: 'wellness'
-  }
-];
-
-// تعريف أنواع فئات النصائح
-const categories = [
-  { value: 'all', label: 'كل النصائح', icon: Lightbulb },
-  { value: 'study', label: 'مهارات الدراسة', icon: BookOpen },
-  { value: 'exam', label: 'استراتيجيات الامتحان', icon: PenTool },
-  { value: 'wellness', label: 'الصحة النفسية والجسدية', icon: HeartPulse }
-];
-
-export default function Tips() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('all');
-  const { toast } = useToast();
-
-  // نسخ النصيحة إلى الحافظة
-  const copyTipToClipboard = (tip: Tip) => {
-    const tipText = `${tip.title}: ${tip.description}`;
-    navigator.clipboard.writeText(tipText).then(() => {
-      toast({
-        title: "تم النسخ",
-        description: "تم نسخ النصيحة إلى الحافظة",
-      });
-    });
+const Tips = () => {
+  const [activeTab, setActiveTab] = useState("general");
+  
+  // نصائح موسعة مع أيقونات ووصف مفصل
+  const tips = {
+    general: [
+      {
+        title: "التخطيط الاستراتيجي",
+        description: "قم بإعداد خطة دراسية شاملة لكل الفصل الدراسي مع تحديد أهداف أسبوعية وشهرية واضحة. استخدم تطبيقات تنظيم المهام أو مخططات ورقية لتتبع تقدمك وتعديل خطتك حسب الحاجة.",
+        icon: Calendar,
+        badge: "أساسي"
+      },
+      {
+        title: "الدراسة المركزة",
+        description: "استخدم تقنية بومودورو (25 دقيقة دراسة متواصلة ثم استراحة 5 دقائق) لتحسين التركيز وتجنب الإرهاق الذهني. حدد أهدافًا صغيرة لكل جلسة دراسية وكافئ نفسك عند تحقيقها.",
+        icon: Clock,
+        badge: "تقنية فعالة"
+      },
+      {
+        title: "التعلم النشط",
+        description: "لا تكتفِ بقراءة المواد الدراسية، بل قم بشرح المفاهيم بصوت عالٍ، وصياغتها بأسلوبك الخاص، وربطها بمعلوماتك السابقة. استخدم الخرائط الذهنية والملخصات المرئية لترسيخ المعلومات.",
+        icon: Brain,
+        badge: "استراتيجية متقدمة"
+      },
+      {
+        title: "التعلم بالممارسة",
+        description: "خصص وقتًا كافيًا لحل تمارين وأسئلة متنوعة من امتحانات سابقة. تدرب على الإجابة ضمن الوقت المحدد للامتحان وقم بتصحيح أخطائك لتجنب تكرارها في الامتحان الحقيقي.",
+        icon: Target,
+        badge: "مهارة أساسية"
+      },
+      {
+        title: "تدوين الملاحظات بفعالية",
+        description: "استخدم تقنيات تدوين متقدمة مثل طريقة كورنيل أو خريطة المفاهيم. نظّم ملاحظاتك بألوان مختلفة واستخدم رموزًا واختصارات لتسهيل المراجعة السريعة قبل الامتحانات.",
+        icon: Pencil,
+        badge: "مهارة متقدمة"
+      },
+      {
+        title: "بيئة دراسية مثالية",
+        description: "أنشئ مساحة دراسية مخصصة خالية من المشتتات، مع إضاءة جيدة وتهوية مناسبة. جرّب أنواع مختلفة من الموسيقى الهادئة أو الضوضاء البيضاء إذا كانت تساعدك على التركيز.",
+        icon: SunMedium,
+        badge: "نمط حياة"
+      },
+      {
+        title: "استخدام التكنولوجيا بذكاء",
+        description: "وظّف التطبيقات والمواقع التعليمية لتعزيز فهمك للمواد الصعبة، واستخدم تطبيقات حظر مواقع التواصل الاجتماعي أثناء فترات الدراسة لتجنب تشتت الانتباه.",
+        icon: BrainCircuit,
+        badge: "أدوات رقمية"
+      },
+      {
+        title: "مجموعات الدراسة التفاعلية",
+        description: "شارك في مجموعات دراسية مع زملاء متحمسين وملتزمين. قم بتقسيم المواضيع وتبادل الشرح، وطرح الأسئلة الصعبة، ومناقشة وجهات النظر المختلفة لتعميق الفهم.",
+        icon: School,
+        badge: "تعلم تعاوني"
+      }
+    ],
+    exams: [
+      {
+        title: "فهم نمط الأسئلة",
+        description: "ادرس بعناية نماذج الامتحانات السابقة للتعرف على أنماط الأسئلة المتكررة والموضوعات الأكثر أهمية. تعرّف على معايير التصحيح وتوزيع الدرجات لكل قسم من الامتحان.",
+        icon: ListTodo,
+        badge: "تحليل"
+      },
+      {
+        title: "استراتيجية قراءة الأسئلة",
+        description: "خصص أول 5-10 دقائق لقراءة ورقة الامتحان كاملة. ضع خطًا تحت الكلمات المفتاحية وتأكد من فهم المطلوب تمامًا قبل الشروع في الإجابة.",
+        icon: BookOpen,
+        badge: "أولوية قصوى"
+      },
+      {
+        title: "إدارة وقت الامتحان",
+        description: "قسّم وقت الامتحان بناءً على عدد الأسئلة ودرجاتها، وخصص دقائق معدودة للمراجعة. استخدم ساعة لتتبع الوقت المتبقي لكل سؤال والتزم بالتوقيت المخصص.",
+        icon: Timer,
+        badge: "مهارة حاسمة"
+      },
+      {
+        title: "التعامل مع الأسئلة الصعبة",
+        description: "لا تضيع وقتًا طويلاً على سؤال صعب. ضع علامة عليه وانتقل للأسئلة التالية، ثم عد إليه لاحقًا إذا سمح الوقت بذلك. اكتب أي أفكار جزئية قد تساعدك في كسب بعض النقاط.",
+        icon: AlertCircle,
+        badge: "حل المشكلات"
+      },
+      {
+        title: "تنظيم الإجابات",
+        description: "استخدم نقاطًا مرقمة وفقرات واضحة لتنظيم إجابتك. ابدأ بالنقاط الأساسية، ثم وسّع فيها، واستخدم المصطلحات العلمية المناسبة. اترك مساحات بين الإجابات للإضافات المحتملة.",
+        icon: CheckCircle2,
+        badge: "وضوح"
+      },
+      {
+        title: "المراجعة الاستراتيجية",
+        description: "خصص 10-15 دقيقة على الأقل في نهاية الامتحان للمراجعة المنهجية. تحقق من الأرقام والحسابات والأخطاء الإملائية. تأكد من الإجابة على جميع الأسئلة المطلوبة.",
+        icon: ThumbsUp,
+        badge: "ضروري"
+      },
+      {
+        title: "التقديم المتميز",
+        description: "اكتب بخط واضح ومقروء، واستخدم القلم الأزرق أو الأسود. حافظ على نظافة ورقة الإجابة واستخدم المساطر للجداول والرسومات. قدّم إجابتك بشكل يسهل على المصحح قراءتها وفهمها.",
+        icon: Zap,
+        badge: "انطباع أول"
+      },
+      {
+        title: "استراتيجيات الكتابة المقالية",
+        description: "خصص وقتًا للتخطيط قبل الكتابة. ضع مخططًا سريعًا للأفكار الرئيسية والأدلة الداعمة. اكتب مقدمة واضحة، واعرض أفكارك بتسلسل منطقي، واختم بخلاصة قوية.",
+        icon: Book,
+        badge: "مهارة التعبير"
+      }
+    ],
+    mental: [
+      {
+        title: "تقنيات التنفس للتركيز",
+        description: "مارس تقنية التنفس 4-7-8 (شهيق لمدة 4 ثوانٍ، حبس النفس لمدة 7 ثوانٍ، زفير لمدة 8 ثوانٍ) للتحكم في القلق قبل وأثناء الامتحانات. كرر التمرين 3-4 مرات عندما تشعر بالتوتر.",
+        icon: Brain,
+        badge: "تهدئة"
+      },
+      {
+        title: "نظام غذائي داعم للدماغ",
+        description: "تناول أطعمة غنية بأوميغا 3 والفيتامينات مثل المكسرات، الأسماك، والفواكه والخضروات الملونة. تجنب الإفراط في الكافيين والسكريات التي قد تسبب تقلبات في الطاقة والمزاج.",
+        icon: Coffee,
+        badge: "تغذية"
+      },
+      {
+        title: "نوم عميق ومنتظم",
+        description: "التزم بجدول نوم منتظم من 7-8 ساعات ليلاً، حتى خلال فترة الامتحانات. تجنب الشاشات قبل النوم بساعة على الأقل، واستخدم تقنيات الاسترخاء كالتنفس العميق أو اليوغا البسيطة.",
+        icon: Moon,
+        badge: "ضروري للذاكرة"
+      },
+      {
+        title: "ممارسة النشاط البدني المنتظم",
+        description: "خصص 30 دقيقة يومياً للتمارين البدنية المتوسطة كالمشي السريع أو ركوب الدراجة. حتى فترات قصيرة من النشاط البدني تحسن الدورة الدموية للدماغ وتقلل التوتر وتعزز التركيز.",
+        icon: Zap,
+        badge: "تنشيط"
+      },
+      {
+        title: "تحويل القلق إلى حافز",
+        description: "تعلّم التمييز بين القلق المُعيق والقلق المُحفّز. استخدم مشاعر التوتر كإشارة للتحضير الجيد وليس للخوف. اكتب مخاوفك على ورقة ثم حوّلها إلى خطوات عملية يمكنك اتخاذها.",
+        icon: BarChart2,
+        badge: "ذكاء عاطفي"
+      },
+      {
+        title: "التأمل وتقنيات اليقظة الذهنية",
+        description: "مارس اليقظة الذهنية لمدة 10 دقائق يومياً للتركيز على اللحظة الحالية. استخدم تطبيقات التأمل الموجه أو تمارين المسح الجسدي لتقليل التوتر وتحسين الانتباه والتركيز.",
+        icon: BrainCircuit,
+        badge: "ممارسة يومية"
+      },
+      {
+        title: "توازن العمل والراحة",
+        description: "طبق قاعدة 52/17 (52 دقيقة من العمل المركز تليها 17 دقيقة من الراحة الحقيقية). احرص على فترات راحة كاملة بعيداً عن الشاشات والدراسة لتجديد طاقتك الذهنية.",
+        icon: Heart,
+        badge: "استدامة"
+      },
+      {
+        title: "الحديث الإيجابي مع الذات",
+        description: "استبدل العبارات السلبية ('لن أنجح') بعبارات إيجابية وواقعية ('أنا مستعد ومجتهد'). اكتب عبارات تحفيزية على بطاقات صغيرة وضعها في أماكن تراها يومياً لتعزيز ثقتك بنفسك.",
+        icon: Lightbulb,
+        badge: "قوة العقل"
+      }
+    ]
   };
 
-  // تصفية النصائح حسب الفئة والبحث
-  const filteredTips = tipsData.filter((tip) => {
-    const matchesCategory = activeCategory === 'all' || tip.category === activeCategory;
-    const matchesSearch = tip.title.includes(searchTerm) || tip.description.includes(searchTerm);
-    return matchesCategory && (searchTerm === '' || matchesSearch);
-  });
+  // إنشاء نصيحة عشوائية للعرض في قسم "نصيحة اليوم"
+  const getAllTips = () => {
+    return [
+      ...tips.general,
+      ...tips.exams,
+      ...tips.mental
+    ];
+  };
+  
+  // اختيار نصيحة عشوائية من جميع النصائح
+  const getRandomTip = () => {
+    const allTips = getAllTips();
+    const randomIndex = Math.floor(Math.random() * allTips.length);
+    return allTips[randomIndex];
+  };
+  
+  const dailyTip = getRandomTip();
 
   return (
     <div className="animate-fade-in pb-20">
-      <div className="text-center mb-6">
-        <div className="inline-block rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-3 py-1 text-sm font-medium text-yellow-800 dark:text-yellow-300 mb-4">
-          نصائح للتفوق
-        </div>
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
-          نصائح وإرشادات للنجاح في البكالوريا
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mb-2">
+          نصائح للتفوق في البكالوريا
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
-          مجموعة من النصائح المفيدة لمساعدتك على التفوق في دراستك واجتياز امتحانات البكالوريا بنجاح
+        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          مجموعة من النصائح والإرشادات المنتقاة بعناية لمساعدتك في تحقيق أفضل النتائج في اختبارات البكالوريا
         </p>
       </div>
-
-      {/* قسم البحث والتصفية */}
-      <div className="mb-6">
-        <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="ابحث عن نصيحة..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* تبويبات الفئات */}
-      <Tabs defaultValue="all" value={activeCategory} onValueChange={setActiveCategory} className="w-full max-w-4xl mx-auto mb-6">
-        <TabsList className="grid grid-cols-2 md:grid-cols-4 w-full">
-          {categories.map((category) => (
-            <TabsTrigger key={category.value} value={category.value} className="flex items-center gap-2">
-              <category.icon className="h-4 w-4" />
-              <span>{category.label}</span>
-            </TabsTrigger>
-          ))}
+      
+      <Tabs 
+        defaultValue="general" 
+        value={activeTab} 
+        onValueChange={setActiveTab}
+        className="mb-8"
+      >
+        <TabsList className="grid grid-cols-3 mb-8 mx-auto max-w-md">
+          <TabsTrigger value="general" className="text-sm">نصائح عامة</TabsTrigger>
+          <TabsTrigger value="exams" className="text-sm">استراتيجيات الامتحانات</TabsTrigger>
+          <TabsTrigger value="mental" className="text-sm">الصحة النفسية</TabsTrigger>
         </TabsList>
-
-        {/* محتوى التبويبات */}
-        <TabsContent value="all" className="mt-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredTips.map((tip) => (
-              <Card 
-                key={tip.id} 
-                className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => copyTipToClipboard(tip)}
-              >
-                <CardHeader className="p-4 pb-2">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <div className={`p-1.5 rounded-full 
-                      ${tip.category === 'study' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 
-                        tip.category === 'exam' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400' : 
-                          'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'}`}>
-                      <tip.icon className="h-4 w-4" />
-                    </div>
-                    {tip.title}
-                  </CardTitle>
+        
+        <TabsContent value="general" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {tips.general.map((tip, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow border-t-4 animate-scale-in" style={{borderTopColor: '#3B82F6', animationDelay: `${index * 0.05}s`}}>
+                <CardHeader className="flex flex-row items-center gap-3">
+                  <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full">
+                    <tip.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      {tip.title}
+                      <Badge variant="outline" className="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[10px]">
+                        {tip.badge}
+                      </Badge>
+                    </CardTitle>
+                  </div>
                 </CardHeader>
-                <CardContent className="p-4 pt-0">
-                  <CardDescription>{tip.description}</CardDescription>
+                <CardContent>
+                  <CardDescription className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                    {tip.description}
+                  </CardDescription>
                 </CardContent>
               </Card>
             ))}
           </div>
         </TabsContent>
-
-        {/* محتوى باقي التبويبات */}
-        {['study', 'exam', 'wellness'].map((category) => (
-          <TabsContent key={category} value={category} className="mt-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredTips.map((tip) => (
-                <Card 
-                  key={tip.id} 
-                  className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => copyTipToClipboard(tip)}
-                >
-                  <CardHeader className="p-4 pb-2">
+        
+        <TabsContent value="exams" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {tips.exams.map((tip, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow border-t-4 animate-scale-in" style={{borderTopColor: '#F97316', animationDelay: `${index * 0.05}s`}}>
+                <CardHeader className="flex flex-row items-center gap-3">
+                  <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-full">
+                    <tip.icon className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <div>
                     <CardTitle className="text-lg flex items-center gap-2">
-                      <div className={`p-1.5 rounded-full 
-                        ${tip.category === 'study' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 
-                          tip.category === 'exam' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400' : 
-                            'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'}`}>
-                        <tip.icon className="h-4 w-4" />
-                      </div>
                       {tip.title}
+                      <Badge variant="outline" className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 text-[10px]">
+                        {tip.badge}
+                      </Badge>
                     </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 pt-0">
-                    <CardDescription>{tip.description}</CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        ))}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                    {tip.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="mental" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {tips.mental.map((tip, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow border-t-4 animate-scale-in" style={{borderTopColor: '#10B981', animationDelay: `${index * 0.05}s`}}>
+                <CardHeader className="flex flex-row items-center gap-3">
+                  <div className="bg-emerald-100 dark:bg-emerald-900/30 p-2 rounded-full">
+                    <tip.icon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      {tip.title}
+                      <Badge variant="outline" className="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-[10px]">
+                        {tip.badge}
+                      </Badge>
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                    {tip.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
       </Tabs>
-
-      {/* نصيحة اليوم */}
-      <div className="mt-8 max-w-4xl mx-auto">
-        <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-          <Lightbulb className="h-5 w-5 text-yellow-500" />
+      
+      <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/20 p-6 rounded-xl shadow-sm mt-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-blue-200 dark:bg-blue-700/20 -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+        
+        <h3 className="font-bold text-xl mb-4 flex items-center gap-2 relative z-10">
+          <Lightbulb className="h-6 w-6 text-amber-500" />
           نصيحة اليوم
-        </h2>
-        <Card className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 border-none animate-scale-in">
-          <CardContent className="p-6">
-            <blockquote className="text-lg italic border-r-4 border-blue-600 dark:border-blue-400 pr-4">
-              "النجاح ليس نتيجة للصدفة. إنه نتيجة للعمل الجاد، المثابرة، التعلم، التضحية، وقبل كل شيء، حب ما تفعله أو تتعلم القيام به."
-            </blockquote>
-            <footer className="mt-4 text-right text-gray-600 dark:text-gray-400">- بيليه</footer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* استراتيجية الدراسة المثالية */}
-      <div className="mt-8 max-w-4xl mx-auto">
-        <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-          <Target className="h-5 w-5 text-green-500" />
-          استراتيجية الدراسة المثالية للبكالوريا
-        </h2>
-        <Card>
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-sm">
-                  1
-                </div>
-                <div>
-                  <h3 className="font-medium mb-1">التخطيط والتنظيم (3-4 أشهر قبل البكالوريا)</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    ضع خطة دراسية شاملة تغطي جميع المواد. قسّم المحتوى إلى أجزاء صغيرة يمكن التحكم فيها. حدد الأولويات بناءً على نقاط ضعفك.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-sm">
-                  2
-                </div>
-                <div>
-                  <h3 className="font-medium mb-1">المراجعة المنهجية (2-3 أشهر قبل البكالوريا)</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    اتبع خطتك بانتظام. ركز على فهم المفاهيم الأساسية. استخدم أساليب دراسة متنوعة: تلخيص، خرائط ذهنية، شرح المفاهيم بصوت عالٍ.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-sm">
-                  3
-                </div>
-                <div>
-                  <h3 className="font-medium mb-1">التدريب على الأسئلة (1-2 شهر قبل البكالوريا)</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    حل أكبر عدد ممكن من الاختبارات السابقة. تدرب على كتابة الإجابات في الوقت المحدد. حلل أخطاءك وتعلم منها.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-sm">
-                  4
-                </div>
-                <div>
-                  <h3 className="font-medium mb-1">المراجعة النهائية (أسبوعان قبل البكالوريا)</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    راجع الملخصات والنقاط الرئيسية. تركيز على المواضيع الصعبة. لا تحاول تعلم مفاهيم جديدة تماماً. الحفاظ على الراحة الكافية.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-sm">
-                  5
-                </div>
-                <div>
-                  <h3 className="font-medium mb-1">يوم الامتحان</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    استيقظ مبكراً. تناول وجبة خفيفة ومغذية. خذ معك كل ما تحتاجه للامتحان. اقرأ الأسئلة بتمعن. ابدأ بالأسئلة السهلة. راجع إجاباتك قبل التسليم.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        </h3>
+        
+        <div className="flex items-start gap-4 relative z-10">
+          <div className="bg-white dark:bg-gray-800 p-3 rounded-full shadow-sm">
+            <dailyTip.icon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+          </div>
+          
+          <div>
+            <h4 className="font-bold text-lg text-gray-900 dark:text-gray-100 mb-2 flex items-center gap-2">
+              {dailyTip.title}
+              <Badge className="bg-blue-500">{dailyTip.badge}</Badge>
+            </h4>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              {dailyTip.description}
+            </p>
+          </div>
+        </div>
+        
+        <div className="mt-6 pt-4 border-t border-blue-200 dark:border-blue-700/30 text-sm text-gray-600 dark:text-gray-400 italic relative z-10">
+          "النجاح ليس نتيجة للصدفة... بل هو نتيجة العمل الجاد، المثابرة، التعلم، الدراسة، والأهم من ذلك، الشغف بما تفعله"
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default Tips;
