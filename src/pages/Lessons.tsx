@@ -288,6 +288,249 @@ export default function Lessons() {
     );
   };
   
+  // Display history lesson about historical figures if we're on the history subject page
+  const renderHistoryLesson = () => {
+    if (subjectId !== 'history') {
+      return null;
+    }
+
+    return (
+      <div className="max-w-4xl mx-auto">
+        <Card className="mb-6">
+          <CardHeader className="bg-orange-50 dark:bg-orange-900/20 border-b border-orange-100 dark:border-orange-800">
+            <div className="flex items-center">
+              <div className="bg-orange-500 p-2 rounded-full mr-3">
+                <BookOpen className="h-5 w-5 text-white" />
+              </div>
+              <CardTitle className="text-orange-800 dark:text-orange-300">الشخصيات والأحداث الأكثر تداولاً في البكالوريا</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <div className="prose dark:prose-invert max-w-none leading-relaxed">
+              {/* Table of Contents */}
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-6">
+                <h3 className="text-lg font-bold mb-3">فهرس المحتويات:</h3>
+                <ul className="list-disc list-inside space-y-1 pr-4">
+                  <li>1. شخصيات سياسية
+                    <ul className="list-inside pr-5 space-y-1 mt-1">
+                      <li>1-1. جمال عبد الناصر</li>
+                      <li>1-2. هواري بومدين</li>
+                      <li>1-3. شارل ديغول</li>
+                    </ul>
+                  </li>
+                  <li className="mt-2">2. أحداث تاريخية
+                    <ul className="list-inside pr-5 space-y-1 mt-1">
+                      <li>2-1. الثورة الجزائرية</li>
+                      <li>2-2. حرب السويس 1956</li>
+                      <li>2-3. أزمة الصواريخ الكوبية</li>
+                      <li>2-4. حرب أكتوبر 1973</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Lesson Content */}
+              <section>
+                <h2 className="text-xl font-bold mb-3 flex items-center">
+                  <span className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 w-8 h-8 rounded-full flex items-center justify-center mr-2">1</span>
+                  شخصيات سياسية
+                </h2>
+                
+                <div className="pr-4 mb-6">
+                  <h3 className="text-lg font-bold mb-2 flex items-center">
+                    <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">1-1</span>
+                    جمال عبد الناصر (1918-1970)
+                  </h3>
+                  <div className="mb-4">
+                    <p className="mb-3">شخصية عربية قومية حكم مصر من عام 1954 إلى عام 1970، وهو أحد قادة ثورة 23 يوليو 1952. اتخذ مبدأ الحياد الإيجابي وعدم الانحياز في سياسته الخارجية ودعم حركات التحرر عبر العالم.</p>
+                    
+                    <p className="mb-2"><strong>أهم إنجازاته:</strong></p>
+                    <ul className="list-disc list-inside pr-5 mb-3">
+                      <li>تأميم قناة السويس في 26 جويلية 1956</li>
+                      <li>إقامة السد العالي</li>
+                      <li>تبني سياسة الإصلاح الزراعي والصناعي</li>
+                      <li>المساهمة في تأسيس حركة عدم الانحياز</li>
+                      <li>دعم القضية الفلسطينية والثورة الجزائرية</li>
+                    </ul>
+                    
+                    <p className="mb-2"><strong>مواقفه من القضايا الدولية:</strong></p>
+                    <ul className="list-disc list-inside pr-5">
+                      <li>دعم القضية الجزائرية ماديًا ومعنويًا</li>
+                      <li>دعم حركات التحرر في إفريقيا وآسيا</li>
+                      <li>كان من مؤسسي حركة عدم الانحياز وتنظيم مؤتمر باندونغ سنة 1955</li>
+                      <li>رفض مشروع أيزنهاور ومشروعات الأحلاف الغربية</li>
+                    </ul>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold mb-2 flex items-center">
+                    <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">1-2</span>
+                    هواري بومدين (1932-1978)
+                  </h3>
+                  <div className="mb-4">
+                    <p className="mb-3">قائد ثوري وسياسي جزائري، شغل منصب رئيس الجزائر من عام 1965 إلى 1978. قاد التصحيح الثوري في 19 جوان 1965، وتبنى سياسة التنمية الشاملة في البلاد.</p>
+                    
+                    <p className="mb-2"><strong>أهم إنجازاته:</strong></p>
+                    <ul className="list-disc list-inside pr-5 mb-3">
+                      <li>تأميم المحروقات في 24 فيفري 1971</li>
+                      <li>تطبيق الثورة الزراعية سنة 1971</li>
+                      <li>بناء القاعدة الصناعية (المصانع الكبرى)</li>
+                      <li>القرارات المتعلقة بالسيادة الوطنية على الثروات الطبيعية</li>
+                      <li>إنشاء الشركة الوطنية سوناطراك</li>
+                    </ul>
+                    
+                    <p className="mb-2"><strong>دوره في السياسة الدولية:</strong></p>
+                    <ul className="list-disc list-inside pr-5">
+                      <li>دعم القضية الفلسطينية وحركات التحرر العالمية</li>
+                      <li>الدعوة لإقامة نظام اقتصادي عالمي جديد خلال الجمعية العامة للأمم المتحدة عام 1974</li>
+                      <li>دوره في تأسيس منظمة الوحدة الإفريقية</li>
+                      <li>دعم القضايا العربية وخاصة في حرب أكتوبر 1973</li>
+                    </ul>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold mb-2 flex items-center">
+                    <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">1-3</span>
+                    شارل ديغول (1890-1970)
+                  </h3>
+                  <div className="mb-4">
+                    <p className="mb-3">جنرال وسياسي فرنسي، قاد المقاومة الفرنسية خلال الحرب العالمية الثانية. أسس الجمهورية الفرنسية الخامسة وكان رئيسًا لفرنسا من 1958 إلى 1969.</p>
+                    
+                    <p className="mb-2"><strong>مواقفه وسياساته:</strong></p>
+                    <ul className="list-disc list-inside pr-5 mb-3">
+                      <li>تبنى سياسة الاستقلال النسبي عن المعسكرين في الحرب الباردة</li>
+                      <li>سعى إلى بناء قوة فرنسا النووية</li>
+                      <li>عمل على تصفية الاستعمار في معظم المستعمرات الفرنسية</li>
+                      <li>وقع اتفاقيات إيفيان 1962 التي أنهت حرب الجزائر</li>
+                      <li>انسحب من الهيكل العسكري لحلف الناتو عام 1966</li>
+                    </ul>
+                    
+                    <p className="mb-2"><strong>موقفه من الجزائر:</strong></p>
+                    <ul className="list-disc list-inside pr-5">
+                      <li>رفض مبدئياً استقلال الجزائر في بداية حكمه وطرح مشروع "سلم الشجعان" عام 1958</li>
+                      <li>حاول تنفيذ مشروع "الجزائر الجزائرية" ثم مشروع "قسنطينة" للتنمية الاقتصادية</li>
+                      <li>في النهاية اعترف بحق تقرير المصير للشعب الجزائري عام 1961</li>
+                      <li>واجه تمرد المنظمة العسكرية السرية (OAS) المعارضة لاستقلال الجزائر</li>
+                      <li>وقّع اتفاقيات إيفيان في 18 مارس 1962 التي مهدت لاستقلال الجزائر</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+              
+              <section className="mt-8">
+                <h2 className="text-xl font-bold mb-3 flex items-center">
+                  <span className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 w-8 h-8 rounded-full flex items-center justify-center mr-2">2</span>
+                  أحداث تاريخية
+                </h2>
+                
+                <div className="pr-4 mb-6">
+                  <h3 className="text-lg font-bold mb-2 flex items-center">
+                    <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">2-1</span>
+                    الثورة الجزائرية (1954-1962)
+                  </h3>
+                  <div className="mb-4">
+                    <p className="mb-3">ثورة التحرير الجزائرية هي حرب الاستقلال التي خاضها الشعب الجزائري ضد الاستعمار الفرنسي. اندلعت في الفاتح من نوفمبر 1954 وانتهت باتفاقيات إيفيان في 18 مارس 1962.</p>
+                    
+                    <p className="mb-2"><strong>المراحل الكبرى للثورة:</strong></p>
+                    <ul className="list-disc list-inside pr-5 mb-3">
+                      <li>اندلاع الثورة في 1 نوفمبر 1954 (ليلة الفاتح من نوفمبر)</li>
+                      <li>مؤتمر الصومام في 20 أوت 1956 وتنظيم هياكل الثورة</li>
+                      <li>إنشاء الحكومة المؤقتة للجمهورية الجزائرية في 19 سبتمبر 1958</li>
+                      <li>مظاهرات 11 ديسمبر 1960 التي أظهرت التفاف الشعب حول الثورة</li>
+                      <li>مفاوضات إيفيان وإعلان وقف إطلاق النار في 19 مارس 1962</li>
+                      <li>استفتاء تقرير المصير في 1 جويلية 1962</li>
+                      <li>إعلان الاستقلال في 5 جويلية 1962</li>
+                    </ul>
+                    
+                    <p className="mb-2"><strong>الأبعاد الدولية للثورة الجزائرية:</strong></p>
+                    <ul className="list-disc list-inside pr-5">
+                      <li>تدويل القضية الجزائرية في الأمم المتحدة ومؤتمر باندونغ 1955</li>
+                      <li>دعم الدول العربية والإفريقية والاشتراكية للثورة</li>
+                      <li>تأثيرها في دعم حركات التحرر في العالم</li>
+                      <li>تسببها في أزمات سياسية داخلية في فرنسا وسقوط الجمهورية الرابعة</li>
+                    </ul>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold mb-2 flex items-center">
+                    <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">2-2</span>
+                    أزمة السويس 1956
+                  </h3>
+                  <div className="mb-4">
+                    <p className="mb-3">أزمة دولية نشأت بعد قيام الرئيس المصري جمال عبد الناصر بتأميم قناة السويس في 26 جويلية 1956، مما أدى إلى عدوان ثلاثي (بريطانيا، فرنسا، إسرائيل) على مصر.</p>
+                    
+                    <p className="mb-2"><strong>أسباب الأزمة:</strong></p>
+                    <ul className="list-disc list-inside pr-5 mb-3">
+                      <li>رفض الولايات المتحدة وبريطانيا تمويل السد العالي</li>
+                      <li>تأميم قناة السويس كرد على هذا الرفض</li>
+                      <li>رغبة بريطانيا وفرنسا في استعادة نفوذهما في المنطقة</li>
+                      <li>التعاون المصري-السوفييتي وشراء الأسلحة من الكتلة الشرقية</li>
+                    </ul>
+                    
+                    <p className="mb-2"><strong>نتائج الأزمة:</strong></p>
+                    <ul className="list-disc list-inside pr-5">
+                      <li>فشل العدوان الثلاثي وانسحاب القوات المعتدية</li>
+                      <li>نجاح مصر في الاحتفاظ بملكية القناة</li>
+                      <li>ارتفاع مكانة جمال عبد الناصر عربياً وعالمياً</li>
+                      <li>تراجع النفوذ البريطاني والفرنسي في المنطقة</li>
+                      <li>ظهور الدور السوفييتي والأمريكي بشكل أكبر في الشرق الأوسط</li>
+                    </ul>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold mb-2 flex items-center">
+                    <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">2-3</span>
+                    أزمة الصواريخ الكوبية 1962
+                  </h3>
+                  <div className="mb-4">
+                    <p className="mb-3">مواجهة خطيرة بين الولايات المتحدة والاتحاد السوفييتي حول نشر صواريخ سوفييتية نووية في كوبا. تعتبر أخطر أزمة في تاريخ الحرب الباردة حيث اقترب العالم من حافة حرب نووية.</p>
+                    
+                    <p className="mb-2"><strong>أسباب الأزمة:</strong></p>
+                    <ul className="list-disc list-inside pr-5 mb-3">
+                      <li>نجاح الثورة الكوبية وتوجه كوبا نحو المعسكر الشرقي</li>
+                      <li>محاولة أمريكية للإطاحة بنظام فيدل كاسترو في خليج الخنازير 1961</li>
+                      <li>نشر الولايات المتحدة لصواريخ نووية في تركيا قرب الحدود السوفييتية</li>
+                      <li>قرار الاتحاد السوفييتي بنشر صواريخ نووية في كوبا</li>
+                    </ul>
+                    
+                    <p className="mb-2"><strong>تطورات الأزمة ونهايتها:</strong></p>
+                    <ul className="list-disc list-inside pr-5">
+                      <li>اكتشاف الصواريخ السوفييتية في كوبا من خلال طائرات التجسس الأمريكية U-2 في أكتوبر 1962</li>
+                      <li>فرض حصار بحري أمريكي على كوبا</li>
+                      <li>تبادل الرسائل بين خروتشوف وكينيدي وإجراء مفاوضات سرية</li>
+                      <li>التوصل إلى حل للأزمة: سحب الصواريخ السوفييتية من كوبا مقابل تعهد أمريكي بعدم غزو كوبا وسحب صواريخها من تركيا</li>
+                    </ul>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold mb-2 flex items-center">
+                    <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">2-4</span>
+                    حرب أكتوبر 1973
+                  </h3>
+                  <div className="mb-4">
+                    <p className="mb-3">حرب شنتها مصر وسوريا ضد إسرائيل لاستعادة الأراضي المحتلة عام 1967. بدأت في 6 أكتوبر 1973 (10 رمضان) وكانت نقطة تحول في الصراع العربي الإسرائيلي.</p>
+                    
+                    <p className="mb-2"><strong>أسباب الحرب:</strong></p>
+                    <ul className="list-disc list-inside pr-5 mb-3">
+                      <li>استمرار احتلال إسرائيل للأراضي العربية بعد حرب 1967</li>
+                      <li>فشل الجهود السلمية والدبلوماسية في استعادة الأراضي المحتلة</li>
+                      <li>رفض إسرائيل الانسحاب من الأراضي المحتلة وتنفيذ قرار مجلس الأمن 242</li>
+                    </ul>
+                    
+                    <p className="mb-2"><strong>نتائج الحرب:</strong></p>
+                    <ul className="list-disc list-inside pr-5">
+                      <li>تحطيم أسطورة "الجيش الإسرائيلي الذي لا يُقهر"</li>
+                      <li>استعادة الثقة العربية بالقدرة على مواجهة إسرائيل</li>
+                      <li>قرار الدول العربية النفطية استخدام "سلاح النفط" ضد الدول المؤيدة لإسرائيل</li>
+                      <li>توقيع اتفاقية فصل القوات بين مصر وإسرائيل عام 1974</li>
+                      <li>فتح باب المفاوضات السلمية التي أدت لاحقاً إلى اتفاقية كامب ديفيد 1978</li>
+                      <li>إبراز التضامن العربي والدعم الجزائري القوي لمصر وسوريا</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
+  
   return (
     <div className="animate-fade-in">
       {/* Header */}
@@ -309,9 +552,11 @@ export default function Lessons() {
         <span className="text-gray-900 dark:text-white font-medium">الدروس والملخصات</span>
       </div>
       
-      {/* Economics Lesson or Under Development Alert */}
+      {/* Economics Lesson or History Lesson or Under Development Alert */}
       {subjectId === 'economics' ? (
         renderEconomicsLesson()
+      ) : subjectId === 'history' ? (
+        renderHistoryLesson()
       ) : (
         <div className="max-w-4xl mx-auto mt-16">
           <Alert className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 mb-6">
