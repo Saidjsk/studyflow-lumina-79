@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
 import { 
   Accordion,
   AccordionContent,
@@ -12,7 +11,7 @@ const PoliticalFiguresSection = () => {
   const [expanded, setExpanded] = useState(false);
   
   return (
-    <section className="mb-8">
+    <div className="mb-8">
       <h2 className="text-xl font-bold mb-4 flex items-center">
         <span className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 w-8 h-8 rounded-full flex items-center justify-center mr-2">1</span>
         شخصيات سياسية
@@ -574,7 +573,7 @@ const PoliticalFiguresSection = () => {
           </AccordionItem>
         </Accordion>
       </div>
-    </section>
+    </div>
   );
 };
 
