@@ -1,10 +1,15 @@
 
-import { BookOpen } from 'lucide-react';
+import { useState } from 'react';
+import { BookOpen, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import PoliticalFiguresSection from './history/PoliticalFiguresSection';
 import HistoricalEventsSection from './history/HistoricalEventsSection';
 
 const HistoryLesson = () => {
+  const [activeTab, setActiveTab] = useState("figures");
+
   return (
     <div className="max-w-4xl mx-auto">
       <Card className="mb-6">
@@ -21,33 +26,73 @@ const HistoryLesson = () => {
             {/* Table of Contents */}
             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-6">
               <h3 className="text-lg font-bold mb-3">فهرس المحتويات:</h3>
-              <ul className="list-disc list-inside space-y-1 pr-4">
-                <li>1. شخصيات سياسية
-                  <ul className="list-inside pr-5 space-y-1 mt-1">
-                    <li>1-1. جمال عبد الناصر</li>
-                    <li>1-2. هواري بومدين</li>
-                    <li>1-3. شارل ديغول</li>
-                    <li>1-4. محمد الخامس</li>
-                    <li>1-5. وودرو ويلسون</li>
-                  </ul>
-                </li>
-                <li className="mt-2">2. أحداث تاريخية
-                  <ul className="list-inside pr-5 space-y-1 mt-1">
-                    <li>2-1. الثورة الجزائرية</li>
-                    <li>2-2. حرب السويس 1956</li>
-                    <li>2-3. أزمة الصواريخ الكوبية</li>
-                    <li>2-4. حرب أكتوبر 1973</li>
-                    <li>2-5. الحرب العالمية الأولى</li>
-                    <li>2-6. الحرب العالمية الثانية</li>
-                    <li>2-7. خطة مارشال</li>
-                  </ul>
-                </li>
-              </ul>
+              <div className="flex flex-col sm:flex-row gap-4 mb-4">
+                <Tabs 
+                  value={activeTab} 
+                  onValueChange={setActiveTab}
+                  className="w-full"
+                >
+                  <TabsList className="w-full mb-4 bg-gray-100 dark:bg-gray-700/70">
+                    <TabsTrigger value="figures" className="flex-1">الشخصيات السياسية</TabsTrigger>
+                    <TabsTrigger value="events" className="flex-1">الأحداث التاريخية</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="figures" className="mt-0">
+                    <ul className="list-disc list-inside space-y-1 pr-4">
+                      <li>وودرو ويلسون (1856-1924)</li>
+                      <li>جمال عبد الناصر (1918-1970)</li>
+                      <li>شارل ديغول (1890-1970)</li>
+                      <li>هواري بومدين (1932-1978)</li>
+                      <li>محمد الخامس (1909-1961)</li>
+                      <li>أحمد بن بلة (1916-2012)</li>
+                      <li>الحبيب بورقيبة (1903-2000)</li>
+                      <li>فرحات عباس (1899-1985)</li>
+                      <li>جوزيف ستالين (1878-1953)</li>
+                      <li>هاري ترومان (1884-1972)</li>
+                    </ul>
+                  </TabsContent>
+                  
+                  <TabsContent value="events" className="mt-0">
+                    <ul className="list-disc list-inside space-y-1 pr-4">
+                      <li>الثورة الجزائرية (1954-1962)</li>
+                      <li>حرب السويس 1956</li>
+                      <li>أزمة الصواريخ الكوبية 1962</li>
+                      <li>حرب أكتوبر 1973</li>
+                      <li>الحرب العالمية الأولى (1914-1918)</li>
+                      <li>الحرب العالمية الثانية (1939-1945)</li>
+                      <li>خطة مارشال (1947-1952)</li>
+                      <li>حركة عدم الانحياز</li>
+                    </ul>
+                  </TabsContent>
+                </Tabs>
+              </div>
+              
+              <div className="flex justify-end">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors text-sm">
+                    <span>انتقل إلى قسم</span>
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                    <DropdownMenuItem onClick={() => document.getElementById('politicalFigures')?.scrollIntoView({ behavior: 'smooth' })} className="cursor-pointer">
+                      الشخصيات السياسية
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => document.getElementById('historicalEvents')?.scrollIntoView({ behavior: 'smooth' })} className="cursor-pointer">
+                      الأحداث التاريخية
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
 
             {/* Lesson Content */}
-            <PoliticalFiguresSection />
-            <HistoricalEventsSection />
+            <div id="politicalFigures">
+              <PoliticalFiguresSection />
+            </div>
+            
+            <div id="historicalEvents">
+              <HistoricalEventsSection />
+            </div>
           </div>
         </CardContent>
       </Card>
