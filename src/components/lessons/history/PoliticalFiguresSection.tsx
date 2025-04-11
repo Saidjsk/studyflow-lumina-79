@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { 
   Accordion,
@@ -470,4 +471,105 @@ const PoliticalFiguresSection = () => {
                   <h4 className="font-bold mb-2">وصوله إلى السلطة:</h4>
                   <ul className="list-disc list-inside space-y-1 pr-4">
                     <li>انضم إلى الحزب البلشفي بقيادة لينين وشارك في الثورة البلشفية عام 1917.</li>
-                    <li>تولى منصب
+                    <li>تولى منصب الأمين العام للحزب الشيوعي عام 1922.</li>
+                    <li>تمكن من إقصاء منافسيه بعد وفاة لينين وترسيخ سلطته.</li>
+                    <li>أصبح الزعيم الفعلي للاتحاد السوفييتي بحلول نهاية العشرينات.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-2">سياساته الداخلية:</h4>
+                  <ul className="list-disc list-inside space-y-1 pr-4">
+                    <li>طبق سياسة التصنيع السريع والتخطيط المركزي للاقتصاد.</li>
+                    <li>فرض سياسة الجماعية الزراعية (الكولخوز).</li>
+                    <li>شن حملات التطهير الكبرى والإعدامات في الثلاثينات.</li>
+                    <li>فرض نظاماً شمولياً وعبادة الشخصية.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-2">دوره في الحرب العالمية الثانية:</h4>
+                  <ul className="list-disc list-inside space-y-1 pr-4">
+                    <li>وقع ميثاق عدم الاعتداء مع ألمانيا النازية في 1939.</li>
+                    <li>قاد الاتحاد السوفييتي بعد الغزو الألماني في 1941.</li>
+                    <li>شارك في مؤتمري يالطا وبوتسدام مع تشرشل وروزفلت لرسم خريطة ما بعد الحرب.</li>
+                    <li>حوّل الاتحاد السوفييتي إلى قوة عظمى بعد الحرب.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-2">سياسته الخارجية بعد الحرب:</h4>
+                  <ul className="list-disc list-inside space-y-1 pr-4">
+                    <li>ساهم في إنشاء الكتلة الشرقية ونظام المعسكر الاشتراكي.</li>
+                    <li>بدأ سباق التسلح والحرب الباردة مع الولايات المتحدة.</li>
+                    <li>فرض الهيمنة السوفييتية على دول أوروبا الشرقية.</li>
+                    <li>قاد الصراع مع الغرب خلال أزمة برلين وحصارها.</li>
+                  </ul>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* هاري ترومان */}
+          <AccordionItem value="truman" className="border-b border-gray-200 dark:border-gray-700">
+            <AccordionTrigger className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+              <div className="flex items-center text-right w-full">
+                <div className="ml-auto flex items-center">
+                  <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 w-7 h-7 rounded-full flex items-center justify-center mr-3 text-sm">10</span>
+                  <h3 className="text-lg font-semibold">هاري ترومان (1884-1972)</h3>
+                </div>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="px-4 py-3 text-gray-700 dark:text-gray-300">
+              <div className="pr-5 space-y-3">
+                <p>الرئيس الأمريكي الذي خلف روزفلت وقاد بلاده في نهاية الحرب العالمية الثانية وبداية الحرب الباردة (1945-1953).</p>
+                
+                <div>
+                  <h4 className="font-bold mb-2">قراراته الحاسمة:</h4>
+                  <ul className="list-disc list-inside space-y-1 pr-4">
+                    <li>أمر بإلقاء القنبلتين الذريتين على هيروشيما وناغازاكي عام 1945 لإنهاء الحرب مع اليابان.</li>
+                    <li>شارك في مؤتمر بوتسدام مع ستالين وتشرشل لتقرير مصير ألمانيا وأوروبا.</li>
+                    <li>أطلق "مبدأ ترومان" عام 1947 لمواجهة المد الشيوعي في اليونان وتركيا.</li>
+                    <li>دعم خطة مارشال لإعادة إعمار أوروبا الغربية بعد الحرب.</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-bold mb-2">تأسيس النظام العالمي الجديد:</h4>
+                  <ul className="list-disc list-inside space-y-1 pr-4">
+                    <li>ساهم في تأسيس منظمة الأمم المتحدة.</li>
+                    <li>أسس حلف شمال الأطلسي (الناتو) عام 1949 لمواجهة النفوذ السوفييتي.</li>
+                    <li>دعم إنشاء دولة إسرائيل عام 1948 واعترف بها فوراً.</li>
+                    <li>وضع أسس سياسة الاحتواء للحد من التوسع الشيوعي.</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-bold mb-2">إدارته للحرب الباردة:</h4>
+                  <ul className="list-disc list-inside space-y-1 pr-4">
+                    <li>واجه أزمة حصار برلين (1948-1949) وأمر بالجسر الجوي لإمدادها.</li>
+                    <li>قاد الولايات المتحدة خلال الحرب الكورية (1950-1953).</li>
+                    <li>أسس وكالة المخابرات المركزية (CIA) عام 1947.</li>
+                    <li>أقر برنامج التسلح النووي الأمريكي المكثف.</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-bold mb-2">سياساته الداخلية:</h4>
+                  <ul className="list-disc list-inside space-y-1 pr-4">
+                    <li>أطلق برنامج "الصفقة العادلة" للإصلاحات الاجتماعية.</li>
+                    <li>واجه إضرابات عمالية كبرى في فترة ما بعد الحرب.</li>
+                    <li>بدأ في مكافحة التمييز العنصري في القوات المسلحة.</li>
+                    <li>واجه حملة مكارثي ضد الشيوعيين في أمريكا.</li>
+                  </ul>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+    </div>
+  );
+};
+
+export default PoliticalFiguresSection;
