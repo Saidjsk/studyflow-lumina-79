@@ -38,6 +38,21 @@ const EconomicsLesson = () => {
                     <li>2-7. التوازن النقدي</li>
                   </ul>
                 </li>
+                <li className="mt-2">3. السوق
+                  <ul className="list-inside pr-5 space-y-1 mt-1">
+                    <li>3-1. تعريف السوق</li>
+                    <li>3-2. أنواع الأسواق</li>
+                    <li>3-3. أشكال السوق</li>
+                  </ul>
+                </li>
+                <li className="mt-2">4. الأسعار
+                  <ul className="list-inside pr-5 space-y-1 mt-1">
+                    <li>4-1. تعريف السعر</li>
+                    <li>4-2. العناصر المحددة للسعر</li>
+                    <li>4-3. توازن السوق</li>
+                    <li>4-4. التمثيل البياني للتوازن</li>
+                  </ul>
+                </li>
               </ul>
             </div>
 
