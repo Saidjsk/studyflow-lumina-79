@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, BookOpen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,8 +18,7 @@ export default function Lessons() {
       'english': { name: 'اللغة الإنجليزية', color: '#0EA5E9' },
       'islamic': { name: 'العلوم الإسلامية', color: '#14B8A6' },
       'philosophy': { name: 'الفلسفة', color: '#9333EA' },
-      'law': { name: 'القانون', color: '#F59E0B' },
-      'mathematics': { name: 'الرياضيات', color: '#EF4444' }
+      'law': { name: 'القانون', color: '#F59E0B' }
     };
     
     return subjectId && subjectId in subjects ? subjects[subjectId].name : 'المادة';
