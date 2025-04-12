@@ -1,5 +1,5 @@
 
-import { Building, CreditCard, PiggyBank, Landmark, LockKeyhole, Coins } from 'lucide-react';
+import { Building, CreditCard, PiggyBank, Landmark, LockKeyhole, Coins, Receipt, Wallet, BarChart4, ArrowRightLeft, BanknoteIcon, CircleDollarSign } from 'lucide-react';
 
 const BankingSection = () => {
   return (
@@ -148,8 +148,118 @@ const BankingSection = () => {
 
         <div className="pr-5">
           <p className="mb-4 leading-relaxed">
-            تقوم المصارف التجارية بمجموعة من المعاملات يمكن تصنيفها إلى ثلاثة أنواع رئيسية وذلك كما يلي: قبول الودائع، توظيف الأموال، معاملات مصرفية أخرى.
+            تقوم المصارف التجارية بمجموعة من المعاملات يمكن تصنيفها إلى ثلاثة أنواع رئيسية وذلك كما يلي:
           </p>
+          
+          <div className="mb-6 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+            <h4 className="text-lg font-semibold text-orange-600 dark:text-orange-400 mb-3 flex items-center">
+              <Wallet className="mr-2 h-5 w-5" />
+              3-1- قبول الودائع
+            </h4>
+            
+            <p className="mb-4 leading-relaxed">
+              تعتبر الودائع المصدر الرئيسي لأموال البنوك التجارية، وهي تشكل الجانب الأكبر من خصوم البنك. ويمكن تصنيف الودائع إلى:
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">أ- الودائع تحت الطلب (الودائع الجارية)</h5>
+            <p className="mb-4 leading-relaxed pr-4">
+              هي المبالغ التي يودعها الأفراد والمؤسسات في حساباتهم الجارية لدى البنك، ويمكن سحبها في أي وقت دون إشعار مسبق، عن طريق الشيكات، أو أوامر التحويل أو البطاقات الإلكترونية. وعادة لا تمنح البنوك فوائد على هذا النوع من الودائع.
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">ب- ودائع التوفير</h5>
+            <p className="mb-4 leading-relaxed pr-4">
+              وهي حسابات التوفير التي يضعها الأفراد في البنك بهدف الادخار، ويمكن السحب منها في أي وقت مقابل عائد بسيط. ويتم السحب من هذه الحسابات بواسطة دفتر التوفير أو البطاقات الإلكترونية.
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">ج- الودائع لأجل (الودائع بإشعار)</h5>
+            <p className="mb-4 leading-relaxed pr-4">
+              هي المبالغ التي يودعها الأفراد والمؤسسات لفترة زمنية محددة متفق عليها مسبقاً مع البنك، ولا يمكن سحبها قبل انتهاء المدة إلا بشروط خاصة. وتتميز هذه الودائع بأنها تحقق عائداً أكبر من الودائع تحت الطلب وودائع التوفير.
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">د- شهادات الإيداع</h5>
+            <p className="leading-relaxed pr-4">
+              هي عبارة عن أوراق مالية قابلة للتداول تصدرها البنوك بفئات معينة وآجال مختلفة مقابل مبالغ مودعة لديها، وتمنح البنوك فوائد على هذه الشهادات.
+            </p>
+          </div>
+          
+          <div className="mb-6 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+            <h4 className="text-lg font-semibold text-orange-600 dark:text-orange-400 mb-3 flex items-center">
+              <BarChart4 className="mr-2 h-5 w-5" />
+              3-2- توظيف الأموال
+            </h4>
+            
+            <p className="mb-4 leading-relaxed">
+              يعد منح القروض الوظيفة الأساسية للبنوك التجارية، حيث تقوم باستخدام الأموال المودعة لديها في منح قروض مختلفة الآجال والأنواع، بالإضافة إلى استثمارها في شراء أوراق مالية مختلفة. وتقسم القروض التي تمنحها البنوك حسب المدة إلى:
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">أ- القروض قصيرة الأجل</h5>
+            <p className="mb-4 leading-relaxed pr-4">
+              هي القروض التي لا تتجاوز مدتها السنة الواحدة، وتمنح عادة لتمويل رأس المال العامل للشركات وتغطية النفقات الجارية. ومن أمثلتها:
+            </p>
+            <ul className="list-disc list-inside pr-5 mt-2 space-y-2 mb-4">
+              <li>القروض بضمان بضائع: حيث يقدم العميل بضائع كضمان للقرض.</li>
+              <li>القروض بضمان أوراق مالية: حيث يقدم العميل أوراقاً مالية كضمان للقرض.</li>
+              <li>خصم الأوراق التجارية: حيث يقوم البنك بشراء الأوراق التجارية (كالكمبيالات) قبل موعد استحقاقها مقابل خصم جزء من قيمتها.</li>
+              <li>السحب على المكشوف: وهو السماح للعميل بسحب مبالغ تزيد عن رصيده الفعلي في حدود معينة ولفترة قصيرة.</li>
+            </ul>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">ب- القروض متوسطة الأجل</h5>
+            <p className="mb-4 leading-relaxed pr-4">
+              هي القروض التي تتراوح مدتها بين سنة وخمس سنوات، وتستخدم عادة لتمويل المشاريع الإنتاجية المتوسطة، وشراء الآلات والمعدات. وتمنح هذه القروض عادة للمؤسسات الصغيرة والمتوسطة.
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">ج- القروض طويلة الأجل</h5>
+            <p className="mb-4 leading-relaxed pr-4">
+              هي القروض التي تزيد مدتها عن خمس سنوات، وتستخدم لتمويل المشاريع الاستثمارية الكبيرة كبناء العقارات وإنشاء المصانع وشراء الأصول الثابتة. وقد يقوم البنك بتقديم هذه القروض منفرداً أو بالمشاركة مع بنوك أخرى.
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">د- الاستثمار في الأوراق المالية</h5>
+            <p className="leading-relaxed pr-4">
+              تقوم البنوك باستثمار جزء من أموالها في شراء الأوراق المالية مثل السندات الحكومية والأسهم وسندات الشركات. وتهدف البنوك من ذلك إلى تحقيق عوائد مناسبة مع الاحتفاظ بدرجة عالية من السيولة، حيث يمكن بيع هذه الأوراق بسهولة عند الحاجة.
+            </p>
+          </div>
+          
+          <div className="mb-6 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+            <h4 className="text-lg font-semibold text-orange-600 dark:text-orange-400 mb-3 flex items-center">
+              <CircleDollarSign className="mr-2 h-5 w-5" />
+              3-3- معاملات مصرفية أخرى
+            </h4>
+            
+            <p className="mb-4 leading-relaxed">
+              بالإضافة إلى قبول الودائع ومنح القروض، تقدم البنوك العديد من الخدمات المصرفية الأخرى، منها:
+            </p>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">أ- خدمات الدفع والتحويل</h5>
+            <ul className="list-disc list-inside pr-5 mt-2 space-y-2 mb-4">
+              <li>تحصيل الشيكات والأوراق التجارية.</li>
+              <li>إصدار الحوالات المصرفية والشيكات السياحية.</li>
+              <li>التحويلات الداخلية والخارجية.</li>
+              <li>توفير البطاقات المصرفية بأنواعها (الخصم المباشر، الائتمان).</li>
+              <li>خدمات الصراف الآلي والخدمات المصرفية الإلكترونية.</li>
+            </ul>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">ب- خدمات الصرف الأجنبي</h5>
+            <ul className="list-disc list-inside pr-5 mt-2 space-y-2 mb-4">
+              <li>شراء وبيع العملات الأجنبية.</li>
+              <li>فتح الاعتمادات المستندية للتجارة الخارجية.</li>
+              <li>إصدار خطابات الضمان للتعاملات الدولية.</li>
+            </ul>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">ج- الخدمات الاستشارية</h5>
+            <ul className="list-disc list-inside pr-5 mt-2 space-y-2 mb-4">
+              <li>تقديم المشورة المالية والاستثمارية للعملاء.</li>
+              <li>إدارة المحافظ الاستثمارية.</li>
+              <li>دراسة الجدوى الاقتصادية للمشاريع.</li>
+            </ul>
+            
+            <h5 className="text-md font-medium text-teal-600 dark:text-teal-400 mb-2">د- خدمات مالية أخرى</h5>
+            <ul className="list-disc list-inside pr-5 mt-2 space-y-2">
+              <li>تأجير الخزائن الحديدية لحفظ المستندات والمقتنيات الثمينة.</li>
+              <li>إدارة الممتلكات والتركات.</li>
+              <li>التأمين المصرفي وخدمات التأمين بالتعاون مع شركات التأمين.</li>
+              <li>خدمات التمويل التأجيري (الإيجار التمويلي).</li>
+            </ul>
+          </div>
         </div>
       </section>
     </div>
