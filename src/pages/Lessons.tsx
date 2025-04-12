@@ -19,7 +19,8 @@ export default function Lessons() {
       'english': { name: 'اللغة الإنجليزية', color: '#0EA5E9' },
       'islamic': { name: 'العلوم الإسلامية', color: '#14B8A6' },
       'philosophy': { name: 'الفلسفة', color: '#9333EA' },
-      'law': { name: 'القانون', color: '#F59E0B' }
+      'law': { name: 'القانون', color: '#F59E0B' },
+      'mathematics': { name: 'الرياضيات', color: '#EF4444' }
     };
     
     return subjectId && subjectId in subjects ? subjects[subjectId].name : 'المادة';
@@ -49,7 +50,7 @@ export default function Lessons() {
       return [
         { id: 'money', title: 'الوحدة الأولى: النقود', description: 'المبادلة، النقود، خصائصها، وظائفها، أنواعها، إصدارها، الكتلة النقدية، التوازن النقدي' },
         { id: 'market', title: 'الوحدة الثانية: السوق والأسعار', description: 'تعريف السوق، أنواع الأسواق، أشكال السوق، الأسعار، العرض والطلب، التوازن' },
-        { id: 'banks', title: 'الوحدة الثالثة: البنوك', description: 'أنواع البنوك، العمليات المصرفية، الإقراض والودائع' },
+        { id: 'banks', title: 'الوحدة الثالثة: النظام المصرفي', description: 'تعريف النظام المصرفي، أهميته، البنوك وأنواعها، العمليات المصرفية' },
         { id: 'trade', title: 'الوحدة الرابعة: التجارة الدولية', description: 'مفهوم التجارة الدولية، الميزان التجاري، سياسات التجارة الخارجية' }
       ];
     } else if (subjectId === 'history') {

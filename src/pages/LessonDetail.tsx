@@ -5,6 +5,7 @@ import EconomicsLesson from '@/components/lessons/EconomicsLesson';
 import HistoryLesson from '@/components/lessons/HistoryLesson';
 import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson';
 import MarketLesson from '@/components/lessons/MarketLesson';
+import BankingLesson from '@/components/lessons/BankingLesson';
 
 export default function LessonDetail() {
   const { subjectId, lessonId } = useParams<{ subjectId: string; lessonId: string }>();
@@ -32,7 +33,7 @@ export default function LessonDetail() {
     if (subjectId === 'economics') {
       if (lessonId === 'money') return 'الوحدة الأولى: النقود';
       if (lessonId === 'market') return 'الوحدة الثانية: السوق والأسعار';
-      if (lessonId === 'banks') return 'الوحدة الثالثة: البنوك';
+      if (lessonId === 'banks') return 'الوحدة الثالثة: النظام المصرفي';
       if (lessonId === 'trade') return 'الوحدة الرابعة: التجارة الدولية';
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') return 'الوحدة الأولى: الحروب العالمية';
@@ -48,6 +49,8 @@ export default function LessonDetail() {
         return <EconomicsLesson />;
       } else if (lessonId === 'market') {
         return <MarketLesson />;
+      } else if (lessonId === 'banks') {
+        return <BankingLesson />;
       } else {
         return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
       }
