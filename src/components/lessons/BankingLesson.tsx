@@ -34,7 +34,13 @@ const BankingLesson = () => {
                     <li>2-3. البنوك المعتمدة في الجزائر</li>
                   </ul>
                 </li>
-                <li className="mt-2">3. العمليات المصرفية</li>
+                <li className="mt-2">3. العمليات المصرفية
+                  <ul className="list-inside pr-5 space-y-1 mt-1">
+                    <li>3-1. قبول الودائع</li>
+                    <li>3-2. توظيف الأموال</li>
+                    <li>3-3. معاملات مصرفية أخرى</li>
+                  </ul>
+                </li>
               </ul>
             </div>
 
