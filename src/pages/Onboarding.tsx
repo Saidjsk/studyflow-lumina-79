@@ -1,14 +1,9 @@
 
-import { BrowserRouter } from 'react-router-dom';
 import OnboardingScreen from '@/components/onboarding/OnboardingScreen';
 
 const Onboarding = () => {
-  // Wrap the OnboardingScreen with BrowserRouter to provide the router context
-  return (
-    <BrowserRouter>
-      <OnboardingScreen />
-    </BrowserRouter>
-  );
+  // No need for BrowserRouter since App.tsx already provides it
+  return <OnboardingScreen />;
 };
 
 export default Onboarding;
