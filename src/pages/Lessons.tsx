@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, BookOpen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -63,6 +62,11 @@ export default function Lessons() {
       return [
         { id: 'world-wars', title: 'الوحدة الأولى: الحروب العالمية', description: 'شخصيات سياسية، أحداث تاريخية هامة' },
         { id: 'algeria-revolution', title: 'الوحدة الثانية: الثورة الجزائرية', description: 'قادة الثورة، المراحل التاريخية للثورة، المواثيق' }
+      ];
+    } else if (subjectId === 'accounting') {
+      return [
+        { id: 'lesson1', title: 'الوحدة الأولى: المحاسبة', description: 'المحاسبة، مفاهيمها، أهدافها، مبادئها، عناصرها الأساسية' },
+        { id: 'lesson2', title: 'الوحدة الثانية: الميزانية', description: 'هذا الدرس قيد التطوير' }
       ];
     } else {
       return [

@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import EconomicsLesson from '@/components/lessons/EconomicsLesson';
@@ -11,6 +10,10 @@ import ExchangeLesson from '@/components/lessons/ExchangeLesson';
 import UnemploymentLesson from '@/components/lessons/UnemploymentLesson';
 import InflationLesson from '@/components/lessons/InflationLesson';
 import LeadershipLesson from '@/components/lessons/LeadershipLesson';
+import CommunicationLesson from '@/components/lessons/CommunicationLesson';
+import ControlLesson from '@/components/lessons/ControlLesson';
+import FinanceLesson from '@/components/lessons/FinanceLesson';
+import AccountingLesson from '@/components/lessons/accounting/AccountingLesson';
 
 export default function LessonDetail() {
   const { subjectId, lessonId } = useParams<{ subjectId: string; lessonId: string }>();
@@ -47,6 +50,8 @@ export default function LessonDetail() {
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') return 'الوحدة الأولى: الحروب العالمية';
       if (lessonId === 'algeria-revolution') return 'الوحدة الثانية: الثورة الجزائرية';
+    } else if (subjectId === 'accounting') {
+      if (lessonId === 'lesson1') return 'الوحدة الأولى: المحاسبة';
     }
     return 'الدرس';
   };
@@ -70,12 +75,24 @@ export default function LessonDetail() {
         return <InflationLesson />;
       } else if (lessonId === 'leadership') {
         return <LeadershipLesson />;
+      } else if (lessonId === 'communication') {
+        return <CommunicationLesson />;
+      } else if (lessonId === 'control') {
+        return <ControlLesson />;
+      } else if (lessonId === 'finance') {
+        return <FinanceLesson />;
       } else {
         return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
       }
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') {
         return <HistoryLesson />;
+      } else {
+        return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
+      }
+    } else if (subjectId === 'accounting') {
+      if (lessonId === 'lesson1') {
+        return <AccountingLesson />;
       } else {
         return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
       }
