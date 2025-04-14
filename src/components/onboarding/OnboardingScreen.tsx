@@ -1,14 +1,12 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { ArrowRight, BookOpen, Rocket, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 
 const OnboardingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(0);
-  const navigate = useNavigate();
   const { setHasOnboarded } = useOnboarding();
 
   const screens = [
@@ -41,8 +39,8 @@ const OnboardingScreen = () => {
     } else {
       // Update onboarding state in context
       setHasOnboarded(true);
-      // Navigate to home
-      navigate('/');
+      // Instead of using useNavigate, we'll rely on the Navigate component in App.tsx
+      // This component will be re-rendered when setHasOnboarded is called and will redirect in App.tsx
     }
   };
 
