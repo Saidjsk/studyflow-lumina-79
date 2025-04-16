@@ -4,6 +4,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCw, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useAds } from '@/contexts/AdsContext';
 
 // تكوين مكتبة PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
@@ -20,6 +21,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
   const [rotation, setRotation] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const { showInterstitial } = useAds();
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
@@ -47,6 +49,11 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
 
   // Handle download for both external and local PDFs
   const downloadPdf = () => {
+    // Show interstitial ad with 40% probability on PDF download
+    if (Math.random() < 0.4) {
+      showInterstitial();
+    }
+    
     // If it's a full URL (external file)
     if (pdfUrl.startsWith('http')) {
       window.open(pdfUrl, '_blank');

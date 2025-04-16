@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import TopNav from './TopNav';
 import Footer from './Footer';
+import { useAds } from '@/contexts/AdsContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,11 +11,23 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { showInterstitial } = useAds();
 
   // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+    
+    // Show interstitial ad on route change (not on first load)
+    const isFirstLoad = sessionStorage.getItem('firstLoad') === null;
+    if (isFirstLoad) {
+      sessionStorage.setItem('firstLoad', 'false');
+    } else {
+      // Show interstitial ad with 20% probability on navigation
+      if (Math.random() < 0.2) {
+        showInterstitial();
+      }
+    }
+  }, [location.pathname, showInterstitial]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 to-white dark:from-gray-950 dark:to-gray-900">

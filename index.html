@@ -16,6 +16,17 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Start.io SDK -->
+    <script type="text/javascript">
+      var startAppReady = false;
+      function onStartAppBannerLoaded() {
+        startAppReady = true;
+        // Dispatch event when Start.io SDK is ready
+        window.dispatchEvent(new Event('startAppReady'));
+      }
+    </script>
+    <script type="text/javascript" src="https://sdk.startapp.com/js/2/latest/start.js"></script>
   </head>
 
   <body>

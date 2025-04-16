@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { OnboardingProvider, useOnboarding } from "./contexts/OnboardingContext";
+import { AdsProvider } from "./contexts/AdsContext";
 import Layout from "./components/layout/Layout";
 import Index from "./pages/Index";
 import Subject from "./pages/Subject";
@@ -138,13 +139,15 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <OnboardingProvider>
-        <BrowserRouter>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <ProtectedRoutes />
-          </TooltipProvider>
-        </BrowserRouter>
+        <AdsProvider>
+          <BrowserRouter>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <ProtectedRoutes />
+            </TooltipProvider>
+          </BrowserRouter>
+        </AdsProvider>
       </OnboardingProvider>
     </ThemeProvider>
   </QueryClientProvider>
