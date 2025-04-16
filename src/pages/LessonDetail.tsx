@@ -1,3 +1,4 @@
+
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import EconomicsLesson from '@/components/lessons/EconomicsLesson';
@@ -14,6 +15,7 @@ import CommunicationLesson from '@/components/lessons/CommunicationLesson';
 import ControlLesson from '@/components/lessons/ControlLesson';
 import FinanceLesson from '@/components/lessons/FinanceLesson';
 import AccountingLesson from '@/components/lessons/accounting/AccountingLesson';
+import HistoryGeographyLesson from '@/components/lessons/history/HistoryGeographyLesson';
 
 export default function LessonDetail() {
   const { subjectId, lessonId } = useParams<{ subjectId: string; lessonId: string }>();
@@ -48,8 +50,11 @@ export default function LessonDetail() {
       if (lessonId === 'inflation') return 'الوحدة السابعة: التضخم';
       if (lessonId === 'leadership') return 'الوحدة الثامنة: القيادة';
     } else if (subjectId === 'history') {
-      if (lessonId === 'world-wars') return 'الوحدة الأولى: الحروب العالمية';
-      if (lessonId === 'algeria-revolution') return 'الوحدة الثانية: الثورة الجزائرية';
+      if (lessonId === 'world-wars') return 'الوحدة الثانية: الحروب العالمية';
+      if (lessonId === 'algeria-revolution') return 'الوحدة الثالثة: الثورة الجزائرية';
+      if (lessonId === 'colonization') return 'الوحدة الأولى: الاستعمار في إفريقيا';
+      if (lessonId === 'cold-war') return 'الوحدة الرابعة: الحرب الباردة';
+      if (lessonId === 'geography') return 'الوحدة الخامسة: دروس الجغرافيا';
     } else if (subjectId === 'accounting') {
       if (lessonId === 'lesson1') return 'الوحدة الأولى: المحاسبة';
     }
@@ -87,6 +92,9 @@ export default function LessonDetail() {
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') {
         return <HistoryLesson />;
+      } else if (lessonId === 'colonization' || lessonId === 'algeria-revolution' || 
+                lessonId === 'cold-war' || lessonId === 'geography') {
+        return <HistoryGeographyLesson />;
       } else {
         return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
       }

@@ -45,6 +45,22 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
   const zoomOut = () => setScale(prevScale => Math.max(prevScale - 0.2, 0.5));
   const rotate = () => setRotation(prevRotation => (prevRotation + 90) % 360);
 
+  // Handle download for both external and local PDFs
+  const downloadPdf = () => {
+    // If it's a full URL (external file)
+    if (pdfUrl.startsWith('http')) {
+      window.open(pdfUrl, '_blank');
+    } else {
+      // For local files, create an anchor and trigger download
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = title ? `${title}.pdf` : 'document.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   return (
     <Card className="w-full mb-6">
       {title && (
@@ -114,11 +130,9 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
                 <Button variant="outline" size="sm" onClick={rotate}>
                   <RotateCw className="h-4 w-4" />
                 </Button>
-                <a href={pdfUrl} target="_blank" rel="noopener noreferrer" download>
-                  <Button variant="outline" size="sm">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </a>
+                <Button variant="outline" size="sm" onClick={downloadPdf}>
+                  <Download className="h-4 w-4" />
+                </Button>
               </div>
             </div>
           </>

@@ -1,3 +1,4 @@
+
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, BookOpen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -60,8 +61,11 @@ export default function Lessons() {
       ];
     } else if (subjectId === 'history') {
       return [
-        { id: 'world-wars', title: 'الوحدة الأولى: الحروب العالمية', description: 'شخصيات سياسية، أحداث تاريخية هامة' },
-        { id: 'algeria-revolution', title: 'الوحدة الثانية: الثورة الجزائرية', description: 'قادة الثورة، المراحل التاريخية للثورة، المواثيق' }
+        { id: 'colonization', title: 'الوحدة الأولى: الاستعمار في إفريقيا', description: 'درس حول الاستعمار الأوروبي في إفريقيا وآثاره' },
+        { id: 'world-wars', title: 'الوحدة الثانية: الحروب العالمية', description: 'محطات بارزة من الحرب العالمية الأولى والثانية' },
+        { id: 'algeria-revolution', title: 'الوحدة الثالثة: الثورة الجزائرية', description: 'مراحل الثورة الجزائرية وأهم الأحداث والشخصيات' },
+        { id: 'cold-war', title: 'الوحدة الرابعة: الحرب الباردة', description: 'الصراع بين المعسكرين الشرقي والغربي' },
+        { id: 'geography', title: 'الوحدة الخامسة: دروس الجغرافيا', description: 'الموارد الطبيعية، السكان، التنمية المستدامة' }
       ];
     } else if (subjectId === 'accounting') {
       return [
@@ -105,7 +109,7 @@ export default function Lessons() {
             <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
               <CardHeader style={{ backgroundColor: `${subjectColor}15` }} className="border-b border-gray-100 dark:border-gray-800">
                 <div className="flex items-center">
-                  <div className="p-2 rounded-full mr-3" style={{ backgroundColor: subjectColor }}>
+                  <div className="p-2 rounded-full ml-3" style={{ backgroundColor: subjectColor }}>
                     <BookOpen className="h-5 w-5 text-white" />
                   </div>
                   <CardTitle className="text-lg" style={{ color: subjectColor }}>
