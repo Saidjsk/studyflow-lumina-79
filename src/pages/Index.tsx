@@ -1,126 +1,178 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Book, Calculator, FileText, HelpCircle, Lightbulb } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { 
+  BookOpen, Calculator, BarChart, Globe, PieChart, 
+  Database, FileText, BookMarked, Pencil, Building, Clock, Scale, Lightbulb
+} from 'lucide-react';
+import SubjectCard from '@/components/home/SubjectCard';
 import { Card, CardContent } from "@/components/ui/card";
 
-const Index = () => {
-  const subjects = [
-    { 
-      id: 'economics', 
-      name: 'الاقتصاد', 
-      icon: <Book className="h-6 w-6" />,
-      path: '/subject/economics',
-      color: 'bg-blue-500'
-    },
-    { 
-      id: 'management', 
-      name: 'التسيير', 
-      icon: <FileText className="h-6 w-6" />,
-      path: '/subject/management',
-      color: 'bg-green-500'
-    },
-    { 
-      id: 'accounting', 
-      name: 'المحاسبة', 
-      icon: <Calculator className="h-6 w-6" />,
-      path: '/subject/accounting',
-      color: 'bg-purple-500'
-    },
-    { 
-      id: 'history', 
-      name: 'التاريخ والجغرافيا', 
-      icon: <Book className="h-6 w-6" />,
-      path: '/subject/history',
-      color: 'bg-orange-500'
-    }
-  ];
+interface CountdownTime {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
 
-  const tools = [
-    { 
-      id: 'calculator', 
-      name: 'الآلة الحاسبة', 
-      icon: <Calculator className="h-6 w-6" />,
-      path: '/calculator',
-      color: 'bg-yellow-500'
-    },
-    { 
-      id: 'quiz', 
-      name: 'اختبار قصير', 
-      icon: <HelpCircle className="h-6 w-6" />,
-      path: '/quiz',
-      color: 'bg-red-500'
-    },
-    { 
-      id: 'tips', 
-      name: 'نصائح للتفوق', 
-      icon: <Lightbulb className="h-6 w-6" />,
-      path: '/tips',
-      color: 'bg-indigo-500'
-    }
-  ];
+const subjects = [
+  {
+    id: 'accounting',
+    name: 'المحاسبة',
+    icon: Calculator,
+    color: '#10B981'
+  },
+  {
+    id: 'economics',
+    name: 'الإقتصاد',
+    icon: BarChart,
+    color: '#3B82F6'
+  },
+  {
+    id: 'mathematics',
+    name: 'الرياضيات',
+    icon: PieChart,
+    color: '#EF4444'
+  },
+  {
+    id: 'history',
+    name: 'التاريخ والجغرافيا',
+    icon: Globe,
+    color: '#F97316'
+  },
+  {
+    id: 'arabic',
+    name: 'اللغة العربية',
+    icon: Pencil,
+    color: '#6366F1'
+  },
+  {
+    id: 'french',
+    name: 'اللغة الفرنسية',
+    icon: BookMarked,
+    color: '#EC4899'
+  },
+  {
+    id: 'amazigh',
+    name: 'اللغة الأمازيغية',
+    icon: Building,
+    color: '#8B5CF6'
+  },
+  {
+    id: 'english',
+    name: 'اللغة الإنجليزية',
+    icon: Globe,
+    color: '#0EA5E9'
+  },
+  {
+    id: 'islamic',
+    name: 'العلوم الإسلامية',
+    icon: BookOpen,
+    color: '#14B8A6'
+  },
+  {
+    id: 'philosophy',
+    name: 'الفلسفة',
+    icon: Lightbulb,
+    color: '#9333EA'
+  },
+  {
+    id: 'law',
+    name: 'القانون',
+    icon: Scale,
+    color: '#F59E0B'
+  }
+];
+
+export default function Index() {
+  const [countdown, setCountdown] = useState<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  // تحديث العد التنازلي ليستهدف 15 جوان 2025
+  useEffect(() => {
+    const examDate = new Date('2025-06-15T00:00:00');
+    
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const difference = examDate.getTime() - now.getTime();
+      
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+        
+        setCountdown({
+          days,
+          hours,
+          minutes,
+          seconds
+        });
+      } else {
+        // في حالة انتهاء الوقت
+        setCountdown({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        });
+      }
+    };
+    
+    // حساب الوقت المتبقي فورًا ثم إعداد الفاصل الزمني
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+    
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <div className="min-h-screen fade-in">
-      {/* Hero Section */}
-      <section className="mb-8 text-center">
-        <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-          بكالوريا شعبة التسيير والاقتصاد
-        </h1>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          دروس، تمارين، اختبارات، وأدوات مفيدة لطلاب البكالوريا في شعبة التسيير والاقتصاد
-        </p>
-      </section>
+    <div className="animate-fade-in pb-20">
+      {/* العد التنازلي */}
+      <Card className="mb-6 animate-scale-in overflow-hidden">
+        <CardContent className="p-0">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white p-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Clock className="h-5 w-5" />
+                <h3 className="font-bold">العد التنازلي للبكالوريا</h3>
+              </div>
+              <p className="text-sm">15 جوان 2025</p>
+            </div>
+          </div>
+          <div className="flex justify-center items-center p-4">
+            <div className="grid grid-cols-4 gap-3 text-center w-full max-w-md">
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold">{countdown.days}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">يوم</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold">{countdown.hours}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">ساعة</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold">{countdown.minutes}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">دقيقة</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold">{countdown.seconds}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">ثانية</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Subjects Section */}
-      <section className="mb-8">
-        <h2 className="text-xl font-bold mb-4 text-center">المواد الدراسية</h2>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {subjects.map((subject) => (
-            <Link 
-              to={subject.path} 
-              key={subject.id} 
-              className="hover-lift"
-            >
-              <Card className="h-full bg-gray-900 border border-gray-800 overflow-hidden">
-                <CardContent className="p-4 flex flex-col items-center text-center">
-                  <div className={`${subject.color} p-3 rounded-full mb-3`}>
-                    {subject.icon}
-                  </div>
-                  <h3 className="font-medium text-white">{subject.name}</h3>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Tools Section */}
-      <section>
-        <h2 className="text-xl font-bold mb-4 text-center">أدوات مفيدة</h2>
-        
-        <div className="grid grid-cols-3 gap-4">
-          {tools.map((tool) => (
-            <Link 
-              to={tool.path} 
-              key={tool.id}
-              className="hover-lift"
-            >
-              <Card className="h-full bg-gray-900 border border-gray-800 overflow-hidden">
-                <CardContent className="p-4 flex flex-col items-center text-center">
-                  <div className={`${tool.color} p-2 rounded-full mb-2`}>
-                    {tool.icon}
-                  </div>
-                  <h3 className="font-medium text-white text-sm">{tool.name}</h3>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <div className="grid grid-cols-2 gap-3 mb-24">
+        {subjects.map((subject, index) => (
+          <SubjectCard
+            key={subject.id}
+            id={subject.id}
+            name={subject.name}
+            icon={subject.icon}
+            color={subject.color}
+            delay={index}
+          />
+        ))}
+      </div>
     </div>
   );
-};
-
-export default Index;
+}
