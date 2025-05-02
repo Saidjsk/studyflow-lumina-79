@@ -85,29 +85,29 @@ export default function Lessons() {
   return (
     <div className="animate-fade-in">
       {/* Header */}
-      <div className="flex items-center mb-8">
+      <div className="flex items-center mb-8 text-gray-400">
         <Link 
           to="/" 
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center hover:text-blue-400 transition-colors"
         >
           <span>الرئيسية</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
         <Link 
           to={`/subject/${subjectId}`}
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center hover:text-blue-400 transition-colors"
         >
           <span>{getSubjectName()}</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
-        <span className="text-gray-900 dark:text-white font-medium">الدروس والملخصات</span>
+        <span className="text-white font-medium">الدروس والملخصات</span>
       </div>
       
       <div className="grid md:grid-cols-2 gap-4">
         {lessons.map(lesson => (
           <Link key={lesson.id} to={`/subject/${subjectId}/lesson/${lesson.id}`}>
-            <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
-              <CardHeader style={{ backgroundColor: `${subjectColor}15` }} className="border-b border-gray-100 dark:border-gray-800">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer h-full bg-gray-900 border-gray-800 hover:border-gray-700">
+              <CardHeader className="border-b border-gray-800" style={{ backgroundColor: `${subjectColor}15` }}>
                 <div className="flex items-center">
                   <div className="p-2 rounded-full ml-3" style={{ backgroundColor: subjectColor }}>
                     <BookOpen className="h-5 w-5 text-white" />
@@ -118,7 +118,7 @@ export default function Lessons() {
                 </div>
               </CardHeader>
               <CardContent className="pt-4">
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-300">
                   {lesson.description}
                 </p>
               </CardContent>

@@ -76,25 +76,25 @@ const HistoryGeographyLesson = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <Card className="mb-6">
-        <CardHeader className="bg-orange-50 dark:bg-orange-900/20 border-b border-orange-100 dark:border-orange-800">
+        <CardHeader className="bg-orange-900/20 border-b border-orange-800">
           <div className="flex items-center">
             <div className="bg-orange-500 p-2 rounded-full ml-3"> {/* RTL-friendly margin */}
               <BookOpen className="h-5 w-5 text-white" />
             </div>
-            <CardTitle className="text-orange-800 dark:text-orange-300">دروس التاريخ والجغرافيا</CardTitle>
+            <CardTitle className="text-orange-300">دروس التاريخ والجغرافيا</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="pt-6">
           <div className="prose dark:prose-invert max-w-none leading-relaxed">
-            <p className="mb-6">
+            <p className="mb-6 text-gray-300">
               مجموعة شاملة من دروس التاريخ والجغرافيا لطلاب البكالوريا شعبة التسيير والاقتصاد. اضغط على أي درس لعرض محتواه.
             </p>
             
             {/* قسم التاريخ */}
             <div className="mb-8">
-              <h2 className="text-xl font-bold mb-4 flex items-center">
-                <div className="bg-orange-100 dark:bg-orange-900/30 p-1.5 rounded-full ml-2">
-                  <BookOpen className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+              <h2 className="text-xl font-bold mb-4 flex items-center text-white">
+                <div className="bg-orange-900/30 p-1.5 rounded-full ml-2">
+                  <BookOpen className="h-5 w-5 text-orange-400" />
                 </div>
                 دروس التاريخ
               </h2>
@@ -102,12 +102,12 @@ const HistoryGeographyLesson = () => {
               <Accordion type="single" collapsible className="w-full">
                 {historyLessons.map((lesson) => (
                   <AccordionItem key={lesson.id} value={lesson.id}>
-                    <AccordionTrigger className="py-3 px-4 bg-gray-50 dark:bg-gray-800/40 rounded-lg mb-2 hover:bg-gray-100 dark:hover:bg-gray-800/60">
+                    <AccordionTrigger className="py-3 px-4 bg-gray-800/40 rounded-lg mb-2 hover:bg-gray-800/60">
                       <div className="flex items-center text-right w-full"> {/* RTL text alignment */}
                         <FileText className="h-5 w-5 text-orange-500 ml-2" />
                         <div>
-                          <h3 className="font-medium text-base">{lesson.title}</h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">{lesson.description}</p>
+                          <h3 className="font-medium text-base text-white">{lesson.title}</h3>
+                          <p className="text-gray-400 text-sm">{lesson.description}</p>
                         </div>
                       </div>
                     </AccordionTrigger>
@@ -116,7 +116,7 @@ const HistoryGeographyLesson = () => {
                         <div className="flex justify-between items-center mb-2">
                           <Button 
                             variant="outline" 
-                            className="flex items-center text-orange-600 border-orange-200 hover:bg-orange-50 hover:text-orange-700"
+                            className="flex items-center text-orange-400 border-orange-800 hover:bg-orange-950/30 hover:text-orange-300"
                             onClick={() => downloadPdf(lesson.pdfPath, lesson.title)}
                           >
                             <Download className="ml-2 h-4 w-4" /> {/* RTL icon placement */}
@@ -124,7 +124,7 @@ const HistoryGeographyLesson = () => {
                           </Button>
                           <Button 
                             variant="default" 
-                            className="bg-orange-500 hover:bg-orange-600"
+                            className="bg-orange-600 hover:bg-orange-700"
                             onClick={() => handleLessonClick(lesson.id, lesson.pdfPath)}
                           >
                             عرض الدرس
@@ -148,9 +148,9 @@ const HistoryGeographyLesson = () => {
             
             {/* قسم الجغرافيا */}
             <div>
-              <h2 className="text-xl font-bold mb-4 flex items-center">
-                <div className="bg-blue-100 dark:bg-blue-900/30 p-1.5 rounded-full ml-2">
-                  <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              <h2 className="text-xl font-bold mb-4 flex items-center text-white">
+                <div className="bg-blue-900/30 p-1.5 rounded-full ml-2">
+                  <BookOpen className="h-5 w-5 text-blue-400" />
                 </div>
                 دروس الجغرافيا
               </h2>
@@ -158,12 +158,12 @@ const HistoryGeographyLesson = () => {
               <Accordion type="single" collapsible className="w-full">
                 {geographyLessons.map((lesson) => (
                   <AccordionItem key={lesson.id} value={lesson.id}>
-                    <AccordionTrigger className="py-3 px-4 bg-gray-50 dark:bg-gray-800/40 rounded-lg mb-2 hover:bg-gray-100 dark:hover:bg-gray-800/60">
+                    <AccordionTrigger className="py-3 px-4 bg-gray-800/40 rounded-lg mb-2 hover:bg-gray-800/60">
                       <div className="flex items-center text-right w-full"> {/* RTL text alignment */}
                         <FileText className="h-5 w-5 text-blue-500 ml-2" />
                         <div>
-                          <h3 className="font-medium text-base">{lesson.title}</h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">{lesson.description}</p>
+                          <h3 className="font-medium text-base text-white">{lesson.title}</h3>
+                          <p className="text-gray-400 text-sm">{lesson.description}</p>
                         </div>
                       </div>
                     </AccordionTrigger>
@@ -172,7 +172,7 @@ const HistoryGeographyLesson = () => {
                         <div className="flex justify-between items-center mb-2">
                           <Button 
                             variant="outline" 
-                            className="flex items-center text-blue-600 border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                            className="flex items-center text-blue-400 border-blue-800 hover:bg-blue-950/30 hover:text-blue-300"
                             onClick={() => downloadPdf(lesson.pdfPath, lesson.title)}
                           >
                             <Download className="ml-2 h-4 w-4" /> {/* RTL icon placement */}
@@ -180,7 +180,7 @@ const HistoryGeographyLesson = () => {
                           </Button>
                           <Button 
                             variant="default" 
-                            className="bg-blue-500 hover:bg-blue-600"
+                            className="bg-blue-600 hover:bg-blue-700"
                             onClick={() => handleLessonClick(lesson.id, lesson.pdfPath)}
                           >
                             عرض الدرس

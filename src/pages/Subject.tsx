@@ -2,8 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
-  ChevronRight, 
-  BarChart, Calculator, PieChart, Globe, BookMarked, 
+  ChevronRight, BarChart, Calculator, PieChart, Globe, BookMarked, 
   Pencil, BookOpen, Database, FileText, Building, Scale, Lightbulb
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -89,8 +88,8 @@ export default function Subject() {
     return (
       <div className="flex justify-center items-center h-96">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">المادة غير موجودة</h2>
-          <Link to="/" className="text-blue-600 dark:text-blue-400 mt-4 inline-block">
+          <h2 className="text-2xl font-bold text-white">المادة غير موجودة</h2>
+          <Link to="/" className="text-blue-400 mt-4 inline-block">
             العودة للصفحة الرئيسية
           </Link>
         </div>
@@ -102,61 +101,69 @@ export default function Subject() {
   
   return (
     <div className="animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center mb-8">
+      {/* Header - Navigation */}
+      <div className="flex items-center mb-8 text-gray-400">
         <Link 
           to="/" 
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center hover:text-blue-400 transition-colors"
         >
           <span>الرئيسية</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
-        <span className="text-gray-900 dark:text-white font-medium">{subject.name}</span>
+        <span className="text-white font-medium">{subject.name}</span>
       </div>
       
-      {/* Subject Info */}
-      <div className="flex items-center mb-8">
-        <div 
-          className="p-4 rounded-xl mr-4"
-          style={{ backgroundColor: subject.color }}
-        >
-          <SubjectIcon size={32} className="text-white" />
-        </div>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+      {/* Subject Header */}
+      <div className="flex flex-col mb-8">
+        <div className="flex items-center mb-2">
+          <div 
+            className="p-4 rounded-xl mr-4"
+            style={{ backgroundColor: subject.color }}
+          >
+            <SubjectIcon size={32} className="text-white" />
+          </div>
+          <h1 className="text-3xl font-bold text-white">
             {subject.name}
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            مواضيع وحلول البكالوريا للسنوات السابقة
-          </p>
         </div>
+        <p className="text-gray-400 mt-1">
+          دروس ومواضيع البكالوريا للسنوات السابقة
+        </p>
       </div>
       
-      {/* Lessons Section Button */}
-      <div className="flex mb-8">
-        <Link to={`/subject/${subject.id}/lessons`}>
+      {/* Tab Navigation */}
+      <div className="flex mb-8 gap-4">
+        <Link to={`/subject/${subject.id}`} className="w-full">
           <Button 
             variant="outline" 
-            className="flex items-center gap-2 bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800 hover:border-blue-300"
+            className="w-full flex items-center justify-center gap-2 bg-gray-800/60 hover:bg-gray-700 text-white border-gray-700"
+          >
+            <FileText size={18} />
+            <span>مواضيع البكالوريا</span>
+          </Button>
+        </Link>
+        <Link to={`/subject/${subject.id}/lessons`} className="w-full">
+          <Button 
+            variant="outline" 
+            className="w-full flex items-center justify-center gap-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 border-blue-800"
           >
             <BookOpen size={18} />
-            <span>الدروس والملخصات</span>
+            <span>الدروس</span>
           </Button>
         </Link>
       </div>
       
       {/* Years Grid */}
-      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">بكالوريا سنوات سابقة</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 gap-4">
         {years.map((year, index) => (
           <Link
             key={year}
             to={`/subject/${subject.id}/${year}`}
             className={cn(
               "group relative p-6 flex flex-col items-center justify-center",
-              "bg-white dark:bg-gray-800 rounded-xl shadow-sm",
-              "border border-gray-100 dark:border-gray-700",
-              "hover-lift hover:border-blue-200 dark:hover:border-blue-900/50",
+              "bg-gray-900 rounded-xl",
+              "border border-gray-800",
+              "hover:border-blue-900/70",
               "transition duration-300 ease-in-out",
               "animate-scale-in"
             )}
@@ -169,14 +176,12 @@ export default function Subject() {
               style={{ backgroundColor: subject.color }}
             ></div>
             
-            <span className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <span className="text-2xl font-bold text-white mb-2">
               {year}
             </span>
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-gray-400">
               بكالوريا
             </span>
-            
-            <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/5 dark:group-hover:bg-blue-500/10 rounded-xl transition-colors duration-300"></div>
           </Link>
         ))}
       </div>

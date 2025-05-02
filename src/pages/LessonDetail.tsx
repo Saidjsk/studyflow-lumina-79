@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import EconomicsLesson from '@/components/lessons/EconomicsLesson';
@@ -112,29 +111,29 @@ export default function LessonDetail() {
   return (
     <div className="animate-fade-in">
       {/* Header */}
-      <div className="flex items-center mb-8">
+      <div className="flex items-center mb-8 text-gray-400">
         <Link 
           to="/" 
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center hover:text-blue-400 transition-colors"
         >
           <span>الرئيسية</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
         <Link 
           to={`/subject/${subjectId}`}
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center hover:text-blue-400 transition-colors"
         >
           <span>{getSubjectName()}</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
         <Link 
           to={`/subject/${subjectId}/lessons`}
-          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center hover:text-blue-400 transition-colors"
         >
           <span>الدروس والملخصات</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
-        <span className="text-gray-900 dark:text-white font-medium">{getLessonTitle()}</span>
+        <span className="text-white font-medium">{getLessonTitle()}</span>
       </div>
       
       {/* Render appropriate lesson content */}
