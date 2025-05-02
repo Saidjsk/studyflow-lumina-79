@@ -1,3 +1,4 @@
+
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import EconomicsLesson from '@/components/lessons/EconomicsLesson';
@@ -13,6 +14,7 @@ import LeadershipLesson from '@/components/lessons/LeadershipLesson';
 import CommunicationLesson from '@/components/lessons/CommunicationLesson';
 import ControlLesson from '@/components/lessons/ControlLesson';
 import FinanceLesson from '@/components/lessons/FinanceLesson';
+import ProductionLesson from '@/components/lessons/ProductionLesson';
 import AccountingLesson from '@/components/lessons/accounting/AccountingLesson';
 import HistoryGeographyLesson from '@/components/lessons/history/HistoryGeographyLesson';
 
@@ -48,6 +50,10 @@ export default function LessonDetail() {
       if (lessonId === 'unemployment') return 'الوحدة السادسة: البطالة';
       if (lessonId === 'inflation') return 'الوحدة السابعة: التضخم';
       if (lessonId === 'leadership') return 'الوحدة الثامنة: القيادة';
+      if (lessonId === 'communication') return 'الوحدة التاسعة: الاتصال';
+      if (lessonId === 'control') return 'الوحدة العاشرة: الرقابة';
+      if (lessonId === 'finance') return 'الوحدة الحادية عشر: التمويل';
+      if (lessonId === 'production') return 'الوحدة الثانية عشر: الإنتاج';
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') return 'الوحدة الثانية: الحروب العالمية';
       if (lessonId === 'algeria-revolution') return 'الوحدة الثالثة: الثورة الجزائرية';
@@ -85,6 +91,8 @@ export default function LessonDetail() {
         return <ControlLesson />;
       } else if (lessonId === 'finance') {
         return <FinanceLesson />;
+      } else if (lessonId === 'production') {
+        return <ProductionLesson />;
       } else {
         return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
       }
