@@ -1,206 +1,85 @@
 
-import React, { useState } from 'react';
-import { BookOpen, FileText, Download, ChevronDown } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import PdfViewer from '@/components/pdf/PdfViewer';
-
-// These will be our local PDF files - we'll need to add them to the project
-const historyLessons = [
-  { 
-    id: 'colonization', 
-    title: 'الاستعمار في إفريقيا', 
-    description: 'درس حول الاستعمار الأوروبي في إفريقيا وآثاره', 
-    pdfPath: '/pdfs/history/colonization.pdf' 
-  },
-  { 
-    id: 'world-wars', 
-    title: 'الحروب العالمية', 
-    description: 'محطات بارزة من الحرب العالمية الأولى والثانية', 
-    pdfPath: '/pdfs/history/world-wars.pdf' 
-  },
-  { 
-    id: 'algeria-revolution', 
-    title: 'الثورة الجزائرية', 
-    description: 'مراحل الثورة الجزائرية وأهم الأحداث والشخصيات', 
-    pdfPath: '/pdfs/history/algeria-revolution.pdf' 
-  },
-  { 
-    id: 'cold-war', 
-    title: 'الحرب الباردة', 
-    description: 'الصراع بين المعسكرين الشرقي والغربي', 
-    pdfPath: '/pdfs/history/cold-war.pdf' 
-  }
-];
-
-const geographyLessons = [
-  { 
-    id: 'natural-resources', 
-    title: 'الموارد الطبيعية', 
-    description: 'توزيع الموارد الطبيعية في العالم وأهميتها الاقتصادية', 
-    pdfPath: '/pdfs/geography/natural-resources.pdf' 
-  },
-  { 
-    id: 'population', 
-    title: 'السكان والديموغرافيا', 
-    description: 'توزيع السكان في العالم والتركيبة الديموغرافية', 
-    pdfPath: '/pdfs/geography/population.pdf' 
-  },
-  { 
-    id: 'sustainable-development', 
-    title: 'التنمية المستدامة', 
-    description: 'مفهوم التنمية المستدامة وتحدياتها العالمية', 
-    pdfPath: '/pdfs/geography/sustainable-development.pdf' 
-  }
-];
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { FileText, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 const HistoryGeographyLesson = () => {
-  const [selectedLesson, setSelectedLesson] = useState<string | null>(null);
-  const [activePdf, setActivePdf] = useState<string | null>(null);
-
-  const handleLessonClick = (id: string, pdfPath: string) => {
-    setSelectedLesson(id);
-    setActivePdf(pdfPath);
+  const { lessonId } = useParams<{ lessonId: string }>();
+  
+  const getLessonTitle = () => {
+    if (lessonId === 'colonization') return 'الاستعمار في إفريقيا';
+    if (lessonId === 'world-wars') return 'الحروب العالمية';
+    if (lessonId === 'algeria-revolution') return 'الثورة الجزائرية';
+    if (lessonId === 'cold-war') return 'الحرب الباردة';
+    if (lessonId === 'geography') return 'دروس الجغرافيا';
+    return 'الدرس';
   };
-
-  const downloadPdf = (pdfPath: string, title: string) => {
-    const link = document.createElement('a');
-    link.href = pdfPath;
-    link.download = `${title}.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  
+  const getPdfUrl = () => {
+    if (lessonId === 'colonization') return 'https://drive.google.com/file/d/1MSkdWtQhK4xhH6o6CaFPXHmWFiYYZn5E/view';
+    if (lessonId === 'world-wars') return 'https://drive.google.com/file/d/1p5MrdBcmfRRBlDh0gk9cxDpzYNDwFzAh/view';
+    if (lessonId === 'algeria-revolution') return 'https://drive.google.com/file/d/18SL9Nk47pxr8tT9A-4Qs4Ul3D-QJI6JR/view';
+    if (lessonId === 'cold-war') return 'https://drive.google.com/file/d/1DxN_jkGjj7GJcTVmQZFx9YJJeogDq6cp/view';
+    if (lessonId === 'geography') return 'https://drive.google.com/file/d/1z9oA3AjQQjmzhy8GEwGaUZkMpW1dPQ_H/view';
+    return '';
   };
-
+  
+  const openPdfInNewTab = () => {
+    const pdfUrl = getPdfUrl();
+    if (pdfUrl) {
+      window.open(pdfUrl, '_blank');
+    }
+  };
+  
+  const title = getLessonTitle();
+  
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="mb-6">
-        <CardHeader className="bg-orange-900/20 border-b border-orange-800">
-          <div className="flex items-center">
-            <div className="bg-orange-500 p-2 rounded-full ml-3"> {/* RTL-friendly margin */}
-              <BookOpen className="h-5 w-5 text-white" />
+      <Card className="w-full mb-6 bg-gray-900 border-gray-800">
+        <div className="bg-orange-900/20 border-b border-orange-800 p-4">
+          <h2 className="text-lg font-semibold text-orange-300">{title}</h2>
+        </div>
+        <CardContent className="p-5">
+          <div 
+            onClick={openPdfInNewTab}
+            className="flex items-center justify-between bg-gray-800 p-4 rounded-xl border border-gray-700 hover:border-orange-700/50 transition-all duration-300 cursor-pointer"
+          >
+            <div className="flex items-center">
+              <div className="p-3 bg-orange-900/30 rounded-lg ml-4">
+                <FileText size={24} className="text-orange-400" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-white">
+                  {`درس ${title}`}
+                </h3>
+                <p className="text-sm text-gray-400">
+                  PDF • 2-3 MB
+                </p>
+              </div>
             </div>
-            <CardTitle className="text-orange-300">دروس التاريخ والجغرافيا</CardTitle>
+            
+            <div className="flex">
+              <button 
+                className="p-2 text-gray-400 hover:text-orange-400 rounded-full hover:bg-gray-700/70 transition-colors"
+                aria-label="Open in new tab"
+                onClick={openPdfInNewTab}
+              >
+                <ExternalLink size={20} />
+              </button>
+            </div>
           </div>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <div className="prose dark:prose-invert max-w-none leading-relaxed">
-            <p className="mb-6 text-gray-300">
-              مجموعة شاملة من دروس التاريخ والجغرافيا لطلاب البكالوريا شعبة التسيير والاقتصاد. اضغط على أي درس لعرض محتواه.
-            </p>
-            
-            {/* قسم التاريخ */}
-            <div className="mb-8">
-              <h2 className="text-xl font-bold mb-4 flex items-center text-white">
-                <div className="bg-orange-900/30 p-1.5 rounded-full ml-2">
-                  <BookOpen className="h-5 w-5 text-orange-400" />
-                </div>
-                دروس التاريخ
-              </h2>
-              
-              <Accordion type="single" collapsible className="w-full">
-                {historyLessons.map((lesson) => (
-                  <AccordionItem key={lesson.id} value={lesson.id}>
-                    <AccordionTrigger className="py-3 px-4 bg-gray-800/40 rounded-lg mb-2 hover:bg-gray-800/60">
-                      <div className="flex items-center text-right w-full"> {/* RTL text alignment */}
-                        <FileText className="h-5 w-5 text-orange-500 ml-2" />
-                        <div>
-                          <h3 className="font-medium text-base text-white">{lesson.title}</h3>
-                          <p className="text-gray-400 text-sm">{lesson.description}</p>
-                        </div>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="py-2 space-y-4">
-                        <div className="flex justify-between items-center mb-2">
-                          <Button 
-                            variant="outline" 
-                            className="flex items-center text-orange-400 border-orange-800 hover:bg-orange-950/30 hover:text-orange-300"
-                            onClick={() => downloadPdf(lesson.pdfPath, lesson.title)}
-                          >
-                            <Download className="ml-2 h-4 w-4" /> {/* RTL icon placement */}
-                            تحميل الملف
-                          </Button>
-                          <Button 
-                            variant="default" 
-                            className="bg-orange-600 hover:bg-orange-700"
-                            onClick={() => handleLessonClick(lesson.id, lesson.pdfPath)}
-                          >
-                            عرض الدرس
-                          </Button>
-                        </div>
-                        
-                        {selectedLesson === lesson.id && activePdf && (
-                          <div className="mt-4">
-                            <PdfViewer 
-                              pdfUrl={activePdf}
-                              title={lesson.title}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-            
-            {/* قسم الجغرافيا */}
-            <div>
-              <h2 className="text-xl font-bold mb-4 flex items-center text-white">
-                <div className="bg-blue-900/30 p-1.5 rounded-full ml-2">
-                  <BookOpen className="h-5 w-5 text-blue-400" />
-                </div>
-                دروس الجغرافيا
-              </h2>
-              
-              <Accordion type="single" collapsible className="w-full">
-                {geographyLessons.map((lesson) => (
-                  <AccordionItem key={lesson.id} value={lesson.id}>
-                    <AccordionTrigger className="py-3 px-4 bg-gray-800/40 rounded-lg mb-2 hover:bg-gray-800/60">
-                      <div className="flex items-center text-right w-full"> {/* RTL text alignment */}
-                        <FileText className="h-5 w-5 text-blue-500 ml-2" />
-                        <div>
-                          <h3 className="font-medium text-base text-white">{lesson.title}</h3>
-                          <p className="text-gray-400 text-sm">{lesson.description}</p>
-                        </div>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="py-2 space-y-4">
-                        <div className="flex justify-between items-center mb-2">
-                          <Button 
-                            variant="outline" 
-                            className="flex items-center text-blue-400 border-blue-800 hover:bg-blue-950/30 hover:text-blue-300"
-                            onClick={() => downloadPdf(lesson.pdfPath, lesson.title)}
-                          >
-                            <Download className="ml-2 h-4 w-4" /> {/* RTL icon placement */}
-                            تحميل الملف
-                          </Button>
-                          <Button 
-                            variant="default" 
-                            className="bg-blue-600 hover:bg-blue-700"
-                            onClick={() => handleLessonClick(lesson.id, lesson.pdfPath)}
-                          >
-                            عرض الدرس
-                          </Button>
-                        </div>
-                        
-                        {selectedLesson === lesson.id && activePdf && (
-                          <div className="mt-4">
-                            <PdfViewer 
-                              pdfUrl={activePdf}
-                              title={lesson.title}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
+          
+          <div className="mt-4 text-center">
+            <Button
+              variant="outline"
+              className="bg-orange-900/20 border-orange-700/50 text-orange-300 hover:bg-orange-900/40"
+              onClick={openPdfInNewTab}
+            >
+              <ExternalLink className="h-4 w-4 mr-2" />
+              فتح الملف في نافذة جديدة
+            </Button>
           </div>
         </CardContent>
       </Card>
