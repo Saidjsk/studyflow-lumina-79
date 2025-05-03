@@ -1,20 +1,8 @@
 
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
-import EconomicsLesson from '@/components/lessons/EconomicsLesson';
 import HistoryLesson from '@/components/lessons/HistoryLesson';
 import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson';
-import MarketLesson from '@/components/lessons/MarketLesson';
-import BankingLesson from '@/components/lessons/BankingLesson';
-import ForeignTradeLesson from '@/components/lessons/ForeignTradeLesson';
-import ExchangeLesson from '@/components/lessons/ExchangeLesson';
-import UnemploymentLesson from '@/components/lessons/UnemploymentLesson';
-import InflationLesson from '@/components/lessons/InflationLesson';
-import LeadershipLesson from '@/components/lessons/LeadershipLesson';
-import CommunicationLesson from '@/components/lessons/CommunicationLesson';
-import ControlLesson from '@/components/lessons/ControlLesson';
-import FinanceLesson from '@/components/lessons/FinanceLesson';
-import ProductionLesson from '@/components/lessons/ProductionLesson';
 import AccountingLesson from '@/components/lessons/accounting/AccountingLesson';
 import HistoryGeographyLesson from '@/components/lessons/history/HistoryGeographyLesson';
 
@@ -69,33 +57,8 @@ export default function LessonDetail() {
   // Display appropriate lesson content based on subject and lesson ID
   const renderLessonContent = () => {
     if (subjectId === 'economics') {
-      if (lessonId === 'money') {
-        return <EconomicsLesson />;
-      } else if (lessonId === 'market') {
-        return <MarketLesson />;
-      } else if (lessonId === 'banks') {
-        return <BankingLesson />;
-      } else if (lessonId === 'trade') {
-        return <ForeignTradeLesson />;
-      } else if (lessonId === 'exchange') {
-        return <ExchangeLesson />;
-      } else if (lessonId === 'unemployment') {
-        return <UnemploymentLesson />;
-      } else if (lessonId === 'inflation') {
-        return <InflationLesson />;
-      } else if (lessonId === 'leadership') {
-        return <LeadershipLesson />;
-      } else if (lessonId === 'communication') {
-        return <CommunicationLesson />;
-      } else if (lessonId === 'control') {
-        return <ControlLesson />;
-      } else if (lessonId === 'finance') {
-        return <FinanceLesson />;
-      } else if (lessonId === 'production') {
-        return <ProductionLesson />;
-      } else {
-        return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
-      }
+      // All economics lessons now show the under development component
+      return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') {
         return <HistoryLesson />;

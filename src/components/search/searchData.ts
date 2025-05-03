@@ -111,7 +111,7 @@ export const searchDatabase: SearchResult[] = [
     excerpt: 'مجموعة متنوعة من التمارين والتطبيقات العملية' 
   },
   
-  // دروس محددة
+  // دروس محددة - تحديث الدروس الاقتصادية لتظهر كقيد التطوير
   { 
     id: 30, 
     title: 'الميزانية المالية', 
@@ -126,7 +126,7 @@ export const searchDatabase: SearchResult[] = [
     type: 'درس', 
     path: '/subject/economics?lesson=consumption', 
     icon: Book,
-    excerpt: 'تحليل سلوك المستهلك ونظريات الاستهلاك' 
+    excerpt: 'هذا الدرس قيد التطوير' 
   },
   { 
     id: 32, 
