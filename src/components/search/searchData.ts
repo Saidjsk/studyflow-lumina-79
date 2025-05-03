@@ -111,7 +111,7 @@ export const searchDatabase: SearchResult[] = [
     excerpt: 'مجموعة متنوعة من التمارين والتطبيقات العملية' 
   },
   
-  // دروس محددة - تحديث الدروس الاقتصادية لتظهر كقيد التطوير
+  // دروس محددة - تحديث الدروس الاقتصادية
   { 
     id: 30, 
     title: 'الميزانية المالية', 
@@ -122,18 +122,42 @@ export const searchDatabase: SearchResult[] = [
   },
   { 
     id: 31, 
-    title: 'نظريات الاستهلاك', 
+    title: 'درس النقود', 
     type: 'درس', 
-    path: '/subject/economics?lesson=consumption', 
+    path: '/subject/economics/lesson/money', 
     icon: Book,
-    excerpt: 'هذا الدرس قيد التطوير' 
+    excerpt: 'درس تفصيلي حول النقود ووظائفها وأنواعها' 
   },
   { 
     id: 32, 
-    title: 'الدوال والمشتقات', 
+    title: 'السوق والأسعار', 
     type: 'درس', 
-    path: '/subject/mathematics?lesson=functions', 
+    path: '/subject/economics/lesson/market', 
     icon: Book,
-    excerpt: 'تطبيقات الدوال والتفاضل في الاقتصاد' 
+    excerpt: 'درس تفصيلي حول السوق وتحديد الأسعار والعرض والطلب' 
+  },
+  { 
+    id: 33, 
+    title: 'النظام المصرفي', 
+    type: 'درس', 
+    path: '/subject/economics/lesson/banks', 
+    icon: Book,
+    excerpt: 'درس تفصيلي حول البنوك والنظام المصرفي' 
+  },
+  { 
+    id: 34, 
+    title: 'التجارة الخارجية', 
+    type: 'درس', 
+    path: '/subject/economics/lesson/trade', 
+    icon: Book,
+    excerpt: 'درس تفصيلي حول التجارة الخارجية والاستيراد والتصدير' 
+  },
+  { 
+    id: 35, 
+    title: 'الصرف', 
+    type: 'درس', 
+    path: '/subject/economics/lesson/exchange', 
+    icon: Book,
+    excerpt: 'درس تفصيلي حول الصرف وأسعار العملات' 
   },
 ];

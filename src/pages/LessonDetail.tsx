@@ -5,6 +5,7 @@ import HistoryLesson from '@/components/lessons/HistoryLesson';
 import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson';
 import AccountingLesson from '@/components/lessons/accounting/AccountingLesson';
 import HistoryGeographyLesson from '@/components/lessons/history/HistoryGeographyLesson';
+import EconomicsLesson from '@/components/lessons/economics/EconomicsLesson';
 
 export default function LessonDetail() {
   const { subjectId, lessonId } = useParams<{ subjectId: string; lessonId: string }>();
@@ -57,8 +58,8 @@ export default function LessonDetail() {
   // Display appropriate lesson content based on subject and lesson ID
   const renderLessonContent = () => {
     if (subjectId === 'economics') {
-      // All economics lessons now show the under development component
-      return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
+      // Now display the Economics lessons with PDF viewer
+      return <EconomicsLesson />;
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') {
         return <HistoryLesson />;

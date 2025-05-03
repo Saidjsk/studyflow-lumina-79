@@ -1,3 +1,4 @@
+
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, BookOpen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -46,18 +47,18 @@ export default function Lessons() {
   const getLessonsForSubject = () => {
     if (subjectId === 'economics') {
       return [
-        { id: 'money', title: 'الوحدة الأولى: النقود', description: 'هذا الدرس قيد التطوير' },
-        { id: 'market', title: 'الوحدة الثانية: السوق والأسعار', description: 'هذا الدرس قيد التطوير' },
-        { id: 'banks', title: 'الوحدة الثالثة: النظام المصرفي', description: 'هذا الدرس قيد التطوير' },
-        { id: 'trade', title: 'الوحدة الرابعة: التجارة الخارجية', description: 'هذا الدرس قيد التطوير' },
-        { id: 'exchange', title: 'الوحدة الخامسة: الصرف', description: 'هذا الدرس قيد التطوير' },
-        { id: 'unemployment', title: 'الوحدة السادسة: البطالة', description: 'هذا الدرس قيد التطوير' },
-        { id: 'inflation', title: 'الوحدة السابعة: التضخم', description: 'هذا الدرس قيد التطوير' },
-        { id: 'leadership', title: 'الوحدة الثامنة: القيادة', description: 'هذا الدرس قيد التطوير' },
-        { id: 'communication', title: 'الوحدة التاسعة: الاتصال', description: 'هذا الدرس قيد التطوير' },
-        { id: 'control', title: 'الوحدة العاشرة: الرقابة', description: 'هذا الدرس قيد التطوير' },
-        { id: 'finance', title: 'الوحدة الحادية عشر: التمويل', description: 'هذا الدرس قيد التطوير' },
-        { id: 'production', title: 'الوحدة الثانية عشر: الإنتاج', description: 'هذا الدرس قيد التطوير' }
+        { id: 'money', title: 'الوحدة الأولى: النقود', description: 'درس تفصيلي حول النقود ووظائفها وأنواعها' },
+        { id: 'market', title: 'الوحدة الثانية: السوق والأسعار', description: 'درس تفصيلي حول السوق وتحديد الأسعار والعرض والطلب' },
+        { id: 'banks', title: 'الوحدة الثالثة: النظام المصرفي', description: 'درس تفصيلي حول البنوك والنظام المصرفي' },
+        { id: 'trade', title: 'الوحدة الرابعة: التجارة الخارجية', description: 'درس تفصيلي حول التجارة الخارجية والاستيراد والتصدير' },
+        { id: 'exchange', title: 'الوحدة الخامسة: الصرف', description: 'درس تفصيلي حول الصرف وأسعار العملات' },
+        { id: 'unemployment', title: 'الوحدة السادسة: البطالة', description: 'درس تفصيلي حول البطالة وأسبابها وحلولها' },
+        { id: 'inflation', title: 'الوحدة السابعة: التضخم', description: 'درس تفصيلي حول التضخم وأسبابه وآثاره' },
+        { id: 'leadership', title: 'الوحدة الثامنة: القيادة', description: 'درس تفصيلي حول القيادة وأنماطها' },
+        { id: 'communication', title: 'الوحدة التاسعة: الاتصال', description: 'درس تفصيلي حول الاتصال ومهاراته' },
+        { id: 'control', title: 'الوحدة العاشرة: الرقابة', description: 'درس تفصيلي حول الرقابة وأنواعها' },
+        { id: 'finance', title: 'الوحدة الحادية عشر: التمويل', description: 'درس تفصيلي حول التمويل ومصادره' },
+        { id: 'production', title: 'الوحدة الثانية عشر: الإنتاج', description: 'درس تفصيلي حول الإنتاج وعناصره' }
       ];
     } else if (subjectId === 'history') {
       return [
