@@ -20,9 +20,9 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Separate the PDF related dependencies for better bundling
   optimizeDeps: {
     include: ['react-pdf', 'pdfjs-dist'],
-    exclude: [],
   },
   build: {
     commonjsOptions: {
@@ -38,6 +38,7 @@ export default defineConfig(({ mode }) => ({
     }
   },
   css: {
-    devSourcemap: true,
+    // Disable sourcemap in development to avoid potential CSS processing issues
+    devSourcemap: false,
   }
 }));
