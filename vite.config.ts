@@ -20,25 +20,16 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // Separate the PDF related dependencies for better bundling
   optimizeDeps: {
-    include: ['react-pdf', 'pdfjs-dist'],
+    exclude: [], // Remove any exclusions
   },
   build: {
     commonjsOptions: {
-      include: [/react-pdf/, /pdfjs-dist/, /node_modules/],
+      include: [/node_modules/],
     },
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'pdf-vendor': ['react-pdf', 'pdfjs-dist']
-        }
-      }
-    }
   },
   css: {
-    // Disable sourcemap in development to avoid potential CSS processing issues
+    // Turn off CSS source maps completely to avoid processing issues
     devSourcemap: false,
   }
 }));
