@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => ({
       include: [/node_modules/],
     },
   },
+  // Disable CSS sourcemaps, which can cause issues with module resolution
   css: {
     devSourcemap: false,
   }
