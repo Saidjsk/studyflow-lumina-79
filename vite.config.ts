@@ -9,9 +9,7 @@ export default defineConfig({
     host: "::",
     port: 8080,
   },
-  plugins: [
-    react(),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -23,7 +21,6 @@ export default defineConfig({
     },
   },
   css: {
-    // Completely disable CSS source maps
     devSourcemap: false,
   }
 });
