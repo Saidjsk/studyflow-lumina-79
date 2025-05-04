@@ -5,9 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useAds } from '@/contexts/AdsContext';
 
-// Configure PDF.js worker
-// Instead of using dynamic URL generation, using a more stable CDN approach
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+// Use a stable CDN approach that's compatible with various bundling strategies
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 interface PdfViewerProps {
   pdfUrl: string;

@@ -21,12 +21,23 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    include: ['react-pdf'],
+    include: ['react-pdf', 'pdfjs-dist'],
+    exclude: [],
   },
   build: {
     commonjsOptions: {
       include: [/react-pdf/, /pdfjs-dist/, /node_modules/],
     },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'pdf-vendor': ['react-pdf', 'pdfjs-dist']
+        }
+      }
+    }
+  },
+  css: {
+    devSourcemap: true,
   }
 }));
-
