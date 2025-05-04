@@ -9,23 +9,18 @@ export default defineConfig({
     host: "::",
     port: 8080,
   },
-  plugins: [
-    react(),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    include: ['react-pdf'],
+  },
   build: {
     commonjsOptions: {
       include: [/node_modules/],
     },
-  },
-  css: {
-    devSourcemap: false,
-  },
-  optimizeDeps: {
-    include: ['react-pdf'],
   }
 });
