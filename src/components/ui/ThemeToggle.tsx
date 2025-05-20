@@ -18,7 +18,7 @@ export function ThemeToggle({ className, showLabel = false }: ThemeToggleProps) 
         "flex items-center justify-start gap-2 rounded-md p-2 transition-colors",
         theme === 'dark' 
           ? "bg-gray-800 hover:bg-gray-700 text-yellow-400" 
-          : "bg-blue-100 hover:bg-blue-200 text-blue-900",
+          : "bg-blue-50 hover:bg-blue-100 text-blue-600",
         className
       )}
       aria-label="Toggle theme"

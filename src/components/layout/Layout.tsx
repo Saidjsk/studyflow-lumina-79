@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import { useAds } from '@/contexts/AdsContext';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const { showInterstitial } = useAds();
+  const { theme } = useTheme();
 
   // Scroll to top on route change
   useEffect(() => {
@@ -30,7 +32,11 @@ export default function Layout({ children }: LayoutProps) {
   }, [location.pathname, showInterstitial]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-950 text-white">
+    <div className={`flex flex-col min-h-screen ${
+      theme === 'dark' 
+        ? 'bg-gray-950 text-white' 
+        : 'bg-gray-50 text-gray-900'
+    }`}>
       <TopNav />
       <main className="flex-1">
         <div className="container mx-auto px-3 py-4 sm:px-4 sm:py-6 mb-20">
