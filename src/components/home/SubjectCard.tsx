@@ -21,9 +21,8 @@ export default function SubjectCard({ id, name, icon: Icon, color, delay = 0 }: 
       to={`/subject/${id}`}
       className={cn(
         "group relative overflow-hidden rounded-xl p-3",
-        "bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900/30",
-        "hover-lift hover:shadow-xl dark:hover:shadow-gray-900/40",
-        "border border-gray-100 dark:border-gray-700",
+        "bg-card border border-border shadow-md",
+        "hover-lift hover:shadow-xl",
         "transition-all duration-300 ease-in-out",
         "animate-scale-in flex flex-col justify-between",
         "min-h-[100px]"
@@ -37,7 +36,7 @@ export default function SubjectCard({ id, name, icon: Icon, color, delay = 0 }: 
         )}
         style={{ backgroundColor: color }}
       >
-        <Icon size={30} className="text-gray-900 dark:text-white" />
+        <Icon size={30} className="text-foreground" />
       </div>
       
       <div className="flex flex-col items-start">
@@ -52,13 +51,13 @@ export default function SubjectCard({ id, name, icon: Icon, color, delay = 0 }: 
         </div>
         
         <div className="z-10 mt-2">
-          <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+          <h3 className="text-sm font-bold text-foreground">
             {name}
           </h3>
         </div>
       </div>
       
-      <div className="absolute bottom-2 left-3 w-8 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+      <div className="absolute bottom-2 left-3 w-8 h-1 bg-muted rounded-full overflow-hidden">
         <div 
           className="h-full w-0 group-hover:w-full transition-all duration-700 rounded-full"
           style={{ backgroundColor: color }}

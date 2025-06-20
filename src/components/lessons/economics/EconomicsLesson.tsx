@@ -1,12 +1,13 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { FileText, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const EconomicsLesson = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
+  const { theme } = useTheme();
   
   const getLessonTitle = () => {
     if (lessonId === 'money') return 'النقود';
@@ -51,24 +52,38 @@ const EconomicsLesson = () => {
   
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className="w-full mb-6 bg-gray-900 border-gray-800">
-        <div className="bg-blue-900/20 border-b border-blue-800 p-4">
-          <h2 className="text-lg font-semibold text-blue-300">{title}</h2>
+      <Card className="w-full mb-6">
+        <div className={`border-b p-4 ${
+          theme === 'dark' 
+            ? 'bg-blue-900/20 border-blue-800' 
+            : 'bg-blue-50 border-blue-200'
+        }`}>
+          <h2 className={`text-lg font-semibold ${
+            theme === 'dark' ? 'text-blue-300' : 'text-blue-800'
+          }`}>{title}</h2>
         </div>
         <CardContent className="p-5">
           <div 
             onClick={openPdfInNewTab}
-            className="flex items-center justify-between bg-gray-800 p-4 rounded-xl border border-gray-700 hover:border-blue-700/50 transition-all duration-300 cursor-pointer"
+            className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-gray-800 border-gray-700 hover:border-blue-700/50'
+                : 'bg-gray-50 border-gray-200 hover:border-blue-300'
+            }`}
           >
             <div className="flex items-center">
-              <div className="p-3 bg-blue-900/30 rounded-lg ml-4">
-                <FileText size={24} className="text-blue-400" />
+              <div className={`p-3 rounded-lg ml-4 ${
+                theme === 'dark' ? 'bg-blue-900/30' : 'bg-blue-100'
+              }`}>
+                <FileText size={24} className={
+                  theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+                } />
               </div>
               <div>
-                <h3 className="text-lg font-medium text-white">
+                <h3 className="text-lg font-medium text-foreground">
                   {`درس ${title}`}
                 </h3>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   PDF • 2-3 MB
                 </p>
               </div>
@@ -76,7 +91,11 @@ const EconomicsLesson = () => {
             
             <div className="flex">
               <button 
-                className="p-2 text-gray-400 hover:text-blue-400 rounded-full hover:bg-gray-700/70 transition-colors"
+                className={`p-2 rounded-full transition-colors ${
+                  theme === 'dark'
+                    ? 'text-gray-400 hover:text-blue-400 hover:bg-gray-700/70'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
+                }`}
                 aria-label="Open in new tab"
                 onClick={openPdfInNewTab}
               >
@@ -88,7 +107,11 @@ const EconomicsLesson = () => {
           <div className="mt-4 text-center">
             <Button
               variant="outline"
-              className="bg-blue-900/20 border-blue-700/50 text-blue-300 hover:bg-blue-900/40"
+              className={
+                theme === 'dark'
+                  ? 'bg-blue-900/20 border-blue-700/50 text-blue-300 hover:bg-blue-900/40'
+                  : 'bg-blue-50 border-blue-300 text-blue-700 hover:bg-blue-100'
+              }
               onClick={openPdfInNewTab}
             >
               <ExternalLink className="h-4 w-4 mr-2" />
