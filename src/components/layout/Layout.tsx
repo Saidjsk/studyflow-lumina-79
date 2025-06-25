@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import TopNav from './TopNav';
 import Footer from './Footer';
-import PrivacyNotice from '../privacy/PrivacyNotice';
 import { useAds } from '@/contexts/AdsContext';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -25,13 +24,9 @@ export default function Layout({ children }: LayoutProps) {
     if (isFirstLoad) {
       sessionStorage.setItem('firstLoad', 'false');
     } else {
-      // Check privacy consent before showing ads
-      const consent = localStorage.getItem('privacy_consent');
-      if (consent === 'true') {
-        // Show interstitial ad with 20% probability on navigation
-        if (Math.random() < 0.2) {
-          showInterstitial();
-        }
+      // Show interstitial ad with 20% probability on navigation
+      if (Math.random() < 0.2) {
+        showInterstitial();
       }
     }
   }, [location.pathname, showInterstitial]);
@@ -49,7 +44,6 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </main>
       <Footer />
-      <PrivacyNotice />
     </div>
   );
 }
