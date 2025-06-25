@@ -88,8 +88,8 @@ export default function Subject() {
     return (
       <div className="flex justify-center items-center h-96">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-white">المادة غير موجودة</h2>
-          <Link to="/" className="text-blue-400 mt-4 inline-block">
+          <h2 className="text-2xl font-bold text-foreground">المادة غير موجودة</h2>
+          <Link to="/" className="text-blue-600 dark:text-blue-400 mt-4 inline-block">
             العودة للصفحة الرئيسية
           </Link>
         </div>
@@ -102,15 +102,15 @@ export default function Subject() {
   return (
     <div className="animate-fade-in">
       {/* Header - Navigation */}
-      <div className="flex items-center mb-8 text-gray-400">
+      <div className="flex items-center mb-8 text-muted-foreground">
         <Link 
           to="/" 
-          className="flex items-center hover:text-blue-400 transition-colors"
+          className="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
         >
           <span>الرئيسية</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
-        <span className="text-white font-medium">{subject.name}</span>
+        <span className="text-foreground font-medium">{subject.name}</span>
       </div>
       
       {/* Subject Header */}
@@ -122,11 +122,11 @@ export default function Subject() {
           >
             <SubjectIcon size={32} className="text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-white">
+          <h1 className="text-3xl font-bold text-foreground">
             {subject.name}
           </h1>
         </div>
-        <p className="text-gray-400 mt-1">
+        <p className="text-muted-foreground mt-1">
           دروس ومواضيع البكالوريا للسنوات السابقة
         </p>
       </div>
@@ -136,7 +136,7 @@ export default function Subject() {
         <Link to={`/subject/${subject.id}`} className="w-full">
           <Button 
             variant="outline" 
-            className="w-full flex items-center justify-center gap-2 bg-gray-800/60 hover:bg-gray-700 text-white border-gray-700"
+            className="w-full flex items-center justify-center gap-2 bg-card hover:bg-accent text-foreground border-border"
           >
             <FileText size={18} />
             <span>مواضيع البكالوريا</span>
@@ -145,7 +145,7 @@ export default function Subject() {
         <Link to={`/subject/${subject.id}/lessons`} className="w-full">
           <Button 
             variant="outline" 
-            className="w-full flex items-center justify-center gap-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 border-blue-800"
+            className="w-full flex items-center justify-center gap-2 bg-blue-50 dark:bg-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/30 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
           >
             <BookOpen size={18} />
             <span>الدروس</span>
@@ -161,11 +161,11 @@ export default function Subject() {
             to={`/subject/${subject.id}/${year}`}
             className={cn(
               "group relative p-6 flex flex-col items-center justify-center",
-              "bg-gray-900 rounded-xl",
-              "border border-gray-800",
-              "hover:border-blue-900/70",
+              "bg-card rounded-xl",
+              "border border-border",
+              "hover:border-blue-300 dark:hover:border-blue-900/70",
               "transition duration-300 ease-in-out",
-              "animate-scale-in"
+              "animate-scale-in shadow-sm hover:shadow-md"
             )}
             style={{ 
               animationDelay: `${index * 0.05}s`,
@@ -176,10 +176,10 @@ export default function Subject() {
               style={{ backgroundColor: subject.color }}
             ></div>
             
-            <span className="text-2xl font-bold text-white mb-2">
+            <span className="text-2xl font-bold text-foreground mb-2">
               {year}
             </span>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-muted-foreground">
               بكالوريا
             </span>
           </Link>
