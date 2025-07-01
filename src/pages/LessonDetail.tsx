@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import HistoryLesson from '@/components/lessons/HistoryLesson';
@@ -6,6 +5,7 @@ import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson'
 import AccountingLesson from '@/components/lessons/accounting/AccountingLesson';
 import HistoryGeographyLesson from '@/components/lessons/history/HistoryGeographyLesson';
 import EconomicsLesson from '@/components/lessons/economics/EconomicsLesson';
+import ColdWarLessons from '@/components/lessons/history/ColdWarLessons';
 
 export default function LessonDetail() {
   const { subjectId, lessonId } = useParams<{ subjectId: string; lessonId: string }>();
@@ -48,6 +48,7 @@ export default function LessonDetail() {
       if (lessonId === 'algeria-revolution') return 'الوحدة الثالثة: الثورة الجزائرية';
       if (lessonId === 'colonization') return 'الوحدة الأولى: الاستعمار في إفريقيا';
       if (lessonId === 'cold-war') return 'الوحدة الرابعة: الحرب الباردة';
+      if (lessonId === 'cold-war-detailed') return 'دروس الحرب الباردة التفصيلية';
       if (lessonId === 'geography') return 'الوحدة الخامسة: دروس الجغرافيا';
     } else if (subjectId === 'accounting') {
       if (lessonId === 'lesson1') return 'الوحدة الأولى: المحاسبة';
@@ -63,6 +64,8 @@ export default function LessonDetail() {
     } else if (subjectId === 'history') {
       if (lessonId === 'world-wars') {
         return <HistoryLesson />;
+      } else if (lessonId === 'cold-war-detailed') {
+        return <ColdWarLessons />;
       } else if (lessonId === 'colonization' || lessonId === 'algeria-revolution' || 
                 lessonId === 'cold-war' || lessonId === 'geography') {
         return <HistoryGeographyLesson />;
