@@ -3,10 +3,15 @@ import { useParams } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTheme } from '@/contexts/ThemeContext';
 import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson';
+import MarketLesson from '@/components/lessons/economics/MarketLesson';
 
 const EconomicsLesson = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
   const { theme } = useTheme();
+
+  if (lessonId === 'market') {
+    return <MarketLesson />;
+  }
 
   if (lessonId !== 'money') {
     return <UnderDevelopmentLesson subjectName="الإقتصاد" />;
