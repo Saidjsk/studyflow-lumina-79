@@ -5,6 +5,15 @@ import { useTheme } from '@/contexts/ThemeContext';
 import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson';
 import MarketLesson from '@/components/lessons/economics/MarketLesson';
 import BankingSection from '@/components/lessons/economics/BankingSection';
+import ForeignTradeLesson from '@/components/lessons/economics/ForeignTradeLesson';
+import ExchangeLesson from '@/components/lessons/economics/ExchangeLesson';
+import UnemploymentLesson from '@/components/lessons/economics/UnemploymentLesson';
+import InflationLesson from '@/components/lessons/economics/InflationLesson';
+import LeadershipLesson from '@/components/lessons/economics/LeadershipLesson';
+import CommunicationLesson from '@/components/lessons/economics/CommunicationLesson';
+import ControlLesson from '@/components/lessons/economics/ControlLesson';
+import FinanceLesson from '@/components/lessons/economics/FinanceLesson';
+import ProductionLesson from '@/components/lessons/economics/ProductionLesson';
 
 const EconomicsLesson = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -14,21 +23,28 @@ const EconomicsLesson = () => {
     return <MarketLesson />;
   }
 
-  if (lessonId === 'banks') {
-    return (
-      <div className="max-w-4xl mx-auto" dir="rtl">
-        <Card className="w-full mb-6">
-          <div className="border-b border-border p-4 bg-card/50">
-            <h1 className="text-xl font-bold text-foreground">المجال المفاهيمي الأول: الميكانيزمات الإقتصادية</h1>
-            <p className="text-sm text-muted-foreground mt-1">الوحدة الثالثة: النظام المصرفي — المادة: الإقتصاد والمناجمنت</p>
-          </div>
-          <CardContent className="p-5">
-            <BankingSection />
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // Handle all economics lessons
+  if (lessonId === 'market') return <MarketLesson />;
+  if (lessonId === 'banks') return (
+    <div className="max-w-4xl mx-auto" dir="rtl">
+      <Card className="w-full mb-6">
+        <div className="border-b border-border p-4 bg-card/50">
+          <h1 className="text-xl font-bold text-foreground">المجال المفاهيمي الأول: الميكانيزمات الإقتصادية</h1>
+          <p className="text-sm text-muted-foreground mt-1">الوحدة الثالثة: النظام المصرفي — المادة: الإقتصاد والمناجمنت</p>
+        </div>
+        <CardContent className="p-5"><BankingSection /></CardContent>
+      </Card>
+    </div>
+  );
+  if (lessonId === 'trade') return <ForeignTradeLesson />;
+  if (lessonId === 'exchange') return <ExchangeLesson />;
+  if (lessonId === 'unemployment') return <UnemploymentLesson />;
+  if (lessonId === 'inflation') return <InflationLesson />;
+  if (lessonId === 'leadership') return <LeadershipLesson />;
+  if (lessonId === 'communication') return <CommunicationLesson />;
+  if (lessonId === 'control') return <ControlLesson />;
+  if (lessonId === 'finance') return <FinanceLesson />;
+  if (lessonId === 'production') return <ProductionLesson />;
 
   if (lessonId !== 'money') {
     return <UnderDevelopmentLesson subjectName="الإقتصاد" />;
