@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useTheme } from '@/contexts/ThemeContext';
 import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson';
 import MarketLesson from '@/components/lessons/economics/MarketLesson';
+import BankingSection from '@/components/lessons/economics/BankingSection';
 
 const EconomicsLesson = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -11,6 +12,22 @@ const EconomicsLesson = () => {
 
   if (lessonId === 'market') {
     return <MarketLesson />;
+  }
+
+  if (lessonId === 'banks') {
+    return (
+      <div className="max-w-4xl mx-auto" dir="rtl">
+        <Card className="w-full mb-6">
+          <div className="border-b border-border p-4 bg-card/50">
+            <h1 className="text-xl font-bold text-foreground">المجال المفاهيمي الأول: الميكانيزمات الإقتصادية</h1>
+            <p className="text-sm text-muted-foreground mt-1">الوحدة الثالثة: النظام المصرفي — المادة: الإقتصاد والمناجمنت</p>
+          </div>
+          <CardContent className="p-5">
+            <BankingSection />
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   if (lessonId !== 'money') {
