@@ -1,146 +1,430 @@
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { TrendingUp, TrendingDown, DollarSign, BarChart3, ArrowUpDown, Target } from 'lucide-react';
 
 const ExchangeLesson = () => {
   return (
-    <div className="max-w-4xl mx-auto" dir="rtl">
-      <Card className="w-full mb-6">
-        <div className="border-b border-border p-4 bg-card/50">
-          <h1 className="text-xl font-bold text-foreground">المجال المفاهيمي الأول: الميكانيزمات الإقتصادية</h1>
-          <p className="text-sm text-muted-foreground mt-1">الوحدة الخامسة: الصرف — المادة: الإقتصاد والمناجمنت</p>
-        </div>
-        <CardContent className="p-5 space-y-6">
-          <article className="prose prose-neutral dark:prose-invert max-w-none">
-            <section>
-              <h2 className="text-lg font-semibold text-foreground">1 - مفهوم سعر الصرف</h2>
-              <p className="text-muted-foreground">
-                سعر الصرف هو السعر الذي تتبادل به عملة دولة معينة مقابل عملة دولة أخرى، أو هو عدد الوحدات من العملة المحلية اللازمة للحصول على وحدة واحدة من العملة الأجنبية.
+    <div className="max-w-6xl mx-auto space-y-6" dir="rtl">
+      {/* Header Card */}
+      <Card className="w-full">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10">
+          <div className="flex items-center gap-3">
+            <DollarSign className="w-8 h-8 text-primary" />
+            <div>
+              <CardTitle className="text-2xl font-bold text-foreground">
+                الوحدة الخامسة: الصرف
+              </CardTitle>
+              <p className="text-muted-foreground mt-1">
+                المجال المفاهيمي الأول: الميكانيزمات الاقتصادية — مادة الاقتصاد والمناجمنت
               </p>
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
 
-              <h3 className="mt-4 font-semibold text-foreground">1 - 1 - أنواع أسعار الصرف</h3>
-              <h4 className="mt-2 font-medium text-foreground">أ - سعر الصرف الاسمي</h4>
-              <p className="text-muted-foreground">
-                هو السعر المعلن والمتداول في السوق، والذي يعبر عن قيمة العملة المحلية مقابل العملة الأجنبية.
+      {/* مفهوم سعر الصرف */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <ArrowUpDown className="w-6 h-6 text-primary" />
+            مفهوم سعر الصرف
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="bg-primary/5 p-4 rounded-lg border-r-4 border-primary">
+            <p className="text-foreground font-medium">
+              سعر الصرف هو السعر الذي تتبادل به عملة دولة معينة مقابل عملة دولة أخرى، 
+              أو عدد الوحدات من العملة المحلية اللازمة للحصول على وحدة واحدة من العملة الأجنبية.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <Card className="border-blue-200 dark:border-blue-800">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg text-blue-700 dark:text-blue-300">
+                  سعر الصرف الاسمي
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-3">
+                  السعر المعلن والمتداول في السوق، والذي يعبر عن قيمة العملة المحلية مقابل العملة الأجنبية
+                </p>
+                <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
+                  <p className="text-sm font-medium">مثال:</p>
+                  <p className="text-sm text-muted-foreground">
+                    1 دولار أمريكي = 135 دينار جزائري
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-200 dark:border-green-800">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg text-green-700 dark:text-green-300">
+                  سعر الصرف الحقيقي
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-3">
+                  سعر الصرف الاسمي معدلاً بمستوى الأسعار في البلدين، ويعكس القوة الشرائية الحقيقية
+                </p>
+                <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
+                  <p className="text-sm font-medium">المعادلة:</p>
+                  <p className="text-sm text-muted-foreground">
+                    السعر الحقيقي = (السعر الاسمي × مستوى الأسعار الخارجية) ÷ مستوى الأسعار المحلية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* أنظمة أسعار الصرف */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BarChart3 className="w-6 h-6 text-primary" />
+            أنظمة أسعار الصرف
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* النظام الثابت */}
+            <Card className="border-orange-200 dark:border-orange-800">
+              <CardHeader>
+                <CardTitle className="text-lg text-orange-700 dark:text-orange-300">
+                  نظام سعر الصرف الثابت
+                </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  يحدده البنك المركزي ويبقى ثابتاً لفترات طويلة
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-green-800 dark:text-green-200 mb-2">المزايا:</p>
+                  <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
+                    <li>• استقرار في التجارة الخارجية</li>
+                    <li>• تسهيل التخطيط الاقتصادي</li>
+                    <li>• تقليل مخاطر المعاملات الدولية</li>
+                    <li>• جذب الاستثمارات طويلة الأجل</li>
+                  </ul>
+                </div>
+                <div className="bg-red-50 dark:bg-red-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-2">العيوب:</p>
+                  <ul className="text-sm text-red-700 dark:text-red-300 space-y-1">
+                    <li>• قد لا يعكس القيمة الحقيقية للعملة</li>
+                    <li>• يتطلب احتياطيات كبيرة</li>
+                    <li>• صعوبة التكيف مع التغيرات</li>
+                    <li>• قد يؤدي لأزمات مالية</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* النظام المرن */}
+            <Card className="border-purple-200 dark:border-purple-800">
+              <CardHeader>
+                <CardTitle className="text-lg text-purple-700 dark:text-purple-300">
+                  نظام سعر الصرف المرن (العائم)
+                </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  يتحدد بحرية وفقاً لقوى العرض والطلب
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-green-800 dark:text-green-200 mb-2">المزايا:</p>
+                  <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
+                    <li>• يعكس القيمة الحقيقية للعملة</li>
+                    <li>• تكيف تلقائي مع التغيرات</li>
+                    <li>• استقلالية السياسة النقدية</li>
+                    <li>• لا يحتاج احتياطيات كبيرة</li>
+                  </ul>
+                </div>
+                <div className="bg-red-50 dark:bg-red-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-2">العيوب:</p>
+                  <ul className="text-sm text-red-700 dark:text-red-300 space-y-1">
+                    <li>• عدم الاستقرار والتقلبات الحادة</li>
+                    <li>• زيادة مخاطر التجارة الدولية</li>
+                    <li>• صعوبة التخطيط طويل الأجل</li>
+                    <li>• تأثير المضاربة</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="border-indigo-200 dark:border-indigo-800">
+            <CardHeader>
+              <CardTitle className="text-lg text-indigo-700 dark:text-indigo-300">
+                النظام المختلط (التعويم المدار)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-3">
+                يجمع بين مرونة السوق وتدخل البنك المركزي عند الحاجة لتجنب التقلبات الحادة
               </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <h5 className="font-medium text-foreground">خصائص النظام:</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• حرية نسبية في تحديد السعر</li>
+                    <li>• تدخل عند التقلبات الحادة</li>
+                    <li>• حماية من المضاربة</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <h5 className="font-medium text-foreground">أمثلة:</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• الصين (تعويم مدار للرنمينبي)</li>
+                    <li>• الهند (الروبية الهندية)</li>
+                    <li>• البرازيل (الريال البرازيلي)</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </CardContent>
+      </Card>
 
-              <h4 className="mt-2 font-medium text-foreground">ب - سعر الصرف الحقيقي</h4>
-              <p className="text-muted-foreground">
-                هو سعر الصرف الاسمي معدلاً بمستوى الأسعار في البلدين، ويعكس القوة الشرائية الحقيقية للعملة.
+      {/* العوامل المؤثرة */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="w-6 h-6 text-primary" />
+            العوامل المؤثرة في سعر الصرف
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="bg-card p-4 rounded-lg border">
+              <div className="flex items-center gap-2 mb-2">
+                <BarChart3 className="w-5 h-5 text-blue-600" />
+                <h4 className="font-semibold text-foreground">ميزان المدفوعات</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                فائض يقوي العملة، عجز يضعفها
               </p>
-            </section>
+            </div>
 
-            <section>
-              <h2 className="text-lg font-semibold text-foreground mt-6">2 - أنظمة أسعار الصرف</h2>
-              
-              <h3 className="mt-4 font-semibold text-foreground">2 - 1 - نظام سعر الصرف الثابت</h3>
-              <p className="text-muted-foreground">
-                يتم تحديد سعر الصرف من قبل السلطات النقدية (البنك المركزي) ويبقى ثابتاً لفترات طويلة نسبياً.
+            <div className="bg-card p-4 rounded-lg border">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="w-5 h-5 text-red-600" />
+                <h4 className="font-semibold text-foreground">معدلات التضخم</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                التضخم المرتفع يضعف قيمة العملة
               </p>
-              
-              <h4 className="mt-2 font-medium text-foreground">مزايا النظام الثابت:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>استقرار في التجارة الخارجية</li>
-                <li>تسهيل التخطيط الاقتصادي</li>
-                <li>تقليل المخاطر في المعاملات الدولية</li>
-              </ul>
+            </div>
 
-              <h4 className="mt-2 font-medium text-foreground">عيوب النظام الثابت:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>قد لا يعكس القيمة الحقيقية للعملة</li>
-                <li>يتطلب احتياطيات كبيرة من العملة الأجنبية</li>
-                <li>صعوبة في التكيف مع التغيرات الاقتصادية</li>
-              </ul>
-
-              <h3 className="mt-4 font-semibold text-foreground">2 - 2 - نظام سعر الصرف المرن (العائم)</h3>
-              <p className="text-muted-foreground">
-                يتحدد سعر الصرف بحرية في السوق وفقاً لقوى العرض والطلب على العملة دون تدخل من السلطات النقدية.
+            <div className="bg-card p-4 rounded-lg border">
+              <div className="flex items-center gap-2 mb-2">
+                <DollarSign className="w-5 h-5 text-green-600" />
+                <h4 className="font-semibold text-foreground">أسعار الفائدة</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                فروقات الفائدة تؤثر على التدفقات الرأسمالية
               </p>
+            </div>
 
-              <h4 className="mt-2 font-medium text-foreground">مزايا النظام المرن:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>يعكس القيمة الحقيقية للعملة</li>
-                <li>تلقائية التكيف مع التغيرات الاقتصادية</li>
-                <li>استقلالية السياسة النقدية</li>
-              </ul>
-
-              <h4 className="mt-2 font-medium text-foreground">عيوب النظام المرن:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>عدم الاستقرار والتقلبات الحادة</li>
-                <li>زيادة المخاطر في التجارة الدولية</li>
-                <li>صعوبة في التخطيط طويل الأجل</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-lg font-semibold text-foreground mt-6">3 - العوامل المؤثرة في سعر الصرف</h2>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>ميزان المدفوعات: فائض أو عجز في الميزان التجاري</li>
-                <li>معدلات التضخم: التضخم المرتفع يضعف العملة</li>
-                <li>معدلات الفائدة: فروقات أسعار الفائدة بين الدول</li>
-                <li>النمو الاقتصادي: قوة الاقتصاد تعزز العملة</li>
-                <li>الاستقرار السياسي: عدم الاستقرار يضعف العملة</li>
-                <li>التدفقات الرأسمالية: الاستثمارات الأجنبية</li>
-                <li>السياسة النقدية: تدخل البنك المركزي</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-lg font-semibold text-foreground mt-6">4 - آثار تغير سعر الصرف</h2>
-              
-              <h3 className="mt-4 font-semibold text-foreground">4 - 1 - انخفاض قيمة العملة (التخفيض)</h3>
-              <h4 className="mt-2 font-medium text-foreground">الآثار الإيجابية:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>تحسن القدرة التنافسية للصادرات</li>
-                <li>زيادة حجم الصادرات</li>
-                <li>تحفيز السياحة الوافدة</li>
-                <li>تشجيع الاستثمار الأجنبي</li>
-              </ul>
-
-              <h4 className="mt-2 font-medium text-foreground">الآثار السلبية:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>ارتفاع تكلفة الواردات</li>
-                <li>ضغوط تضخمية</li>
-                <li>زيادة عبء المديونية الخارجية</li>
-                <li>انخفاض القوة الشرائية</li>
-              </ul>
-
-              <h3 className="mt-4 font-semibold text-foreground">4 - 2 - ارتفاع قيمة العملة (التقوية)</h3>
-              <h4 className="mt-2 font-medium text-foreground">الآثار الإيجابية:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>انخفاض تكلفة الواردات</li>
-                <li>تخفيف الضغوط التضخمية</li>
-                <li>زيادة القوة الشرائية</li>
-                <li>تقليل عبء المديونية الخارجية</li>
-              </ul>
-
-              <h4 className="mt-2 font-medium text-foreground">الآثار السلبية:</h4>
-              <ul className="list-disc ps-6 space-y-1 text-foreground">
-                <li>انخفاض القدرة التنافسية للصادرات</li>
-                <li>تراجع حجم الصادرات</li>
-                <li>تراجع السياحة الوافدة</li>
-                <li>فقدان فرص العمل في القطاعات التصديرية</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-lg font-semibold text-foreground mt-6">5 - سياسات سعر الصرف</h2>
-              
-              <h3 className="mt-4 font-semibold text-foreground">5 - 1 - التدخل في سوق الصرف</h3>
-              <p className="text-muted-foreground">
-                يمكن للبنك المركزي التدخل في سوق الصرف عن طريق شراء أو بيع العملات الأجنبية لتحقيق الاستقرار أو تحقيق أهداف اقتصادية معينة.
+            <div className="bg-card p-4 rounded-lg border">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="w-5 h-5 text-purple-600" />
+                <h4 className="font-semibold text-foreground">النمو الاقتصادي</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                اقتصاد قوي يعزز قيمة العملة
               </p>
+            </div>
 
-              <h3 className="mt-4 font-semibold text-foreground">5 - 2 - السياسة النقدية وسعر الصرف</h3>
-              <p className="text-muted-foreground">
-                يمكن استخدام أدوات السياسة النقدية مثل تغيير أسعار الفائدة للتأثير على سعر الصرف بطريقة غير مباشرة.
+            <div className="bg-card p-4 rounded-lg border">
+              <div className="flex items-center gap-2 mb-2">
+                <Target className="w-5 h-5 text-orange-600" />
+                <h4 className="font-semibold text-foreground">الاستقرار السياسي</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                عدم الاستقرار يضعف ثقة المستثمرين
               </p>
+            </div>
 
-              <h3 className="mt-4 font-semibold text-foreground">5 - 3 - ضوابط الصرف</h3>
-              <p className="text-muted-foreground">
-                فرض قيود على تحويل العملة أو تداولها، وتحديد أولويات استخدام العملة الأجنبية وفقاً للأهمية الاقتصادية.
+            <div className="bg-card p-4 rounded-lg border">
+              <div className="flex items-center gap-2 mb-2">
+                <ArrowUpDown className="w-5 h-5 text-indigo-600" />
+                <h4 className="font-semibold text-foreground">التدفقات الرأسمالية</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                الاستثمارات الأجنبية تقوي العملة
               </p>
-            </section>
-          </article>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* آثار تغير سعر الصرف */}
+      <Card>
+        <CardHeader>
+          <CardTitle>آثار تغيرات سعر الصرف على الاقتصاد</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* انخفاض قيمة العملة */}
+            <Card className="border-red-200 dark:border-red-800">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <TrendingDown className="w-5 h-5 text-red-600" />
+                  انخفاض قيمة العملة (التخفيض)
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-green-800 dark:text-green-200 mb-2">الآثار الإيجابية:</p>
+                  <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
+                    <li>• زيادة القدرة التنافسية للصادرات</li>
+                    <li>• نمو القطاعات التصديرية</li>
+                    <li>• تحفيز السياحة الوافدة</li>
+                    <li>• جذب الاستثمار الأجنبي المباشر</li>
+                    <li>• خلق فرص عمل في القطاع التصديري</li>
+                  </ul>
+                </div>
+                <div className="bg-red-50 dark:bg-red-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-2">الآثار السلبية:</p>
+                  <ul className="text-sm text-red-700 dark:text-red-300 space-y-1">
+                    <li>• ارتفاع تكلفة الواردات</li>
+                    <li>• ضغوط تضخمية مستوردة</li>
+                    <li>• زيادة عبء المديونية بالعملة الأجنبية</li>
+                    <li>• انخفاض القوة الشرائية للمواطنين</li>
+                    <li>• ارتفاع تكلفة التكنولوجيا المستوردة</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* ارتفاع قيمة العملة */}
+            <Card className="border-blue-200 dark:border-blue-800">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
+                  ارتفاع قيمة العملة (التقوية)
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-green-800 dark:text-green-200 mb-2">الآثار الإيجابية:</p>
+                  <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
+                    <li>• انخفاض تكلفة الواردات</li>
+                    <li>• تخفيف الضغوط التضخمية</li>
+                    <li>• زيادة القوة الشرائية للمواطنين</li>
+                    <li>• تقليل عبء المديونية الخارجية</li>
+                    <li>• رخص التكنولوجيا والمعدات المستوردة</li>
+                  </ul>
+                </div>
+                <div className="bg-red-50 dark:bg-red-950 p-3 rounded-lg">
+                  <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-2">الآثار السلبية:</p>
+                  <ul className="text-sm text-red-700 dark:text-red-300 space-y-1">
+                    <li>• انخفاض القدرة التنافسية للصادرات</li>
+                    <li>• تراجع الإيرادات التصديرية</li>
+                    <li>• تراجع السياحة الوافدة</li>
+                    <li>• فقدان فرص العمل في القطاعات التصديرية</li>
+                    <li>• تدهور الميزان التجاري</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* سياسات سعر الصرف */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="w-6 h-6 text-primary" />
+            سياسات إدارة سعر الصرف
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="grid md:grid-cols-3 gap-4">
+            <Card className="border-blue-200 dark:border-blue-800">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base text-blue-700 dark:text-blue-300">
+                  التدخل في سوق الصرف
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-sm text-muted-foreground mb-2">
+                  شراء أو بيع العملات الأجنبية لتحقيق الاستقرار
+                </p>
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <div>• شراء العملة المحلية لتقويتها</div>
+                  <div>• بيع العملة المحلية لتضعيفها</div>
+                  <div>• إدارة الاحتياطيات الأجنبية</div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-200 dark:border-green-800">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base text-green-700 dark:text-green-300">
+                  السياسة النقدية
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-sm text-muted-foreground mb-2">
+                  استخدام أدوات السياسة النقدية للتأثير على سعر الصرف
+                </p>
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <div>• رفع أسعار الفائدة لتقوية العملة</div>
+                  <div>• خفض أسعار الفائدة لتضعيف العملة</div>
+                  <div>• إدارة السيولة في السوق</div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-purple-200 dark:border-purple-800">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base text-purple-700 dark:text-purple-300">
+                  ضوابط الصرف
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-sm text-muted-foreground mb-2">
+                  فرض قيود إدارية على تحويل وتداول العملة
+                </p>
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <div>• تحديد حصص التحويل</div>
+                  <div>• ترخيص المعاملات الكبيرة</div>
+                  <div>• تحديد أولويات الاستخدام</div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Separator />
+
+          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-4 rounded-lg">
+            <h4 className="font-semibold text-foreground mb-2">أهداف إدارة سعر الصرف</h4>
+            <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+              <div>
+                <div>• تحقيق الاستقرار الاقتصادي</div>
+                <div>• دعم النمو الاقتصادي</div>
+                <div>• التحكم في التضخم</div>
+              </div>
+              <div>
+                <div>• تحسين الميزان التجاري</div>
+                <div>• جذب الاستثمارات الأجنبية</div>
+                <div>• حماية الاحتياطيات الأجنبية</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Badge variant="secondary" className="text-sm">
+              سعر الصرف أداة مهمة لتحقيق التوازن الاقتصادي والتنافسية الدولية
+            </Badge>
+          </div>
         </CardContent>
       </Card>
     </div>
