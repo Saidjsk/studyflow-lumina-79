@@ -4,11 +4,8 @@ import { ChevronRight } from 'lucide-react';
 import HistoryLesson from '@/components/lessons/HistoryLesson';
 import UnderDevelopmentLesson from '@/components/lessons/UnderDevelopmentLesson';
 import AccountingLesson from '@/components/lessons/accounting/AccountingLesson';
+import HistoryGeographyLesson from '@/components/lessons/history/HistoryGeographyLesson';
 import EconomicsLesson from '@/components/lessons/economics/EconomicsLesson';
-import ColdWarChapter1 from '@/components/lessons/history/ColdWarChapter1';
-import ColdWarChapter2 from '@/components/lessons/history/ColdWarChapter2';
-import ColdWarChapter3 from '@/components/lessons/history/ColdWarChapter3';
-import ColdWarChapter4 from '@/components/lessons/history/ColdWarChapter4';
 
 export default function LessonDetail() {
   const { subjectId, lessonId } = useParams<{ subjectId: string; lessonId: string }>();
@@ -47,10 +44,11 @@ export default function LessonDetail() {
       if (lessonId === 'finance') return 'الوحدة الحادية عشر: التمويل';
       if (lessonId === 'production') return 'الوحدة الثانية عشر: الإنتاج';
     } else if (subjectId === 'history') {
-      if (lessonId === 'chapter1') return 'المبحث الأول: بروز الصراع وتشكل العالم';
-      if (lessonId === 'chapter2') return 'المبحث الثاني: قيادة العالم بقطبية ثنائية';
-      if (lessonId === 'chapter3') return 'المبحث الثالث: الأزمات الدولية في ظل الصراع بين المعسكرين';
-      if (lessonId === 'chapter4') return 'المبحث الرابع: مساعي الانفراج الدولي';
+      if (lessonId === 'world-wars') return 'الوحدة الثانية: الحروب العالمية';
+      if (lessonId === 'algeria-revolution') return 'الوحدة الثالثة: الثورة الجزائرية';
+      if (lessonId === 'colonization') return 'الوحدة الأولى: الاستعمار في إفريقيا';
+      if (lessonId === 'cold-war') return 'الوحدة الرابعة: الحرب الباردة';
+      if (lessonId === 'geography') return 'الوحدة الخامسة: دروس الجغرافيا';
     } else if (subjectId === 'accounting') {
       if (lessonId === 'lesson1') return 'الوحدة الأولى: المحاسبة';
     }
@@ -60,16 +58,14 @@ export default function LessonDetail() {
   // Display appropriate lesson content based on subject and lesson ID
   const renderLessonContent = () => {
     if (subjectId === 'economics') {
+      // Now display the Economics lessons with PDF viewer
       return <EconomicsLesson />;
     } else if (subjectId === 'history') {
-      if (lessonId === 'chapter1') {
-        return <ColdWarChapter1 />;
-      } else if (lessonId === 'chapter2') {
-        return <ColdWarChapter2 />;
-      } else if (lessonId === 'chapter3') {
-        return <ColdWarChapter3 />;
-      } else if (lessonId === 'chapter4') {
-        return <ColdWarChapter4 />;
+      if (lessonId === 'world-wars') {
+        return <HistoryLesson />;
+      } else if (lessonId === 'colonization' || lessonId === 'algeria-revolution' || 
+                lessonId === 'cold-war' || lessonId === 'geography') {
+        return <HistoryGeographyLesson />;
       } else {
         return <UnderDevelopmentLesson subjectName={getSubjectName()} />;
       }

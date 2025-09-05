@@ -510,7 +510,7 @@ export default function YearContent() {
     return (
       <div className="flex justify-center items-center h-96">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-foreground">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
             المحتوى غير موجود
           </h2>
           <Link to="/" className="text-blue-600 dark:text-blue-400 mt-4 inline-block">
@@ -785,42 +785,42 @@ export default function YearContent() {
       <div className="flex items-center mb-8 flex-wrap">
         <Link 
           to="/" 
-          className="flex items-center text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-2 sm:mb-0"
+          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-2 sm:mb-0"
         >
           <span>الرئيسية</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
         <Link 
           to={`/subject/${subject.id}`} 
-          className="flex items-center text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-2 sm:mb-0"
+          className="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-2 sm:mb-0"
         >
           <span>{subject.name}</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
-        <span className="text-foreground font-medium">
+        <span className="text-gray-900 dark:text-white font-medium">
           بكالوريا {year}
         </span>
       </div>
       
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
           {subject.name} - بكالوريا <span style={{ color: subject.color }}>{year}</span>
         </h1>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-gray-600 dark:text-gray-400 mt-2">
           مواضيع وحلول باكالوريا {year} لمادة {subject.name}
         </p>
       </div>
       
       {/* Tab Navigation */}
-      <div className="flex mb-8 bg-card rounded-lg shadow-sm border border-border p-1">
+      <div className="flex mb-8 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-1">
         <button 
           onClick={() => setActiveTab('exams')}
           className={cn(
             "flex-1 py-2 px-4 rounded-md text-center transition-colors",
             activeTab === 'exams' 
-              ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300" 
-              : "text-foreground hover:bg-accent"
+              ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300" 
+              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
           )}
         >
           المواضيع
@@ -830,8 +830,8 @@ export default function YearContent() {
           className={cn(
             "flex-1 py-2 px-4 rounded-md text-center transition-colors",
             activeTab === 'solutions' 
-              ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300" 
-              : "text-foreground hover:bg-accent"
+              ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300" 
+              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
           )}
         >
           الحلول
@@ -845,17 +845,17 @@ export default function YearContent() {
             <div 
               key={doc.id}
               onClick={() => openPdfDirectly(doc.url)}
-              className="flex items-center justify-between bg-card p-5 rounded-xl shadow-sm border border-border hover-lift hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-300 cursor-pointer"
+              className="flex items-center justify-between bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover-lift hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-300 cursor-pointer"
             >
               <div className="flex items-center">
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg ml-4">
-                  <FileText size={24} className="text-blue-600 dark:text-blue-400" />
+                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg ml-4">
+                  <FileText size={24} className="text-blue-700 dark:text-blue-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-foreground">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                     {doc.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     {doc.fileType} • {doc.fileSize}
                   </p>
                 </div>
@@ -863,7 +863,7 @@ export default function YearContent() {
               
               <div className="flex gap-2">
                 <button 
-                  className="p-2 text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 rounded-full hover:bg-accent transition-colors"
+                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   aria-label="Open"
                 >
                   <ExternalLink size={20} />
@@ -872,8 +872,8 @@ export default function YearContent() {
             </div>
           ))
         ) : (
-          <div className="text-center py-16 bg-card rounded-xl border border-border">
-            <p className="text-muted-foreground">
+          <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
+            <p className="text-gray-600 dark:text-gray-400">
               لا توجد ملفات متوفرة حاليًا
             </p>
           </div>

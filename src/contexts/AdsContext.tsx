@@ -5,7 +5,6 @@ interface AdsContextType {
   adsEnabled: boolean;
   toggleAds: () => void;
   showInterstitial: () => void;
-  isSDKSecure: boolean;
 }
 
 const AdsContext = createContext<AdsContextType | undefined>(undefined);
@@ -30,73 +29,33 @@ declare global {
       showInterstitial: () => void;
       hideBanner: () => void;
     };
-    validateStartAppSDK?: () => boolean;
   }
 }
 
 export const AdsProvider: React.FC<AdsProviderProps> = ({ children }) => {
   const [adsEnabled, setAdsEnabled] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem('adsEnabled');
-      return saved !== null ? JSON.parse(saved) : true;
-    } catch (error) {
-      console.error('Error reading adsEnabled from localStorage:', error);
-      return true;
-    }
+    // Get from localStorage or default to true
+    const saved = localStorage.getItem('adsEnabled');
+    return saved !== null ? JSON.parse(saved) : true;
   });
   const [isReady, setIsReady] = useState(false);
-  const [isSDKSecure, setIsSDKSecure] = useState(false);
-
-  // Security validation for the SDK
-  const validateSDKSecurity = (): boolean => {
-    try {
-      // Check if SDK is loaded from expected domain
-      const scripts = document.querySelectorAll('script[src*="startapp.com"]');
-      if (scripts.length === 0) {
-        console.warn('Start.io SDK not found');
-        return false;
-      }
-
-      // Validate SDK functionality
-      if (window.validateStartAppSDK) {
-        return window.validateStartAppSDK();
-      }
-
-      return typeof window.StartAppAds !== 'undefined';
-    } catch (error) {
-      console.error('SDK security validation failed:', error);
-      return false;
-    }
-  };
 
   // Initialize the SDK when component mounts
   useEffect(() => {
     const initializeAds = () => {
-      if (window.StartAppAds && validateSDKSecurity()) {
-        setIsSDKSecure(true);
-        
+      if (window.StartAppAds) {
         // Initialize with your app ID
-        try {
-          window.StartAppAds.init('203165507', () => {
-            console.log('Start.io SDK initialized successfully');
-            setIsReady(true);
-            
-            // Show banner if ads are enabled
-            if (adsEnabled) {
-              setTimeout(() => {
-                if (window.StartAppAds && validateSDKSecurity()) {
-                  window.StartAppAds.showBanner();
-                }
-              }, 1000);
-            }
-          });
-        } catch (error) {
-          console.error('Failed to initialize Start.io SDK:', error);
-          setIsSDKSecure(false);
-        }
-      } else {
-        console.warn('Start.io SDK security validation failed');
-        setIsSDKSecure(false);
+        window.StartAppAds.init('203165507', () => {
+          console.log('Start.io SDK initialized successfully');
+          setIsReady(true);
+          
+          // Show banner if ads are enabled
+          if (adsEnabled) {
+            setTimeout(() => {
+              window.StartAppAds?.showBanner();
+            }, 1000);
+          }
+        });
       }
     };
 
@@ -104,20 +63,14 @@ export const AdsProvider: React.FC<AdsProviderProps> = ({ children }) => {
     if (window.StartAppAds) {
       initializeAds();
     } else {
-      // Wait for SDK to load with timeout
+      // Wait for SDK to load
       const handleStartAppReady = () => {
         initializeAds();
       };
       
-      const timeoutId = setTimeout(() => {
-        console.warn('Start.io SDK loading timeout');
-        setIsSDKSecure(false);
-      }, 10000); // 10 second timeout
-      
       window.addEventListener('startAppReady', handleStartAppReady);
       
       return () => {
-        clearTimeout(timeoutId);
         window.removeEventListener('startAppReady', handleStartAppReady);
       };
     }
@@ -125,45 +78,32 @@ export const AdsProvider: React.FC<AdsProviderProps> = ({ children }) => {
 
   // Show/hide banner based on adsEnabled state
   useEffect(() => {
-    if (isReady && isSDKSecure && window.StartAppAds) {
-      try {
-        if (adsEnabled) {
-          window.StartAppAds.showBanner();
-        } else {
-          window.StartAppAds.hideBanner();
-        }
-      } catch (error) {
-        console.error('Error controlling banner display:', error);
+    if (isReady && window.StartAppAds) {
+      if (adsEnabled) {
+        window.StartAppAds.showBanner();
+      } else {
+        window.StartAppAds.hideBanner();
       }
     }
     
-    // Save preference to localStorage securely
-    try {
-      localStorage.setItem('adsEnabled', JSON.stringify(adsEnabled));
-    } catch (error) {
-      console.error('Error saving adsEnabled to localStorage:', error);
-    }
-  }, [adsEnabled, isReady, isSDKSecure]);
+    // Save preference to localStorage
+    localStorage.setItem('adsEnabled', JSON.stringify(adsEnabled));
+  }, [adsEnabled, isReady]);
 
   const toggleAds = () => {
     setAdsEnabled(prev => !prev);
   };
 
   const showInterstitial = () => {
-    if (adsEnabled && isReady && isSDKSecure && window.StartAppAds) {
-      try {
-        window.StartAppAds.showInterstitial();
-      } catch (error) {
-        console.error('Error showing interstitial ad:', error);
-      }
+    if (adsEnabled && isReady && window.StartAppAds) {
+      window.StartAppAds.showInterstitial();
     }
   };
 
   const value = {
     adsEnabled,
     toggleAds,
-    showInterstitial,
-    isSDKSecure
+    showInterstitial
   };
 
   return <AdsContext.Provider value={value}>{children}</AdsContext.Provider>;

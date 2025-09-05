@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Menu, Home, Lightbulb, MessageSquare } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ThemeToggle } from '../ui/ThemeToggle';
-import { useTheme } from '@/contexts/ThemeContext';
 import {
   Sheet,
   SheetContent,
@@ -14,14 +13,9 @@ import {
 
 export default function TopNav() {
   const navigate = useNavigate();
-  const { theme } = useTheme();
 
   return (
-    <div className={`sticky top-0 z-10 flex items-center justify-between p-4 border-b ${
-      theme === 'dark' 
-        ? 'border-gray-800 bg-gray-900' 
-        : 'border-gray-200 bg-white'
-    }`}>
+    <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
       <div className="flex items-center">
         <Sheet>
           <SheetTrigger asChild>
@@ -31,22 +25,14 @@ export default function TopNav() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-80 p-0">
-            <SheetHeader className={`text-right p-4 border-b ${
-              theme === 'dark' 
-                ? 'border-gray-800' 
-                : 'border-gray-200'
-            }`}>
+            <SheetHeader className="text-right p-4 border-b border-gray-200 dark:border-gray-800">
               <SheetTitle className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
                 بكالوريا
               </SheetTitle>
             </SheetHeader>
             
             <div className="flex flex-col h-[calc(100vh-100px)]">
-              <div className={`space-y-1 p-4 border-b ${
-                theme === 'dark' 
-                  ? 'border-gray-800' 
-                  : 'border-gray-200'
-              }`}>
+              <div className="space-y-1 p-4 border-b border-gray-200 dark:border-gray-800">
                 <Button 
                   variant="ghost" 
                   className="w-full justify-start text-right"

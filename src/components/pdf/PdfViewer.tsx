@@ -1,13 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCw, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useAds } from '@/contexts/AdsContext';
-import { useTheme } from '@/contexts/ThemeContext';
 
-// Use an absolute URL for the worker from CDN to ensure compatibility with the latest version
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+// Configure PDF.js worker
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 interface PdfViewerProps {
   pdfUrl: string;
@@ -23,7 +23,6 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
   const [error, setError] = useState<boolean>(false);
   const [directPdfUrl, setDirectPdfUrl] = useState<string | null>(null);
   const { showInterstitial } = useAds();
-  const { theme } = useTheme();
 
   // Convert Google Drive view URL to direct download URL
   useEffect(() => {
@@ -80,42 +79,26 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
   };
 
   if (!directPdfUrl) {
-    return <div className="text-center p-8 text-muted-foreground">جاري تجهيز الملف...</div>;
+    return <div className="text-center p-8">جاري تجهيز الملف...</div>;
   }
 
   return (
-    <Card className="w-full mb-6">
+    <Card className="w-full mb-6 bg-gray-900 border-gray-800">
       {title && (
-        <div className={`border-b p-4 ${
-          theme === 'dark' 
-            ? 'bg-blue-900/20 border-blue-800' 
-            : 'bg-blue-50 border-blue-200'
-        }`}>
-          <h2 className={`text-lg font-semibold ${
-            theme === 'dark' ? 'text-blue-300' : 'text-blue-800'
-          }`}>{title}</h2>
+        <div className="bg-blue-900/20 border-b border-blue-800 p-4">
+          <h2 className="text-lg font-semibold text-blue-300">{title}</h2>
         </div>
       )}
-      <CardContent className="p-4">
-        {loading && (
-          <div className="text-center p-8 text-muted-foreground">
-            جاري تحميل الملف...
-          </div>
-        )}
+      <CardContent className="flex flex-col items-center p-4">
+        {loading && <div className="text-center p-8 text-gray-300">جاري تحميل الملف...</div>}
         
         {error && (
           <div className="text-center p-8">
             <p className="text-red-500">حدث خطأ في تحميل الملف</p>
-            <p className="text-sm mt-2 text-muted-foreground">
-              يمكنك تحميل الملف مباشرة من الرابط
-            </p>
+            <p className="text-sm mt-2 text-gray-400">يمكنك تحميل الملف مباشرة من الرابط</p>
             <Button 
               variant="outline" 
-              className={`mt-4 ${
-                theme === 'dark' 
-                  ? 'bg-blue-900/20 border-blue-700 text-blue-300 hover:bg-blue-900/40' 
-                  : 'bg-blue-50 border-blue-300 text-blue-700 hover:bg-blue-100'
-              }`}
+              className="mt-4 bg-blue-900/20 border-blue-700 text-blue-300 hover:bg-blue-900/40"
               onClick={downloadPdf}
             >
               <Download className="h-4 w-4 mr-2" />
@@ -124,16 +107,12 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
           </div>
         )}
 
-        <div className="w-full overflow-auto border rounded-md border-border">
+        <div className="w-full overflow-auto border border-gray-800 rounded-md">
           <Document
             file={directPdfUrl}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onDocumentLoadError}
-            loading={
-              <div className="flex justify-center p-8 text-muted-foreground">
-                جاري تحميل الملف...
-              </div>
-            }
+            loading={<div className="flex justify-center p-8 text-gray-300">جاري تحميل الملف...</div>}
           >
             {!loading && !error && (
               <Page 
@@ -157,11 +136,11 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
                   size="sm" 
                   onClick={previousPage} 
                   disabled={pageNumber <= 1}
-                  className="border-border bg-background/50 text-foreground hover:bg-accent/60"
+                  className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700/60"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
-                <span className="mx-2 text-foreground">
+                <span className="mx-2 text-gray-300">
                   صفحة {pageNumber} من {numPages}
                 </span>
                 <Button 
@@ -169,7 +148,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
                   size="sm" 
                   onClick={nextPage} 
                   disabled={numPages !== null && pageNumber >= numPages}
-                  className="border-border bg-background/50 text-foreground hover:bg-accent/60"
+                  className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700/60"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
@@ -179,7 +158,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
                   variant="outline" 
                   size="sm" 
                   onClick={zoomIn}
-                  className="border-border bg-background/50 text-foreground hover:bg-accent/60"
+                  className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700/60"
                 >
                   <ZoomIn className="h-4 w-4" />
                 </Button>
@@ -187,7 +166,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
                   variant="outline" 
                   size="sm" 
                   onClick={zoomOut}
-                  className="border-border bg-background/50 text-foreground hover:bg-accent/60"
+                  className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700/60"
                 >
                   <ZoomOut className="h-4 w-4" />
                 </Button>
@@ -195,7 +174,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
                   variant="outline" 
                   size="sm" 
                   onClick={rotate}
-                  className="border-border bg-background/50 text-foreground hover:bg-accent/60"
+                  className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700/60"
                 >
                   <RotateCw className="h-4 w-4" />
                 </Button>
@@ -203,7 +182,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, title }) => {
                   variant="outline" 
                   size="sm" 
                   onClick={downloadPdf}
-                  className="border-border bg-background/50 text-foreground hover:bg-accent/60"
+                  className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700/60"
                 >
                   <Download className="h-4 w-4" />
                 </Button>

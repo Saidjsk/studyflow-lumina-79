@@ -20,47 +20,47 @@ export default function SubjectCard({ id, name, icon: Icon, color, delay = 0 }: 
     <Link
       to={`/subject/${id}`}
       className={cn(
-        "group relative overflow-hidden rounded-xl p-4",
-        "bg-card border border-border shadow-sm",
-        "hover:shadow-lg hover:border-primary/20",
-        "transition-all duration-300 ease-out",
+        "group relative overflow-hidden rounded-xl p-3",
+        "bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900/30",
+        "hover-lift hover:shadow-xl dark:hover:shadow-gray-900/40",
+        "border border-gray-100 dark:border-gray-700",
+        "transition-all duration-300 ease-in-out",
         "animate-scale-in flex flex-col justify-between",
-        "min-h-[120px] focus:outline-none focus:ring-2 focus:ring-primary/50",
-        "touch-manipulation" // Better touch response on mobile
+        "min-h-[100px]"
       )}
       style={animationStyle}
-      aria-label={`انتقال إلى مادة ${name}`}
     >
       <div 
         className={cn(
-          "absolute -right-8 -top-8 opacity-5 group-hover:opacity-10 transition-opacity duration-300",
-          "rounded-full h-16 w-16 flex items-center justify-center"
+          "absolute -right-12 -top-12 opacity-10 group-hover:opacity-20 transition-opacity",
+          "rounded-full h-20 w-20 flex items-center justify-center"
         )}
         style={{ backgroundColor: color }}
       >
-        <Icon size={24} className="text-foreground" />
+        <Icon size={30} className="text-gray-900 dark:text-white" />
       </div>
       
-      <div className="flex flex-col items-start relative z-10">
+      <div className="flex flex-col items-start">
         <div 
           className={cn(
-            "p-2 rounded-lg mb-3",
+            "p-1.5 rounded-lg",
             "transition-transform duration-300 group-hover:scale-110",
-            "shadow-sm"
           )}
           style={{ backgroundColor: color }}
         >
-          <Icon size={18} className="text-white" />
+          <Icon size={16} className="text-white" />
         </div>
         
-        <h3 className="text-sm font-bold text-foreground leading-snug">
-          {name}
-        </h3>
+        <div className="z-10 mt-2">
+          <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+            {name}
+          </h3>
+        </div>
       </div>
       
-      <div className="absolute bottom-3 left-4 w-10 h-1 bg-muted rounded-full overflow-hidden">
+      <div className="absolute bottom-2 left-3 w-8 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
         <div 
-          className="h-full w-0 group-hover:w-full transition-all duration-500 rounded-full"
+          className="h-full w-0 group-hover:w-full transition-all duration-700 rounded-full"
           style={{ backgroundColor: color }}
         ></div>
       </div>

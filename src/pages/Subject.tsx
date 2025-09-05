@@ -87,9 +87,9 @@ export default function Subject() {
   if (!subject) {
     return (
       <div className="flex justify-center items-center h-96">
-        <div className="text-center animate-fade-in">
-          <h2 className="text-2xl font-bold text-foreground mb-4">المادة غير موجودة</h2>
-          <Link to="/" className="text-blue-600 dark:text-blue-400 hover:underline transition-colors">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white">المادة غير موجودة</h2>
+          <Link to="/" className="text-blue-400 mt-4 inline-block">
             العودة للصفحة الرئيسية
           </Link>
         </div>
@@ -100,54 +100,52 @@ export default function Subject() {
   const SubjectIcon = subject.icon;
   
   return (
-    <div className="animate-fade-in space-y-8">
+    <div className="animate-fade-in">
       {/* Header - Navigation */}
-      <nav className="flex items-center text-sm text-muted-foreground" aria-label="breadcrumb">
+      <div className="flex items-center mb-8 text-gray-400">
         <Link 
           to="/" 
-          className="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus:underline"
+          className="flex items-center hover:text-blue-400 transition-colors"
         >
           <span>الرئيسية</span>
           <ChevronRight size={16} className="mx-2" />
         </Link>
-        <span className="text-foreground font-medium">{subject.name}</span>
-      </nav>
+        <span className="text-white font-medium">{subject.name}</span>
+      </div>
       
       {/* Subject Header */}
-      <header className="flex flex-col space-y-4">
-        <div className="flex items-center">
+      <div className="flex flex-col mb-8">
+        <div className="flex items-center mb-2">
           <div 
-            className="p-4 rounded-xl mr-4 shadow-md"
+            className="p-4 rounded-xl mr-4"
             style={{ backgroundColor: subject.color }}
           >
             <SubjectIcon size={32} className="text-white" />
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground mb-1">
-              {subject.name}
-            </h1>
-            <p className="text-muted-foreground">
-              دروس ومواضيع البكالوريا للسنوات السابقة
-            </p>
-          </div>
+          <h1 className="text-3xl font-bold text-white">
+            {subject.name}
+          </h1>
         </div>
-      </header>
+        <p className="text-gray-400 mt-1">
+          دروس ومواضيع البكالوريا للسنوات السابقة
+        </p>
+      </div>
       
       {/* Tab Navigation */}
-      <div className="flex gap-4">
-        <Link to={`/subject/${subject.id}`} className="flex-1">
+      <div className="flex mb-8 gap-4">
+        <Link to={`/subject/${subject.id}`} className="w-full">
           <Button 
             variant="outline" 
-            className="w-full flex items-center justify-center gap-2 h-12 bg-card hover:bg-accent text-foreground border-border transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-gray-800/60 hover:bg-gray-700 text-white border-gray-700"
           >
             <FileText size={18} />
             <span>مواضيع البكالوريا</span>
           </Button>
         </Link>
-        <Link to={`/subject/${subject.id}/lessons`} className="flex-1">
+        <Link to={`/subject/${subject.id}/lessons`} className="w-full">
           <Button 
             variant="outline" 
-            className="w-full flex items-center justify-center gap-2 h-12 bg-blue-50 dark:bg-blue-500/20 hover:bg-blue-100 dark:hover:bg-blue-500/30 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800 transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 border-blue-800"
           >
             <BookOpen size={18} />
             <span>الدروس</span>
@@ -163,26 +161,25 @@ export default function Subject() {
             to={`/subject/${subject.id}/${year}`}
             className={cn(
               "group relative p-6 flex flex-col items-center justify-center",
-              "bg-card rounded-xl border border-border",
-              "hover:border-primary/30 hover:shadow-md",
-              "transition-all duration-300 ease-out",
-              "animate-scale-in min-h-[100px]",
-              "focus:outline-none focus:ring-2 focus:ring-primary/50"
+              "bg-gray-900 rounded-xl",
+              "border border-gray-800",
+              "hover:border-blue-900/70",
+              "transition duration-300 ease-in-out",
+              "animate-scale-in"
             )}
             style={{ 
               animationDelay: `${index * 0.05}s`,
             }}
-            aria-label={`مواضيع بكالوريا ${year}`}
           >
             <div 
-              className="w-full h-1 absolute top-0 left-0 right-0 rounded-t-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+              className="w-full h-1 absolute top-0 left-0 right-0 rounded-t-xl opacity-60 group-hover:opacity-100 transition-opacity"
               style={{ backgroundColor: subject.color }}
             ></div>
             
-            <span className="text-2xl font-bold text-foreground mb-2">
+            <span className="text-2xl font-bold text-white mb-2">
               {year}
             </span>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-gray-400">
               بكالوريا
             </span>
           </Link>

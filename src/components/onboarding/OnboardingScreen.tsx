@@ -37,18 +37,17 @@ const OnboardingScreen = () => {
     if (currentScreen < screens.length - 1) {
       setCurrentScreen(currentScreen + 1);
     } else {
+      // Update onboarding state in context
       setHasOnboarded(true);
+      // Instead of using useNavigate, we'll rely on the Navigate component in App.tsx
+      // This component will be re-rendered when setHasOnboarded is called and will redirect in App.tsx
     }
-  };
-
-  const handleSkip = () => {
-    setHasOnboarded(true);
   };
 
   const variants = {
     hidden: { opacity: 0, x: 100 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
-    exit: { opacity: 0, x: -100, transition: { duration: 0.3, ease: "easeIn" } }
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, x: -100, transition: { duration: 0.3 } }
   };
 
   const iconVariants = {
@@ -60,7 +59,7 @@ const OnboardingScreen = () => {
         delay: 0.2,
         duration: 0.5,
         type: "spring",
-        stiffness: 120
+        stiffness: 100
       }
     }
   };
@@ -75,8 +74,8 @@ const OnboardingScreen = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 p-4">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-        <div className="relative h-72 w-full overflow-hidden">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+        <div className="relative h-64 w-full overflow-hidden">
           <motion.div
             key={currentScreen}
             initial="hidden"
@@ -91,48 +90,32 @@ const OnboardingScreen = () => {
             >
               <currentScreenData.icon size={40} />
             </motion.div>
-            <h2 className="text-2xl font-bold text-center mb-3 text-gray-800 dark:text-white leading-tight">
-              {currentScreenData.title}
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-300 leading-relaxed">
-              {currentScreenData.description}
-            </p>
+            <h2 className="text-2xl font-bold text-center mb-2 text-gray-800 dark:text-white">{currentScreenData.title}</h2>
+            <p className="text-center text-gray-600 dark:text-gray-300">{currentScreenData.description}</p>
           </motion.div>
         </div>
 
-        <div className="p-6 space-y-6">
-          <div className="flex justify-between items-center px-2">
+        <div className="p-6">
+          <div className="flex justify-between mb-8 px-2">
             {screens.map((_, index) => (
               <motion.div
                 key={index}
                 variants={progressVariants}
                 initial="inactive"
                 animate={index <= currentScreen ? "active" : "inactive"}
-                className="h-2 rounded-full transition-all duration-300"
+                className="h-1.5 rounded-full"
                 style={{ width: "30%" }}
               />
             ))}
           </div>
 
-          <div className="flex gap-3">
-            {!isLastScreen && (
-              <Button 
-                onClick={handleSkip}
-                variant="outline"
-                className="flex-1 py-3"
-              >
-                تخطي
-              </Button>
-            )}
-            
-            <Button 
-              onClick={handleNextScreen} 
-              className={`${!isLastScreen ? 'flex-1' : 'w-full'} py-3 flex items-center justify-center gap-2`}
-            >
-              {isLastScreen ? 'ابدأ الآن' : 'التالي'}
-              <ArrowRight className="rtl:rotate-180" size={16} />
-            </Button>
-          </div>
+          <Button 
+            onClick={handleNextScreen} 
+            className="w-full py-3 flex items-center justify-center gap-2"
+          >
+            {isLastScreen ? 'ابدأ الآن' : 'التالي'}
+            <ArrowRight className="rtl:rotate-180" size={16} />
+          </Button>
         </div>
       </div>
     </div>
