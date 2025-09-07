@@ -17,7 +17,7 @@
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     
-    <!-- Start.io SDK -->
+    <!-- Start.io SDK with SRI -->
     <script type="text/javascript">
       var startAppReady = false;
       function onStartAppBannerLoaded() {
@@ -26,12 +26,22 @@
         window.dispatchEvent(new Event('startAppReady'));
       }
     </script>
-    <script type="text/javascript" src="https://sdk.startapp.com/js/2/latest/start.js"></script>
+    <script 
+      type="text/javascript" 
+      src="https://sdk.startapp.com/js/2/latest/start.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
 
   <body>
     <div id="root"></div>
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script 
+      src="https://cdn.gpteng.co/gptengineer.js" 
+      type="module"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
