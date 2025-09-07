@@ -2,6 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { sanitizeInput, validateEmail, validateArabicText, createRateLimiter } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -23,15 +24,28 @@ import {
 } from "@/components/ui/select";
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "الاسم يجب أن يحتوي على حرفين على الأقل" }),
-  email: z.string().email({ message: "يرجى إدخال بريد إلكتروني صحيح" }),
+  name: z.string()
+    .min(2, { message: "الاسم يجب أن يحتوي على حرفين على الأقل" })
+    .max(100, { message: "الاسم طويل جداً" })
+    .refine(validateArabicText, { message: "الاسم يحتوي على أحرف غير مسموحة" }),
+  email: z.string()
+    .email({ message: "يرجى إدخال بريد إلكتروني صحيح" })
+    .refine(validateEmail, { message: "البريد الإلكتروني غير صحيح" }),
   type: z.enum(["suggestion", "complaint"], {
     required_error: "يرجى اختيار نوع الرسالة",
   }),
-  message: z.string().min(10, { message: "الرسالة يجب أن تحتوي على 10 أحرف على الأقل" }),
+  message: z.string()
+    .min(10, { message: "الرسالة يجب أن تحتوي على 10 أحرف على الأقل" })
+    .max(500, { message: "الرسالة طويلة جداً" })
+    .refine(validateArabicText, { message: "الرسالة تحتوي على أحرف غير مسموحة" }),
+  // Honeypot field for bot protection
+  website: z.string().max(0, { message: "حقل غير صحيح" }).optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+// Rate limiter: max 3 attempts per 5 minutes
+const rateLimiter = createRateLimiter(3, 5 * 60 * 1000);
 
 const FeedbackForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,6 +61,23 @@ const FeedbackForm = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
+    // Check rate limiting
+    const userIdentifier = data.email || 'anonymous';
+    if (!rateLimiter(userIdentifier)) {
+      toast({
+        title: "تم تجاوز الحد المسموح",
+        description: "يرجى الانتظار قبل إرسال رسالة أخرى.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Check honeypot
+    if (data.website) {
+      // Silent fail for bots
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
@@ -59,11 +90,12 @@ const FeedbackForm = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          name: data.name,
-          email: data.email,
+          name: sanitizeInput(data.name),
+          email: sanitizeInput(data.email),
           type: data.type === "suggestion" ? "اقتراح" : "شكوى",
-          message: data.message,
+          message: sanitizeInput(data.message),
           _subject: `${data.type === "suggestion" ? "اقتراح" : "شكوى"} جديد من تطبيق البكالوريا`,
+          _captcha: false, // Disable formsubmit's captcha since we have our own protection
         }),
       });
 
@@ -164,6 +196,20 @@ const FeedbackForm = () => {
                   />
                 </FormControl>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* Honeypot field - hidden from users but visible to bots */}
+          <FormField
+            control={form.control}
+            name="website"
+            render={({ field }) => (
+              <FormItem className="hidden">
+                <FormLabel>Website</FormLabel>
+                <FormControl>
+                  <Input {...field} tabIndex={-1} autoComplete="off" />
+                </FormControl>
               </FormItem>
             )}
           />

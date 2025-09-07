@@ -17,6 +17,25 @@
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self'; 
+      script-src 'self' 'unsafe-inline' https://sdk.startapp.com https://cdn.gpteng.co https://formsubmit.co; 
+      style-src 'self' 'unsafe-inline'; 
+      img-src 'self' data: https: blob:; 
+      font-src 'self' data:; 
+      connect-src 'self' https://formsubmit.co https://api.startapp.com; 
+      frame-ancestors 'self' https://lovable.dev https://*.lovable.dev;
+      form-action 'self' https://formsubmit.co;
+      base-uri 'self';
+      object-src 'none';
+    " />
+    
     <!-- Start.io SDK with SRI -->
     <script type="text/javascript">
       var startAppReady = false;
