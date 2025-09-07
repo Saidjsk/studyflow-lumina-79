@@ -20,13 +20,11 @@ export default function SubjectCard({ id, name, icon: Icon, color, delay = 0 }: 
     <Link
       to={`/subject/${id}`}
       className={cn(
-        "group relative overflow-hidden rounded-xl p-3",
-        "bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900/30",
-        "hover-lift hover:shadow-xl dark:hover:shadow-gray-900/40",
-        "border border-gray-100 dark:border-gray-700",
+        "group relative overflow-hidden rounded-xl p-4 glass-card",
+        "hover-lift hover:shadow-2xl",
         "transition-all duration-300 ease-in-out",
         "animate-scale-in flex flex-col justify-between",
-        "min-h-[100px]"
+        "min-h-[110px]"
       )}
       style={animationStyle}
     >
@@ -43,12 +41,16 @@ export default function SubjectCard({ id, name, icon: Icon, color, delay = 0 }: 
       <div className="flex flex-col items-start">
         <div 
           className={cn(
-            "p-1.5 rounded-lg",
-            "transition-transform duration-300 group-hover:scale-110",
+            "p-2 rounded-lg glass-icon",
+            "transition-all duration-300 group-hover:scale-110",
           )}
-          style={{ backgroundColor: color }}
+          style={{ 
+            background: `linear-gradient(135deg, ${color}33, ${color}66)`,
+            backdropFilter: 'blur(10px)',
+            border: `1px solid ${color}44`
+          }}
         >
-          <Icon size={16} className="text-white" />
+          <Icon size={18} className="text-white drop-shadow-lg" />
         </div>
         
         <div className="z-10 mt-2">

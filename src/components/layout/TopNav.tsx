@@ -15,12 +15,12 @@ export default function TopNav() {
   const navigate = useNavigate();
 
   return (
-    <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+    <div className="sticky top-0 z-10 flex items-center justify-between p-4 glass-card">
       <div className="flex items-center">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="mr-2">
-              <Menu className="h-5 w-5" />
+            <Button variant="ghost" size="icon" className="mr-2 glass-icon rounded-lg">
+              <Menu className="h-5 w-5 drop-shadow-sm" />
               <span className="sr-only">فتح القائمة</span>
             </Button>
           </SheetTrigger>
@@ -35,28 +35,28 @@ export default function TopNav() {
               <div className="space-y-1 p-4 border-b border-gray-200 dark:border-gray-800">
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start text-right"
+                  className="w-full justify-start text-right glass-icon rounded-lg mb-2"
                   onClick={() => navigate('/')}
                 >
-                  <Home className="ml-2 h-5 w-5" />
+                  <Home className="ml-2 h-5 w-5 drop-shadow-sm" />
                   الرئيسية
                 </Button>
                 
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start text-right"
+                  className="w-full justify-start text-right glass-icon rounded-lg mb-2"
                   onClick={() => navigate('/tips')}
                 >
-                  <Lightbulb className="ml-2 h-5 w-5" />
+                  <Lightbulb className="ml-2 h-5 w-5 drop-shadow-sm" />
                   نصائح للتفوق
                 </Button>
                 
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start text-right"
+                  className="w-full justify-start text-right glass-icon rounded-lg mb-2"
                   onClick={() => navigate('/feedback')}
                 >
-                  <MessageSquare className="ml-2 h-5 w-5" />
+                  <MessageSquare className="ml-2 h-5 w-5 drop-shadow-sm" />
                   الاقتراحات والشكاوى
                 </Button>
               </div>
